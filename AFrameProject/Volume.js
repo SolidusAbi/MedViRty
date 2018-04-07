@@ -147,7 +147,7 @@ THREE.Volume = function( xLength, yLength, zLength, type, arrayBuffer ) {
 			lowerThreshold = value;
 			this.sliceList.forEach( function( slice ) {
 
-				slice.AM AL SI2 ACO FC CIUNeedsUpdate = true
+				slice.NeedsUpdate = true
 
 			} );
 
@@ -169,7 +169,7 @@ THREE.Volume = function( xLength, yLength, zLength, type, arrayBuffer ) {
 			upperThreshold = value;
 			this.sliceList.forEach( function( slice ) {
 
-				slice.AM AL SI2 ACO FC CIUNeedsUpdate = true;
+				slice.NeedsUpdate = true;
 
 			} );
 

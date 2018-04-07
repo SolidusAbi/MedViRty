@@ -22,7 +22,7 @@ AFRAME.registerComponent('foo', {
 });
 
 //Volume component
-AFRAME.registerComponent('volume', {
+/*AFRAME.registerComponent('volume', {
     schema: {
         width: {type: 'number', default: 1},
         height: {type: 'number', default: 1},
@@ -42,29 +42,65 @@ AFRAME.registerComponent('volume', {
         console.log(this.el.sceneEl);  // Reference to the scene element.
     }
 	
-});
-
-AFRAME.registerComponent('slice', {
+});*/
+//slice component
+AFRAME.registerComponent('volume', {
+		
     schema: {
         volumePath: {type: 'string'}
     },
     onLoad: function(volume){
 		var el=this.el;
+		this.volume = volume;
 		console.log(volume);
 		
+		var i=52626598;
+		for	( i ; i<52626603 ; i++){
+		var extracted = volume.extractPerpendicularPlane( 'x', (volume.RASDimensions[i]/4) );
+	
+		var dimensions =[volume.xLength , volume.yLength, volume.zLength];
+		console.log(extracted);
+		var arrayData = extracted.matrix.elements;
+		entityEl.setAttribute('slice',{eje: 'x' , index: i , dat: arrayData , dim: dimensions});		
+		}
 	},
+	
     init: function(){
-		var data = this.data;
-		console.log("debajo"); 
-
-		
+		var data = this.data; 
 		var loader = new THREE.NRRDLoader();
 		loader.load(data.volumePath, this.onLoad);
+		var el = this.el;
+		
     }
-	
-	
 
 });
 
+AFRAME.registerComponent('slice', {
+		schema: {
+			eje: {type: 'string'},
+			index: {type: 'string'},
+			dat:{type: 'array'},
+			dim: {type: 'array'}
+			},
+		init: function(){	
+			var el=this.el;
+			var data = this.data; 
 
+			this.geometry = new THREE.PlaneGeometry(data.dim[0], 1 , data.dim[2]);
+			var mat = this.geometry.applyMatrix(data.dat);
+			console.log(mat);
+			this.material = new THREE.MeshStandardMaterial({color: data.color});
+			this.mesh = new THREE.Mesh(this.geometry, this.material);
+			this.boxHelper = new THREE.BoxHelper( this.mesh );
+			el.setObject3D('mesh', this.boxHelper);
+			console.log(this.el.sceneEl);  // Reference to the scene element.
+		
+			this.geometry2 = new THREE.BoxBufferGeometry(data.dim[0], data.dim[1], data.dim[2]);
+			this.material2 = new THREE.MeshStandardMaterial({color: data.color});
+			this.mesh2 = new THREE.Mesh(this.geometry2, this.material2);
+			this.boxHelper2 = new THREE.BoxHelper( this.mesh2 );
+			el.setObject3D('mesh2', this.boxHelper2);
+			console.log(this.el.sceneEl);
+		}
+		});
 

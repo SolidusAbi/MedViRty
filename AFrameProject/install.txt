@@ -1,3 +1,0 @@
-Por npm se ha isntalado:
-    a-frame
-    gunzip

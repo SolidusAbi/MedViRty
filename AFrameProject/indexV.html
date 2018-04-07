@@ -16,29 +16,14 @@
         <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 600" data-aframe-default-camera></a-entity>
     </a-scene>
 	<script>
-    /*    var loader = new THREE.NRRDLoader();
-        //console.log(loader)
-        loader.load("data/CTChest.nrrd", function( volume ){
-            console.log(volume);
-            var geometry,
-                canvas,
-                canvasMap,
-                material,
-                plane,
-                sliceZ,
-                sliceY,
-                sliceX;
+			
+        var aframeScene = document.querySelector('a-scene');
+        var entityEl = document.createElement('a-entity');
 
-            //box helper to see the extend of the volume*/
-			
-            var aframeScene = document.querySelector('a-scene');
-            var entityEl = document.createElement('a-entity');
-			
+		entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
+		aframeScene.appendChild(entityEl);
 		
-			entityEl.setAttribute('slice',{volumePath: "data/CTChest.nrrd"});
-			aframeScene.appendChild(entityEl);
-			
-   
+		document.querySelector('volume')
     </script>
   </body>
 </html>
