@@ -10,42 +10,8 @@ AFRAME.registerComponent('log', {
     }
 });
 
-
-//if we were working within a component, we’d already have a reference to 
-//the scene element without needing to query. All entities have reference 
-//to their scene element
-
-AFRAME.registerComponent('foo', {
-    init: function () {
-        console.log(this.el.sceneEl);  // Reference to the scene element.
-    }
-});
-
 //Volume component
-/*AFRAME.registerComponent('volume', {
-    schema: {
-        width: {type: 'number', default: 1},
-        height: {type: 'number', default: 1},
-        depth: {type: 'number', default: 1},
-        color: {type: 'color', default: '0x00ff00'}
-    },
-    
-    init: function(){
-        var data = this.data;
-        console.log(this.data);
-        var el = this.el;
-        this.geometry = new THREE.BoxBufferGeometry(data.width, data.height, data.depth);
-        this.material = new THREE.MeshStandardMaterial({color: data.color});
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.boxHelper = new THREE.BoxHelper( this.mesh );
-        el.setObject3D('mesh', this.boxHelper);
-        console.log(this.el.sceneEl);  // Reference to the scene element.
-    }
-	
-});*/
-//slice component
-AFRAME.registerComponent('volume', {
-		
+AFRAME.registerComponent('volume', {		
     schema: {
         volumePath: {type: 'string'}
     },
@@ -53,16 +19,27 @@ AFRAME.registerComponent('volume', {
 		var el=this.el;
 		this.volume = volume;
 		console.log(volume);
+
+		var extractedx = volume.extractPerpendicularPlane( 'x', (volume.RASDimensions[0]/4) );	
+		var extractedy = volume.extractPerpendicularPlane( 'y', (volume.RASDimensions[1]/2) );	
+		var extractedz = volume.extractPerpendicularPlane( 'z', (volume.RASDimensions[2]/2) );
 		
-		var i=52626598;
-		for	( i ; i<52626603 ; i++){
-		var extracted = volume.extractPerpendicularPlane( 'x', (volume.RASDimensions[i]/4) );
-	
-		var dimensions =[volume.xLength , volume.yLength, volume.zLength];
-		console.log(extracted);
-		var arrayData = extracted.matrix.elements;
-		entityEl.setAttribute('slice',{eje: 'x' , index: i , dat: arrayData , dim: dimensions});		
-		}
+		var dataX = extractedx.matrix.elements;
+		var dataY = extractedy.matrix.elements;
+		var dataZ = extractedz.matrix.elements;		
+			
+		var entityEx = document.createElement('a-entity');
+		var entityEy = document.createElement('a-entity');
+		var entityEz = document.createElement('a-entity');
+		
+		entityEx.setAttribute('slice',{eje: 'x', dat: dataX , sp: volume.yLength, width: volume.zLength, height: volume.xLength});
+		entityEy.setAttribute('slice',{eje: 'y', dat: dataY , sp: volume.zLength, width: volume.xLength, height: volume.yLength});
+		entityEz.setAttribute('slice',{eje: 'z', dat: dataZ , sp: volume.xLength, width: volume.yLength, height: volume.zLength});
+		
+		var prism = document.querySelector('a-scene');
+		prism.appendChild(entityEx);
+		prism.appendChild(entityEy);
+		prism.appendChild(entityEz);
 	},
 	
     init: function(){
@@ -78,29 +55,21 @@ AFRAME.registerComponent('volume', {
 AFRAME.registerComponent('slice', {
 		schema: {
 			eje: {type: 'string'},
-			index: {type: 'string'},
 			dat:{type: 'array'},
-			dim: {type: 'array'}
+			sp: {type: 'int'},
+			width: {type: 'array'},
+			height: {type: 'array'}
 			},
 		init: function(){	
 			var el=this.el;
 			var data = this.data; 
-
-			this.geometry = new THREE.PlaneGeometry(data.dim[0], 1 , data.dim[2]);
-			var mat = this.geometry.applyMatrix(data.dat);
-			console.log(mat);
-			this.material = new THREE.MeshStandardMaterial({color: data.color});
-			this.mesh = new THREE.Mesh(this.geometry, this.material);
-			this.boxHelper = new THREE.BoxHelper( this.mesh );
-			el.setObject3D('mesh', this.boxHelper);
+			
+			var geometry = new THREE.PlaneGeometry(data.width,data.height);
+			var material = new THREE.MeshBasicMaterial({color: 0xffff00});
+			this.mesh = new THREE.Mesh(geometry, material);
+			this.planeHelper = new THREE.PlaneHelper( this.mesh );
+			el.setObject3D('mesh', this.mesh);
+			
 			console.log(this.el.sceneEl);  // Reference to the scene element.
-		
-			this.geometry2 = new THREE.BoxBufferGeometry(data.dim[0], data.dim[1], data.dim[2]);
-			this.material2 = new THREE.MeshStandardMaterial({color: data.color});
-			this.mesh2 = new THREE.Mesh(this.geometry2, this.material2);
-			this.boxHelper2 = new THREE.BoxHelper( this.mesh2 );
-			el.setObject3D('mesh2', this.boxHelper2);
-			console.log(this.el.sceneEl);
 		}
 		});
-
