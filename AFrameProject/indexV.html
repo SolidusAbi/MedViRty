@@ -9,20 +9,22 @@
     <script src="Volume.js"></script>
 	<script src="gunzip.min.js"></script>
     <script src="app.js"></script>
+    <script src="texture.js"></script>
   </head>
+
   <body>
-    <a-scene log="Scene created">
-        <a-sky log="Hello, Sky!" color="#ECECEC"></a-sky>
-        <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 600" data-aframe-default-camera></a-entity>
-    </a-scene>
+  <a-scene log="Scene created">
+      <a-sky log="Hello, Sky!" color="#ECECEC"></a-sky>
+    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 1.6 600" data-aframe-default-camera></a-entity>
+    <canvas id = “gl” width = "640" height = “480"></canvas>
+  </a-scene>
+
+
 	<script>
-			
         var aframeScene = document.querySelector('a-scene');
         var entityEl = document.createElement('a-entity');
-
-		entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
+		var volum = entityEl.setAttribute('volume',{volumePath: "data/a.nrrd"});
 		aframeScene.appendChild(entityEl);
-
 		document.querySelector('volume');
 
     </script>
