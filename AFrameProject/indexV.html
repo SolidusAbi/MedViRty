@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello, WebVR! - A-Frame</title>
+    <title>Hello - A-Frame</title>
     <meta charset="UTF-8">
     <meta name="description" content="Hello, WebVR! - A-Frame">
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
@@ -23,10 +23,9 @@
 	<script>
         var aframeScene = document.querySelector('a-scene');
         var entityEl = document.createElement('a-entity');
-		var volum = entityEl.setAttribute('volume',{volumePath: "data/a.nrrd"});
+		var volum = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
 		aframeScene.appendChild(entityEl);
 		document.querySelector('volume');
-
     </script>
   </body>
 </html>
