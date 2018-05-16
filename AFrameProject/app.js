@@ -20,10 +20,10 @@ AFRAME.registerComponent('volume', {
         generalDataVolume = volume.data;
 		console.log(volume);
 
-/*
+
         var prueba = document.createElement('a-entity');
         prueba.setAttribute('prueba2',{color: 'blue'});
-        aframeScene.appendChild(prueba);*/
+        aframeScene.appendChild(prueba);
 
 
         var entityEx = document.createElement('a-entity');
@@ -50,7 +50,7 @@ AFRAME.registerComponent('volume', {
     }
 
 });
-/*
+
 AFRAME.registerComponent('prueba2', {
     schema:{
         color: {type: 'string'},
@@ -65,9 +65,6 @@ AFRAME.registerComponent('prueba2', {
         var cube = new THREE.Mesh( geometry, material );
         el.setObject3D('cube', cube);
 
-
-        console.log("holaquetal")
-
         el.addEventListener('mouseenter', function () {
             el.setAttribute('color','red');
         });
@@ -75,10 +72,9 @@ AFRAME.registerComponent('prueba2', {
         el.addEventListener('mouseleave', function () {
             el.setAttribute('color', data.color);
         });
-        hola();
     }
 });
-*/
+
 
 AFRAME.registerComponent('slice', {
 		schema: {

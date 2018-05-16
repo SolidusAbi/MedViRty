@@ -1,0 +1,9 @@
+ <a-entity id='cursor'position="0 1.6 600"
+        geometry="primitive: ring; radiusInner: 100; radiusOuter: 10;"
+        material="color: red; shader: flat"
+        cursor="fuse: false">
+
+            <a-entity id="box" cursor-listener geometry="primitive: box" material="color: blue" position="0 1.6 600" height="50" ></a-entity>
+
+ </a-entity>
+
