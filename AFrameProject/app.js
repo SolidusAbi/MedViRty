@@ -20,23 +20,29 @@ AFRAME.registerComponent('volume', {
         generalDataVolume = volume.data;
 		console.log(volume);
 
+/*
+        var prueba = document.createElement('a-entity');
+        prueba.setAttribute('prueba2',{color: 'blue'});
+        aframeScene.appendChild(prueba);*/
+
+
         var entityEx = document.createElement('a-entity');
         var entityEy = document.createElement('a-entity');
         var entityEz = document.createElement('a-entity');
 
-		entityEx.setAttribute('slice',{eje: 'x', sp: volume.zLength, width: volume.xLength, height: volume.yLength, dat: generalDataVolume, paso: 1});
+		entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1});
         aframeScene.appendChild(entityEx);
-      //  console.log(entityEx);
-        entityEy.setAttribute('slice',{eje: 'y', dat: generalDataVolume , sp: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2});
-        aframeScene.appendChild(entityEy);
-       // console.log(entityEy);
-        entityEz.setAttribute('slice',{eje: 'z', dat: generalDataVolume , sp: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3});
+       // console.log(entityEx);
+          entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2});
+         aframeScene.appendChild(entityEy);
+       // de izq a derecha
+        entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3});
         aframeScene.appendChild(entityEz);
-      //  console.log(entityEz);
-
+      //  de arriba a abajo
     },
 
     init: function(){
+
 		var data = this.data;
 		var loader = new THREE.NRRDLoader();
 		loader.load(data.volumePath, this.onLoad);
@@ -44,12 +50,40 @@ AFRAME.registerComponent('volume', {
     }
 
 });
+/*
+AFRAME.registerComponent('prueba2', {
+    schema:{
+        color: {type: 'string'},
+
+    },
+    init:function () {
+        var el=this.el;
+        console.log("holaelcubo")
+        var data = this.data;
+        var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+        var material = new THREE.MeshBasicMaterial( {color: data.color} );
+        var cube = new THREE.Mesh( geometry, material );
+        el.setObject3D('cube', cube);
+
+
+        console.log("holaquetal")
+
+        el.addEventListener('mouseenter', function () {
+            el.setAttribute('color','red');
+        });
+
+        el.addEventListener('mouseleave', function () {
+            el.setAttribute('color', data.color);
+        });
+        hola();
+    }
+});
+*/
 
 AFRAME.registerComponent('slice', {
 		schema: {
 			eje: {type: 'string'},
-			dat:{type: 'array'},
-			sp: {type: 'int'},
+			depth: {type: 'int'},
 			width: {type: 'int'},
 			height: {type: 'int'},
 			paso: {type: 'int'}
@@ -57,11 +91,19 @@ AFRAME.registerComponent('slice', {
 		init: function(){
 			var el=this.el;
 			var data = this.data;
-            var geometry = new THREE.PlaneGeometry(data.width, data.height);
-            var elementos = new Uint8Array( 3 * data.width *data.height );
-            var mesh = selectData(geometry, data.width, data.height, data.sp, elementos,data.paso);
+			if(data.paso == 1) {
+                var mesh = selectDataCoronal(data.width, data.height, data.depth,data.paso);
+            }else
+            if(data.paso == 2) {
+                var mesh = selectDataAxial(data.width, data.height, data.depth, data.paso);
+            }else
+            if(data.paso == 3) {
+                var mesh = selectDataSagital(data.width, data.height, data.depth,data.paso);
+            }
             el.setObject3D('mesh', mesh);
 //            console.log(this.el.sceneEl);
 
         }
 });
+
+

@@ -1,39 +1,66 @@
-function selectData(geometry, width, height, depth,  elementos, paso){
-      /* e indica el slice que quieres mostrar, 135 es el primero de arriba, va hacia abajo */
+function selectDataCoronal(width, height, depth,paso){
+    console.log("coronal")
+    var geometry = new THREE.PlaneGeometry(width, depth);
+    var elementos = new Uint8Array( 3 *width*depth );
+    // De izquierda a derecha
 
-    if(paso == 1){
-        var e = width * height*20;
-        var z=0;
-        for (var i = 0; i < width; i++) {
-            for (var t = 0; t < depth; t++) {
-                elementos[z] = (generalDataVolume[e + (i * depth + t)] + 3024 + 6048);
-                z++;
-            }
+    var t = 0;
+    var i = width*30;
+    var n = 0;
+
+    while (i < width*height*depth){
+        for(n ; n < width ; n ++) {
+            elementos[t] = (generalDataVolume[i + n]);
+            t++;
+            n++;
         }
-        var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
-        return textureF(geometry, paso,texture);
+        i = i +(height*depth+n);
+        n = 0;
     }
 
-    if(paso == 2) {
-        var e = width * height*20;
-        for (var i = 0; i < width * depth; i++) {
-            elementos[i] = (generalDataVolume[e + i] + 3024 + 6048);
-        }
-        var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
-        return textureF(geometry, paso,texture);
-    }
-
-    if(paso == 3) {
-        var e = width * height*20;
-        for (var i = 0; i < width * height; i++) {
-            elementos[i] = (generalDataVolume[e + i] + 3024 + 6048);
-        }
-        var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
-        return textureF(geometry, paso, texture);
-    }
-
-
+    var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
+    return textureF(geometry, paso, texture);
 }
+
+
+
+function selectDataAxial(width, height, depth, paso) {
+    console.log("axial")
+    var geometry = new THREE.PlaneGeometry(width, height);
+    var elementos = new Uint8Array( 3 * width*height );
+
+        var e = width * height * 2;
+
+        for (var i = 0; i < width * height; i++) {
+
+            elementos[i] = (generalDataVolume[e + i] + 3024 + 6048);
+        }
+
+        var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.repeat.x = - 1;
+        return textureF(geometry, paso, texture);
+}
+
+function selectDataSagital(width, height, depth, paso){
+    console.log("sagital")
+    var geometry = new THREE.PlaneGeometry(height, depth);
+    var elementos = new Uint8Array( 3 * width*depth );
+
+    var y=0;
+    var t =0;
+    var i= 400;
+
+    while (i < width*height*depth){
+        elementos[t] = (generalDataVolume[i] + 3024 + 6048);
+        t++;
+        i = i+ width;
+    }
+    var texture = new THREE.DataTexture(elementos, height, depth, THREE.LuminanceFormat);
+    return textureF(geometry, paso,texture);
+}
+
+
 
 function textureF (geometry, paso, texture){
     //  console.log(elementos)
@@ -41,9 +68,9 @@ function textureF (geometry, paso, texture){
     texture.needsUpdate = true;
     var material = new THREE.MeshBasicMaterial({ wireframe: false, map : texture });
     var mesh = new THREE.Mesh(geometry, material);
-    if(paso == 2){
-        rotateObject(mesh , 0,80,0);
-    }else if(paso == 3){
+    if(paso == 3){
+       rotateObject(mesh , 0,80,0);
+    }else if(paso == 2){
         rotateObject(mesh , -90,0,0);
     }
     return mesh;
