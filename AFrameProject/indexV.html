@@ -12,26 +12,44 @@
     <script src="DataInVolume.js"></script>
     <script src="CursorEvent.js"></script>
     <script src="axis.js"></script>
+    <script src="raycaster.js"></script>
   </head>
 
   <body>
   <a-scene log="Scene created">
     <a-sky log="Hello, Sky!" color="#ECECEC"></a-sky>
-    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 1.6 600" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" ></a-entity>
-    <a-entity id="cubo" position="0 1.6 600" class="clickable"></a-entity>
-  </a-scene>
+    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 1.6 600" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)">
+      <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
+      <a-entity id = 'cursor'cursor="fuse: false; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: black; shader: flat">
+        <a-entity id= 'rayo' raycaster="objects: .collidable" position="0 0 -2" rotation="90 0 0" showLine="true"></a-entity>
+      </a-entity>
 
+
+    </a-entity>
 	<script>
+
         var aframeScene = document.querySelector('a-scene');
 
         var entityEl = document.createElement('a-entity');
-		var volum = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
-		aframeScene.appendChild(entityEl);
-        document.querySelector('volume');
 
-        console.log(aframeScene.querySelector('#cubo').setAttribute('position', "100 3 600"));
+        var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
+
+		aframeScene.appendChild(entityEl);
+        document.querySelector('volume'); //esto no hace nada aqui
+
+      //  <a-entity id= 'cubo'  prueba2="color: blue" change-position></a-entity>
+      //    <a-entity id='slice1' slice="eje: 'z', depth: 100, width: 100, height: 100, paso: 3" touch-slice></a-entity>
+
 
     </script>
 
+
+    <a-entity id= 'cubo2' prueba2="color: red"  touch-slice></a-entity>
+
+
+  </a-scene>
   </body>
 </html>

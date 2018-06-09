@@ -1,11 +1,11 @@
 function selectDataCoronal(width, height, depth,paso){
-    console.log("coronal")
+    console.log("coronal");
     var geometry = new THREE.PlaneGeometry(width, depth);
     var elementos = new Uint8Array( 3 *width*depth );
     // De izquierda a derecha
 
     var t = 0;
-    var i = width*30;
+    var i = width*100;
     var n = 0;
 
     while (i < width*height*depth){
@@ -23,13 +23,12 @@ function selectDataCoronal(width, height, depth,paso){
 }
 
 
-
 function selectDataAxial(width, height, depth, paso) {
-    console.log("axial")
+    console.log("axial");
     var geometry = new THREE.PlaneGeometry(width, height);
     var elementos = new Uint8Array( 3 * width*height );
 
-        var e = width * height * 2;
+        var e = width * height * 100;
 
         for (var i = 0; i < width * height; i++) {
 
@@ -43,13 +42,13 @@ function selectDataAxial(width, height, depth, paso) {
 }
 
 function selectDataSagital(width, height, depth, paso){
-    console.log("sagital")
+    console.log("sagital");
     var geometry = new THREE.PlaneGeometry(height, depth);
     var elementos = new Uint8Array( 3 * width*depth );
 
     var y=0;
     var t =0;
-    var i= 400;
+    var i= 100;
 
     while (i < width*height*depth){
         elementos[t] = (generalDataVolume[i] + 3024 + 6048);
