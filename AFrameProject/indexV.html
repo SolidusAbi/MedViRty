@@ -16,38 +16,50 @@
   </head>
 
   <body>
-  <a-scene log="Scene created">
-    <a-sky log="Hello, Sky!" color="#ECECEC"></a-sky>
-    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 1.6 600" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)">
-      <a-entity cursor raycaster="far: 20; interval: 1000; objects: .clickable"></a-entity>
-      <a-entity id = 'cursor'cursor="fuse: false; fuseTimeout: 500"
-                position="0 0 -1"
+  <a-scene>
+    <a-sky color="#ECECEC"></a-sky>
+
+    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 0 600" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">
+
+    </a-entity>
+
+      <a-entity id = 'cursor' cursor="fuse: false; fuseTimeout: 500"
+                position="0 0 580"
                 geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                material="color: black; shader: flat">
-        <a-entity id= 'rayo' raycaster="objects: .collidable" position="0 0 -2" rotation="90 0 0" showLine="true"></a-entity>
+                material="color: red; shader: flat">
+      </a-entity>
+
+      <a-entity id="player" collider-check>
+          <a-entity raycaster="objects: .collidable; showLine: true" position="0 -0.9 600" rotation="0 0 0"></a-entity>
+          <a-entity class="collidable" geometry="primitive: box" position="1 0 0"></a-entity>
       </a-entity>
 
 
-    </a-entity>
+      <a-entity id="mandoDerecho" vive-controls="hand: right" src="#mandos" position="0 0 500"></a-entity>
+
+      <a-entity id="mandoIzquierdo" vive-controls="hand: left" src="#mandos" position="0 0 500"></a-entity>
+
+
+      <a-assets id="mandos">
+          <a-asset-item id="crate-obj" src="data/vr_controller_vive.obj" ></a-asset-item>
+          <a-asset-item id="crate-mtl" src="data/vr_controller_vive.mtl"></a-asset-item>
+      </a-assets>
+
+
+
+
 	<script>
-
+       // <a-entity  id= "rayo" raycaster="far: 20000; interval: 1000; objects: .clickable"></a-entity>
         var aframeScene = document.querySelector('a-scene');
-
         var entityEl = document.createElement('a-entity');
-
         var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
-
 		aframeScene.appendChild(entityEl);
-        document.querySelector('volume'); //esto no hace nada aqui
 
-      //  <a-entity id= 'cubo'  prueba2="color: blue" change-position></a-entity>
-      //    <a-entity id='slice1' slice="eje: 'z', depth: 100, width: 100, height: 100, paso: 3" touch-slice></a-entity>
-
+       var derecho = document.querySelector('#mandoDerecho');
+       derecho.setAttribute('scale', {x: 10, y: 10, z: 10});
+       console.log(derecho);
 
     </script>
-
-
-    <a-entity id= 'cubo2' prueba2="color: red"  touch-slice></a-entity>
 
 
   </a-scene>

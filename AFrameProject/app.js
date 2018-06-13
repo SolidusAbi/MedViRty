@@ -2,10 +2,9 @@ var generalDataVolume;
 
 AFRAME.registerComponent('log', {
    schema: {type: 'string'},
-
    init: function(){
-        var stringToLog = this.data;
-     //   console.log(stringToLog)
+        var stringToLog = this.el.sceneEl.camera.projectionMatrix;
+        console.log(stringToLog)
     }
 });
 
@@ -24,16 +23,22 @@ AFRAME.registerComponent('volume', {
         var entityEy = document.createElement('a-entity');
         var entityEz = document.createElement('a-entity');
 
+
 		entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1});
         entityEx.setAttribute('movement', '');
+       // entityEx.setAttribute('touch-slice', '');
         aframeScene.appendChild(entityEx);
        // console.log(entityEx);
         entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2});
         entityEy.setAttribute('movement', '');
+        entityEy.setAttribute('collider-check', '');
+     //   entityEy.setAttribute('touch-slice', '');
           aframeScene.appendChild(entityEy);
        // de izq a derecha
         entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3});
         entityEz.setAttribute('movement', '');
+        entityEz.setAttribute('collider-check', '');
+    //    entityEz.setAttribute('touch-slice', '');
         aframeScene.appendChild(entityEz);
       //  de arriba a abajo
     },
@@ -47,7 +52,7 @@ AFRAME.registerComponent('volume', {
     }
 
 });
-
+/*
 AFRAME.registerComponent('prueba2', {
     schema:{
         color: {type: 'string'}
@@ -62,18 +67,20 @@ AFRAME.registerComponent('prueba2', {
         el.setObject3D('cube', cube);
     }
 });
-
+*/
 AFRAME.registerComponent('slice', {
 		schema: {
 			eje: {type: 'string'},
 			depth: {type: 'int'},
 			width: {type: 'int'},
 			height: {type: 'int'},
-			paso: {type: 'int'}
+			paso: {type: 'int'},
+        //    position:{type: 'array'}
 			},
 		init: function(){
 			var el=this.el;
 			var data = this.data;
+		//	console.log(data.position);
 			if(data.paso == 1) {
                 var mesh = selectDataCoronal(data.width, data.height, data.depth,data.paso);
             }else

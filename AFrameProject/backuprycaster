@@ -19,12 +19,12 @@ function onWindowResize(){
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
-/*
-function onmousedown(){
+
+function onMouseDown(){
     var cursor = document.querySelector('#wasd');
     console.log(mouse.x + "," + mouse.y + "," + cursor.object3D.getWorldPosition().x + "," + cursor.object3D.getWorldPosition().y + "," + cursor.object3D.getWorldPosition().z);
     return mouse.x , mouse.y;
-}*/
+}
 /*
 function onmouseup(event){
     var cursor = document.querySelector('#wasd');
