@@ -13,51 +13,47 @@
     <script src="CursorEvent.js"></script>
     <script src="axis.js"></script>
     <script src="raycaster.js"></script>
+    <script src="CheckControls.js"></script>
   </head>
+
 
   <body>
   <a-scene>
     <a-sky color="#ECECEC"></a-sky>
 
-    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 0 600" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">
+    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 0 0" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">
 
     </a-entity>
 
       <a-entity id = 'cursor' cursor="fuse: false; fuseTimeout: 500"
-                position="0 0 580"
-                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                position="0 0 -10"
+                geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
                 material="color: red; shader: flat">
       </a-entity>
 
-      <a-entity id="player" collider-check>
-          <a-entity raycaster="objects: .collidable; showLine: true" position="0 -0.9 600" rotation="0 0 0"></a-entity>
-          <a-entity class="collidable" geometry="primitive: box" position="1 0 0"></a-entity>
-      </a-entity>
 
 
-      <a-entity id="mandoDerecho" vive-controls="hand: right" src="#mandos" position="0 0 500"></a-entity>
-
-      <a-entity id="mandoIzquierdo" vive-controls="hand: left" src="#mandos" position="0 0 500"></a-entity>
-
-
-      <a-assets id="mandos">
-          <a-asset-item id="crate-obj" src="data/vr_controller_vive.obj" ></a-asset-item>
-          <a-asset-item id="crate-mtl" src="data/vr_controller_vive.mtl"></a-asset-item>
-      </a-assets>
+      <a-entity  vive-controls = "hand: left" position="-20 -5 -10" scale="80 80 80" id="mandoIzquierdo" obj-model="obj:data/vr_controller_vive.obj" visible="false" >
+        <a-entity id="rayLeft" collider-check>
+          <a-entity raycaster="objects: .collidable; showLine: true"  rotation="0 0 0"></a-entity>
+          <a-entity class="collidable" position="1 0 0"></a-entity>
+        </a-entity></a-entity >
 
 
+      <a-entity  vive-controls = "hand: right" position="20 -5 -10" scale="80 80 80" id="mandoDerecho" obj-model="obj:data/vr_controller_vive.obj" visible="false">
+        <a-entity id="rayRight" collider-check>
+          <a-entity raycaster="objects: .collidable; showLine: true" rotation="0 0 0"></a-entity>
+          <a-entity class="collidable" position="1 0 0"></a-entity>
+        </a-entity></a-entity >
 
 
 	<script>
-       // <a-entity  id= "rayo" raycaster="far: 20000; interval: 1000; objects: .clickable"></a-entity>
         var aframeScene = document.querySelector('a-scene');
         var entityEl = document.createElement('a-entity');
         var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
-		aframeScene.appendChild(entityEl);
+        aframeScene.appendChild(entityEl);
 
-       var derecho = document.querySelector('#mandoDerecho');
-       derecho.setAttribute('scale', {x: 10, y: 10, z: 10});
-       console.log(derecho);
+        checkControl();
 
     </script>
 

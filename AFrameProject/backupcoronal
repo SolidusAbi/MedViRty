@@ -71,4 +71,27 @@ function selectDataCoronal(width, height, depth,paso){
     return textureF(geometry, paso, texture);
 }
 
+function selectDataCoronal(width, height, depth,paso){
+    console.log("coronal");
+    var geometry = new THREE.PlaneGeometry(width, depth);
+    var elementos = new Uint8Array( 3 *width*depth );
+    // De izquierda a derecha
+
+    var t = 0;
+    var i = width*100;
+    var n = 0;
+
+    while (i < width*height*depth){
+        for(n ; n < width ; n ++) {
+            elementos[t] = (generalDataVolume[i + n]);
+            t++;
+            n++;
+        }
+        i = i +(height*depth+n);
+        n = 0;
+    }
+
+    var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
+    return textureF(geometry, paso, texture);
+}
 

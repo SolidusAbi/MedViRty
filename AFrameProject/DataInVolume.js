@@ -5,17 +5,16 @@ function selectDataCoronal(width, height, depth,paso){
     // De izquierda a derecha
 
     var t = 0;
-    var i = width*100;
-    var n = 0;
+    var i = width*57;
 
     while (i < width*height*depth){
-        for(n ; n < width ; n ++) {
+        for(var n=0 ; n < width ; n ++) {
             elementos[t] = (generalDataVolume[i + n]);
             t++;
             n++;
         }
-        i = i +(height*depth+n);
-        n = 0;
+        i = i+ width*depth;
+      //  i = i+(height*depth+n);
     }
 
     var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
@@ -32,7 +31,7 @@ function selectDataAxial(width, height, depth, paso) {
 
         for (var i = 0; i < width * height; i++) {
 
-            elementos[i] = (generalDataVolume[e + i] + 3024 + 6048);
+            elementos[i] = (generalDataVolume[e + i]);
         }
 
         var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
@@ -51,7 +50,7 @@ function selectDataSagital(width, height, depth, paso){
     var i= 100;
 
     while (i < width*height*depth){
-        elementos[t] = (generalDataVolume[i] + 3024 + 6048);
+        elementos[t] = (generalDataVolume[i]);
         t++;
         i = i+ width;
     }

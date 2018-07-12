@@ -3,12 +3,10 @@ AFRAME.registerComponent('collider-check', {
 
     init: function () {
         this.el.addEventListener('raycaster-intersected', function () {
-            console.log('Player hit something!');
+            console.log('intersección del rayo!');
         });
     }
 });
-
-
 
 AFRAME.registerComponent('touch-slice', {
     init: function () {
@@ -30,16 +28,17 @@ AFRAME.registerComponent('movement' , {
     init: function () {
         this.el.addEventListener( 'mousedown' , function (evt)  {
             console.log("Movimiento");
-            var cursor = document.querySelector('#rayo');
+            var cursor = document.querySelector('#mandoIzquierdo');
 
             var posCursorX = mouse.x;
             var posCursorY = mouse.y;
             var posCursorZ = mouse.z;
+
           //  var a =cursor.raycaster;
             //console.log(a)
-        //    console.log(cursor.object3D.intersectedObject);
+          //  console.log(cursor);
 
-            initPos = posCursorX;
+           // initPos = posCursorX;
            // console.log(posCursorX + "," +posCursorY+ "," + cursor.object3D.getWorldPosition().z);
 
             //console.log( cursor.object3D.getWorldPosition().x,  cursor.object3D.getWorldPosition().y , cursor.object3D.getWorldPosition().z)
