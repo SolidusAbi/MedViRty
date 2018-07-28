@@ -1,63 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>A-Frame</title>
-    <meta charset="UTF-8">
-    <meta name="description" content="Hello, WebVR! - A-Frame">
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="NRRDLoader.js"></script>
-    <script src="Volume.js"></script>
-	<script src="gunzip.min.js"></script>
-    <script src="app.js"></script>
-    <script src="DataInVolume.js"></script>
-    <script src="CursorEvent.js"></script>
-    <script src="axis.js"></script>
-    <script src="raycaster.js"></script>
-    <script src="CheckControls.js"></script>
-  </head>
+<head>
+  <title>A-Frame</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Hello, WebVR! - A-Frame">
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  <script src="NRRDLoader.js"></script>
+  <script src="Volume.js"></script>
+  <script src="gunzip.min.js"></script>
+  <script src="app.js"></script>
+  <script src="DataInVolume.js"></script>
+  <script src="CursorEvent.js"></script>
+  <script src="axis.js"></script>
+  <script src="raycaster.js"></script>
+  <script src="controls.js"></script>
+</head>
 
 
-  <body>
-  <a-scene>
-    <a-sky color="#ECECEC"></a-sky>
+<body>
+<a-scene>
 
-    <a-entity id='wasd'camera="active: true" look-controls wasd-controls="acceleration: 5000" position="0 0 0" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">
+  <a-sky color="#ECECEC"></a-sky>
 
+  <a-asset>
+    <a-asset-item id="viveControllerGLTF" src="assets/models/vr_controller_vive.gltf"></a-asset-item>
+  </a-asset>
+
+  <a-entity id='wasd' camera="active: true" look-controls wasd-controls="acceleration: 10"
+            orbit-controls position="0 0 0" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">    </a-entity>
+
+
+  <a-entity  vive-controls="hand: left" position="-1 0 -15" id="mandoIzquierdo" buttonlistener  >
+    <a-entity tracked-controls="controller: 1; idPrefix: OpenVR" hand="left" id="controlIzquierdo" collider-check>
+      <a-entity raycaster="objects: .collidable; showLine: true;" id="RayIzq" Line="color: red;" enabled="true" rotation="0 0 0" gltf-model="#viveControllerGLTF"></a-entity>
     </a-entity>
-
-      <a-entity id = 'cursor' cursor="fuse: false; fuseTimeout: 500"
-                position="0 0 -10"
-                geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
-                material="color: red; shader: flat">
-      </a-entity>
+  </a-entity>
+  </a-entity>
 
 
-
-      <a-entity  vive-controls = "hand: left" position="-20 -5 -10" scale="80 80 80" id="mandoIzquierdo" obj-model="obj:data/vr_controller_vive.obj" visible="false" >
-        <a-entity id="rayLeft" collider-check>
-          <a-entity raycaster="objects: .collidable; showLine: true"  rotation="0 0 0"></a-entity>
-          <a-entity class="collidable" position="1 0 0"></a-entity>
-        </a-entity></a-entity >
-
-
-      <a-entity  vive-controls = "hand: right" position="20 -5 -10" scale="80 80 80" id="mandoDerecho" obj-model="obj:data/vr_controller_vive.obj" visible="false">
-        <a-entity id="rayRight" collider-check>
-          <a-entity raycaster="objects: .collidable; showLine: true" rotation="0 0 0"></a-entity>
-          <a-entity class="collidable" position="1 0 0"></a-entity>
-        </a-entity></a-entity >
+  <a-entity  vive-controls ="hand: right" position="1 0 -15" id="mandoDerecho" buttonlistener>
+    <a-entity tracked-controls="controller: 0; idPrefix: OpenVR" hand="right" id="controlDerecho" collider-check>
+      <a-entity raycaster="objects: .collidable; showLine: true;" enabled="true" id="RayDer" rotation="0 0 0" gltf-model="#viveControllerGLTF"></a-entity>
+    </a-entity >
+  </a-entity>
+  </a-entity>
 
 
-	<script>
-        var aframeScene = document.querySelector('a-scene');
-        var entityEl = document.createElement('a-entity');
-        var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
-        aframeScene.appendChild(entityEl);
+  <script>
 
-        checkControl();
+      var aframeScene = document.querySelector('a-scene');
+      var entityEl = document.createElement('a-entity');
 
-    </script>
+      var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
+      aframeScene.appendChild(entityEl);
 
 
-  </a-scene>
-  </body>
+
+
+
+
+
+      /*
+              <a-entity id = 'cursor' cursor="fuse: false; fuseTimeout: 500"
+              position="0 0 -10"
+              geometry="primitive: ring; radiusInner: 0.8; radiusOuter: 1"
+              material="color: red; shader: flat">
+              </a-entity>
+      */
+
+  </script>
+
+
+</a-scene>
+</body>
 </html>

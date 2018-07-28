@@ -1,7 +1,7 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 30.06.2016 02:27:19
 
-mtllib htcvive_split_materials.mtl
+mtllib vr_controller_vive.mtl
 
 #
 # object body
