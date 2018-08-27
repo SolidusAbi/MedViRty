@@ -14,6 +14,9 @@
   <script src="axis.js"></script>
   <script src="raycaster.js"></script>
   <script src="controls.js"></script>
+
+
+
 </head>
 
 
@@ -23,12 +26,15 @@
   <a-sky color="#ECECEC"></a-sky>
 
   <a-asset>
-    <a-asset-item id="viveControllerGLTF" src="assets/models/vr_controller_vive.gltf"></a-asset-item>
+    <a-asset-item id="viveControllerGLTF" src="assets/models/controladores/vr_controller_vive.gltf"></a-asset-item>
   </a-asset>
 
-  <a-entity id='wasd' camera="active: true" look-controls wasd-controls="acceleration: 10"
-            orbit-controls position="0 0 0" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C">    </a-entity>
+<!-- CREACION DE LA CAMARA PRINCIPAL -->
 
+  <a-entity id='wasd' camera="active: true" look-controls wasd-controls="acceleration: 5000"
+            orbit-controls position="0 0 0" data-aframe-default-camera axis="windowBackground: rgba(0,0,0,0)" log="C"> </a-entity>
+
+<!--INTRODUCCION DE LOS CONTROLES-->
 
   <a-entity  vive-controls="hand: left" position="-1 0 -15" id="mandoIzquierdo" buttonlistener  >
     <a-entity tracked-controls="controller: 1; idPrefix: OpenVR" hand="left" id="controlIzquierdo" collider-check>
@@ -37,11 +43,37 @@
   </a-entity>
   </a-entity>
 
-
   <a-entity  vive-controls ="hand: right" position="1 0 -15" id="mandoDerecho" buttonlistener>
     <a-entity tracked-controls="controller: 0; idPrefix: OpenVR" hand="right" id="controlDerecho" collider-check>
       <a-entity raycaster="objects: .collidable; showLine: true;" enabled="true" id="RayDer" rotation="0 0 0" gltf-model="#viveControllerGLTF"></a-entity>
     </a-entity >
+  </a-entity>
+
+  <!--CREACION DEL CUBO, FORMACION POR ASSETS-->
+
+  <a-assets id="paredfrontal" position="0 0 0">
+    <img  id="a" src="assets/models/cubeDesign/FOTO!!!.jpg">
+  </a-assets>
+
+  <a-assets id="suelo" position="0 0 0">
+    <img  id="b" src="assets/models/cubeDesign/baldosa.jpg">
+  </a-assets>
+
+  <a-assets id="paredes" position="0 0 0">
+    <img  id="c" src="assets/models/cubeDesign/pared.jpg">
+  </a-assets>
+
+  <a-assets id="techo" position="0 0 0">
+    <img  id="d" src="assets/models/cubeDesign/techo.jpg">
+  </a-assets>
+
+  <a-plane src="#a" rotation="0 0 0" width="6000" height="4000" position="0 0 -3000"></a-plane>
+  <a-plane src="#b" rotation="-90 0 0" width="6000" height="6000" position="0 -1700 0" repeat="10 10"></a-plane>
+  <a-plane src="#c" rotation="-180 0 0" width="6000" height="4000" position="0 0 3000"></a-plane>
+  <a-plane src="#c" rotation="0 90 0" width="6000" height="4000" position="-3000 0 0 ">  </a-plane>
+  <a-plane src="#c" rotation="0 -90 0" width="6000" height="4000" position="3000 0 0"></a-plane>
+  <a-plane src="#d" rotation="90 0 0" width="6000" height="6000" position="0 2000 0"></a-plane>
+
   </a-entity>
   </a-entity>
 
@@ -53,10 +85,6 @@
 
       var aux = entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
       aframeScene.appendChild(entityEl);
-
-
-
-
 
 
 
