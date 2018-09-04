@@ -26,24 +26,24 @@ AFRAME.registerComponent('volume', {
         //plano de frente
         entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1});
         entityEx.setAttribute('id', 'coronal');
-        entityEx.setAttribute('movement', '');
-        entityEx.setAttribute('collider-check', '');
+        entityEx.setAttribute('class', 'plane');
+        entityEx.setAttribute('mixin', 'plane');
         entityEx.setAttribute('position' , {x: 0, y: 0 , z: -500});
         aframeScene.appendChild(entityEx);
 
 
         // de izq a derecha
         entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2});
-        entityEy.setAttribute('movement', '');
+        entityEy.setAttribute('class', 'plane');
         entityEy.setAttribute('id', 'axial');
-        entityEy.setAttribute('collider-check', '');
-        entityEy.setAttribute('position' , {x: 0, y: -8 , z: -500});
+        entityEy.setAttribute('mixin', 'plane');
+        entityEy.setAttribute('position' , {x: 0, y: -14 , z: -500});
         aframeScene.appendChild(entityEy);
 
         //  de arriba a abajo
         entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3});
-        entityEz.setAttribute('movement', '');
-        entityEz.setAttribute('collider-check', '');
+        entityEz.setAttribute('class', 'plane');
+        entityEz.setAttribute('mixin', 'plane');
         entityEz.setAttribute('id', "sagital");
         entityEz.setAttribute('position' , {x: 0, y: 0 , z: -500});
         aframeScene.appendChild(entityEz);
