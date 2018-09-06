@@ -59,12 +59,11 @@ function selectDataSagital(width, height, depth, paso){
 }
 
 
-
 function textureF (geometry, paso, texture){
     //  console.log(elementos)
 
     texture.needsUpdate = true;
-    var material = new THREE.MeshBasicMaterial({ wireframe: false, map : texture });
+    var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
     var mesh = new THREE.Mesh(geometry, material);
     if(paso == 3){
         rotateObject(mesh , 0,80,0);

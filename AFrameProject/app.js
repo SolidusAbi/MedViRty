@@ -11,10 +11,14 @@ AFRAME.registerComponent('log', {
 //Volume component
 AFRAME.registerComponent('volume', {
     schema: {
-        volumePath: {type: 'string'}
+        volumePath: {type: 'string'},
+        equis1:{type:'int', default: '100'},
+        equis2:{type:'int', default: '100'},
+        equis2:{type:'int', default: '100'}
     },
     onLoad: function(volume){
         var el=this.el;
+        var data = this.data;
         this.volume = volume;
         generalDataVolume = volume.data;
         //	console.log(volume);
@@ -28,7 +32,9 @@ AFRAME.registerComponent('volume', {
         entityEx.setAttribute('id', 'coronal');
         entityEx.setAttribute('class', 'plane');
         entityEx.setAttribute('mixin', 'plane');
-        entityEx.setAttribute('position' , {x: 0, y: 0 , z: -500});
+        entityEx.setAttribute('rotation', '0 0 0');
+        entityEx.setAttribute('scale', '1 1 1');
+        entityEx.setAttribute('position' , {x: 0, y: 0 , z: -400});
         aframeScene.appendChild(entityEx);
 
 
@@ -37,6 +43,8 @@ AFRAME.registerComponent('volume', {
         entityEy.setAttribute('class', 'plane');
         entityEy.setAttribute('id', 'axial');
         entityEy.setAttribute('mixin', 'plane');
+        entityEy.setAttribute('scale', '1 1 1');
+        entityEy.setAttribute('rotation', '0 0 0');
         entityEy.setAttribute('position' , {x: 0, y: -14 , z: -500});
         aframeScene.appendChild(entityEy);
 
@@ -45,7 +53,9 @@ AFRAME.registerComponent('volume', {
         entityEz.setAttribute('class', 'plane');
         entityEz.setAttribute('mixin', 'plane');
         entityEz.setAttribute('id', "sagital");
-        entityEz.setAttribute('position' , {x: 0, y: 0 , z: -500});
+        entityEz.setAttribute('scale', '1 1 1');
+        entityEz.setAttribute('rotation', '0 0 0');
+        entityEz.setAttribute('position' , {x: 0, y: 0 , z: -400});
         aframeScene.appendChild(entityEz);
     },
 
@@ -54,9 +64,8 @@ AFRAME.registerComponent('volume', {
         var data = this.data;
         var loader = new THREE.NRRDLoader();
         loader.load(data.volumePath, this.onLoad);
-        var el = this.el;
+       // var el = this.el;
     }
-
 });
 
 AFRAME.registerComponent('slice', {

@@ -1,4 +1,4 @@
-**
+/**
  * This class has been made to hold a slice of a volume data
  * @class
  * @author Valentin Demeusy / https://github.com/stity

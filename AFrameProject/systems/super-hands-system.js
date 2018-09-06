@@ -20,4 +20,4 @@ AFRAME.registerSystem('super-hands', {
       if (x.otherSuperHand === comp) { x.otherSuperHand = null }
     })
   }
-})
+});
