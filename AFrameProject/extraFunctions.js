@@ -47,6 +47,19 @@ function smallVolume(){
     planoAxial.setAttribute('scale',{x: aux1.x ,y: aux1.y ,z: aux1.z});
 }
 
+function reset(){
+    var planoCoronal = document.querySelector('#coronal');
+    var planoSagital = document.querySelector('#sagital');
+    var planoAxial = document.querySelector('#axial');
+
+    planoCoronal.setAttribute('scale',{x: 1 ,y: 1 ,z: 1});
+    planoSagital.setAttribute('scale',{x: 1 ,y: 1 ,z: 1});
+    planoAxial.setAttribute('scale',{x: 1 ,y: 1 ,z: 1});
+
+    planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
+    planoSagital.setAttribute('rotation',{x: 0 ,y:0  ,z: 0});
+    planoAxial.setAttribute('rotation',{x: 0 ,y: 0 ,z: 0});
+}
 
 
 

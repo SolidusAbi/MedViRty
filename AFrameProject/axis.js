@@ -2,7 +2,7 @@ AFRAME.registerComponent('axis', {
     schema: {
         size: { type: 'number', default: 1 },
         windowSize: { type: 'int', default: 150 },
-        windowBackground: { type: 'string', default: 'rgb(3, 44, 113)' }
+        windowBackground: { type: 'string', default: 'fefdfa' }
     },
 
     init: function () {
