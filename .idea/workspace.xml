@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5615e34-83ac-46aa-8160-0cd3bbb46996" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/AFrameProject/extraFunctions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AFrameProject/MainMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AFrameProject/data/backups/strtchable" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AFrameProject/DataInVolume.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/DataInVolume.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AFrameProject/VolumeSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/VolumeSlice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AFrameProject/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFrameProject/axis.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/axis.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AFrameProject/extraFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/extraFunctions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AFrameProject/indexV.html" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/indexV.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AFrameProject/super-hands.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/super-hands.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AFrameProject/systems/super-hands-system.js" beforeDir="false" afterPath="$PROJECT_DIR$/AFrameProject/systems/super-hands-system.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,26 +27,17 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AFrameProject/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="52" column="48" lean-forward="true" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
+            <state relative-caret-position="-204">
+              <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="indexV.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AFrameProject/indexV.html">
+      <file leaf-file-name="DataInVolume.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AFrameProject/DataInVolume.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="652">
-              <caret line="103" column="25" selection-start-line="103" selection-start-column="25" selection-end-line="103" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="extraFunctions.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AFrameProject/extraFunctions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-269">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="37">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
             </state>
           </provider>
         </entry>
@@ -53,8 +45,35 @@
       <file leaf-file-name="super-hands.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AFrameProject/super-hands.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14739">
-              <caret line="867" column="81" selection-start-line="867" selection-start-column="81" selection-end-line="867" selection-end-column="81" />
+            <state relative-caret-position="211">
+              <caret line="307" column="39" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="extraFunctions.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AFrameProject/extraFunctions.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="62" column="10" lean-forward="true" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainMenu.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/AFrameProject/MainMenu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="82" column="1" lean-forward="true" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indexV.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AFrameProject/indexV.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2091">
+              <caret line="123" column="31" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -70,16 +89,41 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>deltaPosition</find>
-      <find>grabDirection</find>
-      <find>strec</find>
-      <find>grabb</find>
-      <find>grabbabl</find>
-      <find>(this.grabDirection</find>
       <find>this.grabDirection</find>
       <find>tick</find>
+      <find>onclick</find>
+      <find>this</find>
+      <find>time</find>
+      <find>this.start</find>
+      <find>onGrabStartButton</find>
+      <find>registerListeners</find>
+      <find>onHit</find>
+      <find>draggable</find>
+      <find>grab_event</find>
+      <find>registerListener</find>
+      <find>stre</find>
+      <find>stretch</find>
+      <find>grabbe</find>
+      <find>stretchable</find>
+      <find>stretchab</find>
+      <find>grabb</find>
+      <find>grabba</find>
+      <find>stretc</find>
+      <find>stretcha</find>
+      <find>grabbab</find>
+      <find>stretchabl</find>
+      <find>controller-right</find>
+      <find>Volu</find>
+      <find>smallVolume2</find>
+      <find>stret</find>
+      <find>this.</find>
       <find>grabbable</find>
+      <find>update</find>
     </findStrings>
+    <replaceStrings>
+      <replace>elemento</replace>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -100,15 +144,18 @@
         <option value="$PROJECT_DIR$/AFrameProject/raycaster.js" />
         <option value="$PROJECT_DIR$/AFrameProject/worker.js" />
         <option value="$PROJECT_DIR$/AFrameProject/CursorEvent.js" />
-        <option value="$PROJECT_DIR$/AFrameProject/DataInVolume.js" />
         <option value="$PROJECT_DIR$/AFrameProject/systems/super-hands-system.js" />
         <option value="$PROJECT_DIR$/AFrameProject/reaction_components/prototypes/buttons-proto.js" />
-        <option value="$PROJECT_DIR$/AFrameProject/super-hands.js" />
         <option value="$PROJECT_DIR$/extraFunctions.js" />
         <option value="$PROJECT_DIR$/AFrameProject/VolumeSlice.js" />
+        <option value="$PROJECT_DIR$/AFrameProject/data/backups/strtchable" />
+        <option value="$PROJECT_DIR$/AFrameProject/axis.js" />
+        <option value="$PROJECT_DIR$/AFrameProject/super-hands.js" />
+        <option value="$PROJECT_DIR$/AFrameProject/DataInVolume.js" />
+        <option value="$PROJECT_DIR$/AFrameProject/indexV.html" />
         <option value="$PROJECT_DIR$/AFrameProject/app.js" />
         <option value="$PROJECT_DIR$/AFrameProject/extraFunctions.js" />
-        <option value="$PROJECT_DIR$/AFrameProject/indexV.html" />
+        <option value="$PROJECT_DIR$/AFrameProject/MainMenu.js" />
       </list>
     </option>
   </component>
@@ -122,7 +169,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+    <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
@@ -131,7 +178,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -148,6 +194,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -202,7 +249,9 @@
       <workItem from="1534446825654" duration="1968000" />
       <workItem from="1534839498812" duration="485000" />
       <workItem from="1536058823386" duration="12452000" />
-      <workItem from="1536224091634" duration="6650000" />
+      <workItem from="1536224091634" duration="13963000" />
+      <workItem from="1536569628788" duration="20708000" />
+      <workItem from="1537175174709" duration="18059000" />
     </task>
     <task id="LOCAL-00001" summary="Inclusion de los mandos">
       <created>1531390933112</created>
@@ -225,55 +274,42 @@
       <option name="project" value="LOCAL" />
       <updated>1536059566537</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Generación de funciones basicas con los planos, primeras pruebas">
+      <created>1536232056069</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1536232056069</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67887000" />
+    <option name="totallyTimeSpent" value="113967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16617863" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20058565" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32913387" />
-    </layout>
-    <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14714494" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.1891892" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.32913387" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -285,35 +321,15 @@
     <MESSAGE value="Inclusion de los mandos" />
     <MESSAGE value="Mandos correctos, trigger derecho funcionando, iniciando hilos" />
     <MESSAGE value="Movimiento de planos, sin controlar los limites." />
-    <option name="LAST_COMMIT_MESSAGE" value="Movimiento de planos, sin controlar los limites." />
+    <MESSAGE value="Generación de funciones basicas con los planos, primeras pruebas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Generación de funciones basicas con los planos, primeras pruebas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="5" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/AFrameProject/DataInVolume.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/DataInVolume.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AFrameProject/raycaster.js" />
     <entry file="file://$PROJECT_DIR$/AFrameProject/CursorEvent.js" />
     <entry file="file://$PROJECT_DIR$/AFrameProject/CheckControls.js" />
@@ -443,27 +459,10 @@
     <entry file="file://$PROJECT_DIR$/AFrameProject/CheckControls.js" />
     <entry file="file://$PROJECT_DIR$/AFrameProject/CursorEvent.js" />
     <entry file="file://$PROJECT_DIR$/AFrameProject/controls.js" />
-    <entry file="file://$PROJECT_DIR$/AFrameProject/axis.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AFrameProject/reaction_components/grabbable.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="39" column="22" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/systems/super-hands-system.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -483,26 +482,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/DataInVolume.js">
+    <entry file="file://$PROJECT_DIR$/AFrameProject/systems/super-hands-system.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1057">
-          <caret line="66" selection-start-line="66" selection-end-line="66" selection-end-column="50" />
+        <state relative-caret-position="391">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/app.js">
+    <entry file="file://$PROJECT_DIR$/AFrameProject/data/backups/strtchable">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="52" column="48" lean-forward="true" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
+        <state relative-caret-position="2210">
+          <caret line="130" lean-forward="true" selection-start-column="1" selection-end-line="130" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AFrameProject/indexV.html">
+    <entry file="file://$PROJECT_DIR$/AFrameProject/axis.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="103" column="25" selection-start-line="103" selection-start-column="25" selection-end-line="103" selection-end-column="25" />
+        <state relative-caret-position="547">
+          <caret line="71" column="3" selection-start-line="71" selection-start-column="3" selection-end-line="71" selection-end-column="3" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AFrameProject/NRRDLoader.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/AFrameProject/VolumeSlice.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -511,17 +516,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AFrameProject/DataInVolume.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AFrameProject/super-hands.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14739">
-          <caret line="867" column="81" selection-start-line="867" selection-start-column="81" selection-end-line="867" selection-end-column="81" />
+        <state relative-caret-position="211">
+          <caret line="307" column="39" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AFrameProject/indexV.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="123" column="31" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AFrameProject/extraFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-269">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="476">
+          <caret line="62" column="10" lean-forward="true" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AFrameProject/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="3" column="29" lean-forward="true" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AFrameProject/MainMenu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="82" column="1" lean-forward="true" selection-start-line="82" selection-start-column="1" selection-end-line="82" selection-end-column="1" />
         </state>
       </provider>
     </entry>

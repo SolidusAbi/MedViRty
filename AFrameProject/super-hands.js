@@ -58,14 +58,19 @@
                 // constants
                 this.HOVER_EVENT = 'hover-start';
                 this.UNHOVER_EVENT = 'hover-end';
+
                 this.GRAB_EVENT = 'grab-start';
                 this.UNGRAB_EVENT = 'grab-end';
+
                 this.STRETCH_EVENT = 'stretch-start';
                 this.UNSTRETCH_EVENT = 'stretch-end';
+
                 this.DRAG_EVENT = 'drag-start';
                 this.UNDRAG_EVENT = 'drag-end';
+
                 this.DRAGOVER_EVENT = 'dragover-start';
                 this.UNDRAGOVER_EVENT = 'dragover-end';
+
                 this.DRAGDROP_EVENT = 'drag-drop';
 
                 // links to other systems/components
@@ -101,6 +106,7 @@
              * Called when component is attached and when component data changes.
              * Generally modifies the entity based on the data.
              */
+
             update: function (oldData) {
                 this.unRegisterListeners(oldData);
                 this.registerListeners();
@@ -834,7 +840,8 @@
                 this.grabDirection = { x: 0, y: 0, z: -1 };
                 this.grabOffset = { x: 0, y: 0, z: 0
                     // persistent object speeds up repeat setAttribute calls
-                };this.destPosition = { x: 0, y: 0, z: 0 };
+                };
+                this.destPosition = { x: 0, y: 0, z: 0 };
                 this.deltaPosition = new THREE.Vector3();
                 this.targetPosition = new THREE.Vector3();
                 this.physicsInit();
@@ -853,8 +860,15 @@
                 var q = new THREE.Quaternion();
                 var v = new THREE.Vector3();
 
+
+
                 return function () {
                     var entityPosition;
+
+                    if (this.stretched) {
+                        return;
+                    }
+
                     if (this.grabber) {
                         // reflect on z-axis to point in same direction as the laser
                         this.targetPosition.copy(this.grabDirection);
@@ -863,10 +877,13 @@
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
                             entityPosition = this.el.getAttribute('position');
+
+                            comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
+/*
                             this.destPosition.x = entityPosition.x - this.deltaPosition.x * this.xFactor;
                             this.destPosition.y = entityPosition.y - this.deltaPosition.y * this.yFactor;
                             this.destPosition.z = entityPosition.z - this.deltaPosition.z * this.zFactor;
-                            this.el.setAttribute('position', this.destPosition);
+                            this.el.setAttribute('position', this.destPosition);*/
                         } else {
                             this.deltaPositionIsValid = true;
                         }
@@ -883,6 +900,7 @@
                 if (evt.defaultPrevented || !this.startButtonOk(evt)) {
                     return;
                 }
+
                 // room for more grabbers?
                 const grabAvailable = !Number.isFinite(this.data.maxGrabbers) || this.grabbers.length < this.data.maxGrabbers;
 
@@ -1086,6 +1104,7 @@
         const buttonsCore = require('./prototypes/buttons-proto.js');
 // new object with all core modules
         const base = inherit({}, buttonsCore);
+
         AFRAME.registerComponent('stretchable', inherit(base, {
             schema: {
                 usePhysics: { default: 'ifavailable' },
@@ -1212,6 +1231,11 @@
                 el.body.updateBoundingRadius();
             }
         }));
+
+    },{"./prototypes/buttons-proto.js":8}],11:[function(require,module,exports){
+        'use strict';
+
+
 
     },{"./prototypes/buttons-proto.js":8}],11:[function(require,module,exports){
         'use strict';

@@ -1,11 +1,12 @@
-function selectDataCoronal(width, height, depth,paso){
+function selectDataCoronal(width, height, depth,paso, num){
     //  console.log("coronal");
-    var geometry = new THREE.PlaneGeometry(width, depth);
-    var elementos = new Uint8Array( 3 *width*depth );
+    var geometry = new THREE.PlaneGeometry(1, 1);
+ //   var elementos = new Uint8Array( 3 * width * depth );
+    var elementos = new Uint8Array( 3 * depth * width );
     // De izquierda a derecha
 
     var t = 0;
-    var i = width*57;
+    var i = width*num;
 
     while (i < width*height*depth){
         for(var n=0 ; n < width ; n ++) {
@@ -22,12 +23,12 @@ function selectDataCoronal(width, height, depth,paso){
 }
 
 
-function selectDataAxial(width, height, depth, paso) {
+function selectDataAxial(width, height, depth, paso, num) {
 //    console.log("axial");
-    var geometry = new THREE.PlaneGeometry(width, height);
+    var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( 3 * width*height );
 
-    var e = width * height * 100;
+    var e = width * height * num;
 
     for (var i = 0; i < width * height; i++) {
 
@@ -40,14 +41,14 @@ function selectDataAxial(width, height, depth, paso) {
     return textureF(geometry, paso, texture);
 }
 
-function selectDataSagital(width, height, depth, paso){
+
+function selectDataSagital(width, height, depth, paso, num){
     //   console.log("sagital");
-    var geometry = new THREE.PlaneGeometry(height, depth);
+    var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( 3 * width*depth );
 
-    var y=0;
     var t =0;
-    var i= 100;
+    var i= num;
 
     while (i < width*height*depth){
         elementos[t] = (generalDataVolume[i]);
@@ -58,7 +59,6 @@ function selectDataSagital(width, height, depth, paso){
     return textureF(geometry, paso,texture);
 }
 
-
 function textureF (geometry, paso, texture){
     //  console.log(elementos)
 
@@ -66,7 +66,7 @@ function textureF (geometry, paso, texture){
     var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
     var mesh = new THREE.Mesh(geometry, material);
     if(paso == 3){
-        rotateObject(mesh , 0,80,0);
+        rotateObject(mesh , 0,90,0);
     }else if(paso == 2){
         rotateObject(mesh , -90,0,0);
     }

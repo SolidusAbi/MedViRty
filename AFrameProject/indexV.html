@@ -6,23 +6,17 @@
   <meta charset="UTF-8">
   <meta name="Description" content="A-Frame">
 
-  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-  <script src="super-hands.js"></script>
-  <!--<script src="systems/super-hands-system.js"></script>-->
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 
-  <!--<script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>-->
-  <!--<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>-->
-  <!--<script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>-->
-
-  <!--<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>-->
-
+  <script src="axis.js"></script>
   <script src="NRRDLoader.js"></script>
   <script src="Volume.js"></script>
   <script src="gunzip.min.js"></script>
   <script src="app.js"></script>
   <script src="DataInVolume.js"></script>
-  <script src="axis.js"></script>
   <script src="extraFunctions.js"></script>
+  <script src="super-hands.js"></script>
+  <script src="MainMenu.js"></script>
 
 </head>
 
@@ -36,10 +30,10 @@
 
 
     <a-mixin id="plane"
-             hoverable grabbable draggable stretchable
+             hoverable grabbable draggable
              event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
              event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
-             dynamic-body shadow></a-mixin>
+             dynamic-body ></a-mixin>
 
 
     <a-mixin id="pointer" raycaster="showLine: true; objects: .plane,.menu"
@@ -60,7 +54,7 @@
 
   <!-- CREACION DE LA CAMARA PRINCIPAL -->
 
-  <a-camera position="0 0 0"></a-camera>
+  <a-camera position="0 0 0" axis></a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
 
@@ -72,22 +66,23 @@
 
   <!--CREACION DEL CUBO-->
 
-  <a-assets id="paredfrontal" position="0 0 0">
-    <img  id="a" src="assets/models/cubeDesign/FOTO!!!.jpg">
-  </a-assets>
+  <!--<a-assets id="paredfrontal" position="0 0 0">-->
+  <!--<img  id="a" src="assets/models/cubeDesign/FOTO!!!.jpg">-->
+  <!--</a-assets>-->
 
-  <a-assets id="suelo" position="0 0 0">
-    <img  id="b" src="assets/models/cubeDesign/baldosa.jpg">
-  </a-assets>
+  <!--<a-assets id="suelo" position="0 0 0">-->
+  <!--<img  id="b" src="assets/models/cubeDesign/baldosa.jpg">-->
+  <!--</a-assets>-->
 
-  <a-assets id="paredes" position="0 0 0">
-    <img  id="c" src="assets/models/cubeDesign/pared.jpg">
-  </a-assets>
+  <!--<a-assets id="paredes" position="0 0 0">-->
+  <!--<img  id="c" src="assets/models/cubeDesign/pared.jpg">-->
+  <!--</a-assets>-->
 
-  <a-assets id="techo" position="0 0 0">
-    <img  id="d" src="assets/models/cubeDesign/techo.jpg">
-  </a-assets>
+  <!--<a-assets id="techo" position="0 0 0">-->
+  <!--<img  id="d" src="assets/models/cubeDesign/techo.jpg">-->
+  <!--</a-assets>-->
 
+  <!--<a-asset-item id="mesa" src="assets/models/worldObjects/objetomesa.gltf"></a-asset-item>-->
   <!--<a-entity id="Prueba" onPressed() position=" 0 0 0 " geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33" material="color: green"></a-entity>-->
 
   <!--<a-plane src="#a" rotation="0 0 0" width="6000" height="4000" position="0 0 -3000" static-body></a-plane>-->
@@ -96,20 +91,37 @@
   <!--<a-plane src="#c" rotation="0 90 0" width="6000" height="4000" position="-3000 0 0 " static-body>  </a-plane>-->
   <!--<a-plane src="#c" rotation="0 -90 0" width="6000" height="4000" position="3000 0 0" static-body></a-plane>-->
 
-<!--<a-entity id="cubo" class="menu" geometry="primitive: box; width: 10; height: 10; depth: 10" material="color: green" position="0 0 -10"  hoverable grabbable draggable stretchable ></a-entity>-->
+
+  <!--<a-entity gltf-model="#mesa" position="0 -10 0" static-body></a-entity>-->
+
+<!--Menu de opciones de nuestro programa-->
+
+  <a-box position="10 -4 -10" id="boxMenu" class="menu" color="blue" width="5" height="5" depth= "5" vari="true" onclick="exploreMenu(this)" side="double" >
+    <a-sphere position="10 1 -10" class="menu" id="rotate" color="red" onclick="rotateVolume(this)" side="double" text="width: 6; value: Rotar.; color: black; align:center;" visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 13 0" dur="3000" begin="fade"></a-animation>
+      <a-animation attribute="position" from="0 13 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
+    </a-sphere>
+    <a-sphere position="10 4 -10" class="menu" id="big" color="blue" onclick="bigVolume(this)" side="double" text="value: Agrandar.; color: black; " visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 4 0" begin="fade" dur="3000"></a-animation>
+      <a-animation attribute="position" from="0 4 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
+    </a-sphere>
+    <a-sphere position="10 7 -10" class="menu" id="small" color="green" onclick="smallVolume(this)" side="double" text="width: 6; value: Disminuir.; color: black; align:center;"visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 7 0" begin="fade" dur="3000"></a-animation>
+      <a-animation attribute="position" from="0 7 0" to=" 0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
+    </a-sphere>
+    <a-sphere position="10 10 -10" class="menu" id="reset" color="yellow" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 10 0" begin="fade" dur="3000"></a-animation>
+      <a-animation attribute="position" from="0 10 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
+    </a-sphere>
+  </a-box>
 
 
-  <a-box position="4 1 -2" class="menu" color="red" onclick="rotateVolume(this)"></a-box>
-  <a-box position="4 3 -2" class="menu" color="blue" onclick="bigVolume(this)"></a-box>
-  <a-box position="4 5 -2" class="menu" color="green" onclick="smallVolume(this)"></a-box>
+  <a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>
 
   <script>
 
       var aframeScene = document.querySelector('a-scene');
-      var entityEl = document.createElement('a-entity');
-      entityEl.setAttribute('id','volumenCompleto');
-      entityEl.setAttribute('volume',{volumePath: "data/CTChest.nrrd"});
-      aframeScene.appendChild(entityEl);
+      console.log(aframeScene);
 
   </script>
 
