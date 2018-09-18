@@ -41,7 +41,7 @@ function comprobar(posActual, elemento, destPosition , deltaPosition){
 
     if(elemento.getAttribute('id') == 'sagital'){
            if((posActual.x - deltaPosition.x) >= -0.5 && (posActual.x - deltaPosition.x) <= 0.5 ) {
-               destPosition.x = posActual.x - deltaPosition.x * 1;
+               destPosition.x = posActual.x - deltaPosition.x * 0.3;
                elemento.setAttribute('position', destPosition);
                console.log(elemento.getAttribute('position'));
            }
@@ -49,14 +49,14 @@ function comprobar(posActual, elemento, destPosition , deltaPosition){
         if((posActual.z - deltaPosition.z) >= -0.5 && (posActual.z - deltaPosition.z) <= 0.5 ) {
             // destPosition.x = posActual.x -  deltaPosition.x *  1;
             // destPosition.y = posActual.y -  deltaPosition.y *  1;
-            destPosition.z = posActual.z - deltaPosition.z * 1;
+            destPosition.z = posActual.z - deltaPosition.z * 0.3;
             elemento.setAttribute('position', destPosition);
             console.log(elemento.getAttribute('position'));
         }
     }else if(elemento.getAttribute('id') == 'axial'){
          if((posActual.y - deltaPosition.y) >= -0.5 && (posActual.y - deltaPosition.y) <= 0.5 ) {
              //   destPosition.x = posActual.x -  deltaPosition.x *  1;
-             destPosition.y = posActual.y - deltaPosition.y * 1;
+             destPosition.y = posActual.y - deltaPosition.y * 0.3;
              // destPosition.z = posActual.z -  deltaPosition.z *  1;
              elemento.setAttribute('position', destPosition);
              console.log(elemento.getAttribute('position'));

@@ -60,7 +60,7 @@
 
   <a-entity>
     <a-entity id="rhand" mixin="controller-right">  <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
-    <a-entity id="lhand" mixin="controller-left">  <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
+    <a-entity id="lhand" mixin="controller-left">   <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
   </a-entity>
 
 
@@ -96,25 +96,26 @@
 
 <!--Menu de opciones de nuestro programa-->
 
-  <a-box position="10 -4 -10" id="boxMenu" class="menu" color="blue" width="5" height="5" depth= "5" vari="true" onclick="exploreMenu(this)" side="double" >
-    <a-sphere position="10 1 -10" class="menu" id="rotate" color="red" onclick="rotateVolume(this)" side="double" text="width: 6; value: Rotar.; color: black; align:center;" visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 13 0" dur="3000" begin="fade"></a-animation>
+  <a-box position="10 -4 -10" id="boxMenu" class="menu" color="#05A8AA" width="5" height="5" depth= "5" onclick="exploreMenu(this)" side="double" >
+
+    <a-sphere position="10 1 -10" class="menu" id="rotate" color="#8FD694" onclick="rotateVolume(this)" side="double" text="width: 6; value: Rotar.; color: black; align:center;" visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 13 0" dur="1000" begin="fade"></a-animation>
       <a-animation attribute="position" from="0 13 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-    <a-sphere position="10 4 -10" class="menu" id="big" color="blue" onclick="bigVolume(this)" side="double" text="value: Agrandar.; color: black; " visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 4 0" begin="fade" dur="3000"></a-animation>
+    <a-sphere position="10 4 -10" class="menu" id="big" color="#A1E44D" onclick="bigVolume(this)" side="double" text="value: Agrandar.; color: black; " visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 4 0" begin="fade" dur="1000"></a-animation>
       <a-animation attribute="position" from="0 4 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-    <a-sphere position="10 7 -10" class="menu" id="small" color="green" onclick="smallVolume(this)" side="double" text="width: 6; value: Disminuir.; color: black; align:center;"visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 7 0" begin="fade" dur="3000"></a-animation>
+    <a-sphere position="10 7 -10" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 6; value: Disminuir.; color: black; align:center;"visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 7 0" begin="fade" dur="1000"></a-animation>
       <a-animation attribute="position" from="0 7 0" to=" 0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-    <a-sphere position="10 10 -10" class="menu" id="reset" color="yellow" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 10 0" begin="fade" dur="3000"></a-animation>
+    <a-sphere position="10 10 -10" class="menu" id="reset" color="#557F5A" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 10 0" begin="fade" dur="1000"></a-animation>
       <a-animation attribute="position" from="0 10 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-  </a-box>
 
+  </a-box>
 
   <a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>
 

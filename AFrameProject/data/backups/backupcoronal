@@ -95,3 +95,27 @@ function selectDataCoronal(width, height, depth,paso){
     return textureF(geometry, paso, texture);
 }
 
+
+//11:39  18/09/2018   bicho raro
+
+function selectDataCoronal(width, height, depth, paso, num){
+    var geometry = new THREE.PlaneGeometry(1, 1);
+    var elementos = new Uint8Array( 3 * width * height );
+    // De izquierda a derecha
+
+    var t = 0;
+    var i = width*num;
+
+    while (i < width*height){
+        for(var n=0 ; n < depth*height ; n +4) {
+            elementos[t] = (generalDataVolume[i*num + n]/4);
+            t++;
+            n++;
+        }
+        i = i+ width*depth;
+        //  i = i+(height*depth+n);
+    }
+
+    var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
+    return textureF(geometry, paso, texture);
+}

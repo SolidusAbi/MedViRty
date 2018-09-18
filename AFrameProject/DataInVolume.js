@@ -1,27 +1,19 @@
-function selectDataCoronal(width, height, depth,paso, num){
-    //  console.log("coronal");
+function selectDataCoronal(width, height, depth, paso, num){
     var geometry = new THREE.PlaneGeometry(1, 1);
- //   var elementos = new Uint8Array( 3 * width * depth );
-    var elementos = new Uint8Array( 3 * depth * width );
+    var elementos = new Uint8Array( 3 * width * height );
     // De izquierda a derecha
 
     var t = 0;
     var i = width*num;
 
-    while (i < width*height*depth){
-        for(var n=0 ; n < width ; n ++) {
-            elementos[t] = (generalDataVolume[i + n]);
+    for(var n=0 ; n < depth*height*width ; n++) {
+            elementos[t] = (generalDataVolume[i*num + n]);
             t++;
-            n++;
-        }
-        i = i+ width*depth;
-        //  i = i+(height*depth+n);
     }
 
     var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
     return textureF(geometry, paso, texture);
 }
-
 
 function selectDataAxial(width, height, depth, paso, num) {
 //    console.log("axial");
@@ -31,7 +23,6 @@ function selectDataAxial(width, height, depth, paso, num) {
     var e = width * height * num;
 
     for (var i = 0; i < width * height; i++) {
-
         elementos[i] = (generalDataVolume[e + i]);
     }
 
