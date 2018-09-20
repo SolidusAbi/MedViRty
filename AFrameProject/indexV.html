@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="Description" content="A-Frame">
 
-  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 
   <script src="axis.js"></script>
   <script src="NRRDLoader.js"></script>
@@ -110,13 +110,13 @@
       <a-animation attribute="position" from="0 0 0" to="0 7 0" begin="fade" dur="1000"></a-animation>
       <a-animation attribute="position" from="0 7 0" to=" 0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-    <a-sphere position="0 11 0" class="menu" id="reset" color="#557F5A" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 10 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 10 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
+    <a-sphere position="0 15 0" class="menu" id="movPlane" color="red" onclick="movePlano(this)" side="double" visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 15 0" begin="fade" dur="1000"></a-animation>
+      <a-animation attribute="position" from="0 15 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
-    <a-sphere position="0 13 0" class="menu" id="movPlane" color="#A1E44D" onclick="movePlano(this)" side="double" visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 13 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 13 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
+    <a-sphere position="0 11 0" class="menu" id="reset" color="#557F5A" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
+      <a-animation attribute="position" from="0 0 0" to="0 11 0" begin="fade" dur="1000"></a-animation>
+      <a-animation attribute="position" from="0 11 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
     </a-sphere>
 
   </a-box>
@@ -128,11 +128,7 @@
       var aframeScene = document.querySelector('a-scene');
       console.log(aframeScene);
 
-      var prueba =
-      console.log(prueba);
-
   </script>
-
 
 </a-scene>
 </body>

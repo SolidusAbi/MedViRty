@@ -55,9 +55,7 @@ function comprobar(posActual, elemento, destPosition , deltaPosition) {
         }
     } else if (elemento.getAttribute('id') == 'axial') {
         if ((posActual.y - deltaPosition.y) >= -0.5 && (posActual.y - deltaPosition.y) <= 0.5) {
-            //   destPosition.x = posActual.x -  deltaPosition.x *  1;
             destPosition.y = posActual.y - deltaPosition.y * 0.5;
-            // destPosition.z = posActual.z -  deltaPosition.z *  1;
             elemento.setAttribute('position', destPosition);
             console.log(elemento.getAttribute('position'));
         }
@@ -74,23 +72,14 @@ function movePlano(){
 
     var coronal = document.querySelector('#coronal');
     var sagital = document.querySelector('#sagital');
-    var axial = document.querySelector('#axial');
+    var axial =   document.querySelector('#axial');
 
-    coronal.getAttribute('position');
-    sagital.getAttribute('position');
-    axial.getAttribute('position');
 
-    if(coronal.getAttribute('position')== '0 0 0') {
+    coronal.setAttribute('position', '-1 0 -1');
+    sagital.setAttribute('position', '-0 0 -1');
+    axial.setAttribute('position', '1 0 -1');
 
-        coronal.setAttribute('position', '5 0 2');
-        sagital.setAttribute('position', '3 0 2');
-        axial.setAttribute('position', '0 0 2');
+    sagital.setAttribute('rotation', '0 90 0');
+    axial.setAttribute('rotation', '90 0 0');
 
-    }else{
-
-        coronal.setAttribute('position', '0 0 0');
-        sagital.setAttribute('position', '0 0 0');
-        axial.setAttribute('position', '0 0 0');
-
-    }
 }

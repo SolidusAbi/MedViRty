@@ -13,7 +13,6 @@ function selectDataCoronal(width, height, depth, step, num){
             elementos[t] = ((generalDataVolume[e + idx]+1000)*255/3000);
             t++;
         }
-
     }
 
     var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
@@ -22,7 +21,7 @@ function selectDataCoronal(width, height, depth, step, num){
 
 
 function selectDataAxial(width, height, depth, paso, num) {
-//    console.log("axial");
+
     var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( 3 * width*height );
 
@@ -40,7 +39,7 @@ function selectDataAxial(width, height, depth, paso, num) {
 
 
 function selectDataSagital(width, height, depth, paso, num){
-    //   console.log("sagital");
+
     var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( 3 * width*depth );
 
@@ -57,7 +56,6 @@ function selectDataSagital(width, height, depth, paso, num){
 }
 
 function textureF (geometry, paso, texture){
-    //  console.log(elementos)
 
     texture.needsUpdate = true;
     var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});

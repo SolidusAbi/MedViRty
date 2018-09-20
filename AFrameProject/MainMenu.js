@@ -4,8 +4,6 @@ function exploreMenu(){
     var rot = document.querySelector('#rotate');
     var big = document.querySelector('#big');
     var sm = document.querySelector('#small');
-   // var mv = document.querySelector('#movPlane');
-
     var tt = document.querySelector('#movPlane');
 
     if( document.querySelector('#boxMenu').getAttribute('color') == '#05A8AA' ){
@@ -88,4 +86,8 @@ function reset(){
     planoSagital.setAttribute('position',{x: 0, y: 0 ,z: 0});
     planoCoronal.setAttribute('position',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('position',{x: 0, y: 0 ,z: 0});
+
+    planoSagital.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
+    planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
+    planoAxial.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
 }
