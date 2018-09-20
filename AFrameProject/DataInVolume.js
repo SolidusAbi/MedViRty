@@ -1,19 +1,25 @@
-function selectDataCoronal(width, height, depth, paso, num){
+function selectDataCoronal(width, height, depth, step, num){
     var geometry = new THREE.PlaneGeometry(1, 1);
-    var elementos = new Uint8Array( 3 * width * height );
+    var elementos = new Uint8Array( width * depth );
     // De izquierda a derecha
 
     var t = 0;
-    var i = width*num;
 
-    for(var n=0 ; n < depth*height*width ; n++) {
-            elementos[t] = (generalDataVolume[i*num + n]);
+    var e =  300*width;
+    for(var n=0 ; n < depth; n++){
+        for(var p=0; p < width ; p++){
+            var idx= n*width*height+p;
+
+            elementos[t] = ((generalDataVolume[e + idx]+1000)*255/3000);
             t++;
+        }
+
     }
 
     var texture = new THREE.DataTexture(elementos, width, depth, THREE.LuminanceFormat);
-    return textureF(geometry, paso, texture);
+    return textureF(geometry, step, texture);
 }
+
 
 function selectDataAxial(width, height, depth, paso, num) {
 //    console.log("axial");
@@ -23,7 +29,7 @@ function selectDataAxial(width, height, depth, paso, num) {
     var e = width * height * num;
 
     for (var i = 0; i < width * height; i++) {
-        elementos[i] = (generalDataVolume[e + i]);
+        elementos[i] = ((generalDataVolume[e + i]+1000)*255/3000);
     }
 
     var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
@@ -42,7 +48,7 @@ function selectDataSagital(width, height, depth, paso, num){
     var i= num;
 
     while (i < width*height*depth){
-        elementos[t] = (generalDataVolume[i]);
+        elementos[t] = ((generalDataVolume[i]+1000)*255/3000);
         t++;
         i = i+ width;
     }

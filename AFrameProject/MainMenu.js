@@ -1,11 +1,14 @@
-function exploreMenu( aux ){
+function exploreMenu(){
 
     var reset = document.querySelector('#reset');
     var rot = document.querySelector('#rotate');
     var big = document.querySelector('#big');
     var sm = document.querySelector('#small');
+   // var mv = document.querySelector('#movPlane');
 
-    if( document.querySelector('#boxMenu').getAttribute('color') == '#05A8AA'){
+    var tt = document.querySelector('#movPlane');
+
+    if( document.querySelector('#boxMenu').getAttribute('color') == '#05A8AA' ){
 
         reset.setAttribute('visible', 'true');
         document.querySelector('#reset').emit('fade');
@@ -19,6 +22,9 @@ function exploreMenu( aux ){
         sm.setAttribute('visible', 'true');
         document.querySelector('#small').emit('fade');
 
+        tt.setAttribute('visible', 'true');
+        document.querySelector('#movPlane').emit('fade');
+
         document.querySelector('#boxMenu').setAttribute('color', '#0daa2d');
 
     }else{
@@ -27,6 +33,8 @@ function exploreMenu( aux ){
         document.querySelector('#rotate').emit('loose');
         document.querySelector('#big').emit('loose');
         document.querySelector('#small').emit('loose');
+        document.querySelector('#movPlane').emit('loose');
+
         document.querySelector('#boxMenu').setAttribute('color', '#05A8AA');
     }
 }

@@ -100,7 +100,7 @@ function selectDataCoronal(width, height, depth,paso){
 
 function selectDataCoronal(width, height, depth, paso, num){
     var geometry = new THREE.PlaneGeometry(1, 1);
-    var elementos = new Uint8Array( 3 * width * height );
+    var elementos = new Uint8Array(width * height );
     // De izquierda a derecha
 
     var t = 0;

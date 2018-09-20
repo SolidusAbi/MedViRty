@@ -48,18 +48,18 @@ AFRAME.registerComponent('volume', {
         var entityEz = document.createElement('a-entity');
 
         //plano coronal
-        entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 110});
+        entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 300});
         entityEx.setAttribute('id', 'coronal');
         entityEx.setAttribute('class', 'plane');
         entityEx.setAttribute('mixin', 'plane');
         entityEx.setAttribute('rotation', '0 0 0');
-    //    entityEx.setAttribute('position', '5 0 2');
-   //     aframeScene.appendChild(entityEx);
+       // entityEx.setAttribute('position', '5 0 2');
+       // aframeScene.appendChild(entityEx);
         bBox.appendChild(entityEx);
 
 
         // plano axial
-        entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 1});
+        entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 100});
         entityEy.setAttribute('id', 'axial');
         entityEy.setAttribute('class', 'plane');
         entityEy.setAttribute('mixin', 'plane');
@@ -70,13 +70,13 @@ AFRAME.registerComponent('volume', {
 
 
         //  plano sagital
-        entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 51});
+        entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 300});
         entityEz.setAttribute('id', "sagital");
         entityEz.setAttribute('class', 'plane');
         entityEz.setAttribute('mixin', 'plane');
         entityEz.setAttribute('rotation', '0 0 0');
-       //  entityEz.setAttribute('position', '1 0 2');
-       //  aframeScene.appendChild(entityEz);
+        // entityEz.setAttribute('position', '1 0 2');
+        // aframeScene.appendChild(entityEz);
         bBox.appendChild(entityEz);
     },
 
