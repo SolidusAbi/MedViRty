@@ -1,4 +1,5 @@
 var generalDataVolume;
+var ArrayDatos=[3];
 
 AFRAME.registerComponent('log', {
     schema: {type: 'string'},
@@ -30,6 +31,9 @@ AFRAME.registerComponent('volume', {
 
         // Se conecta el componente volumen con su etiqueta HTML //
         var volumenSelector = document.querySelector('#volumenCompleto');
+        ArrayDatos[0]=volume.xLength;
+        ArrayDatos[1]=volume.yLength;
+        ArrayDatos[2]=volume.zLength;
 
         // Formación del boxHelper y sus atributos. Perteneciente al volumen.
         var bBox = document.createElement('a-entity');
@@ -48,29 +52,28 @@ AFRAME.registerComponent('volume', {
         var entityEz = document.createElement('a-entity');
 
         //plano coronal
-        entityEx.setAttribute('slice',{eje: 'x', depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 300});
         entityEx.setAttribute('id', 'coronal');
         entityEx.setAttribute('class', 'plane');
         entityEx.setAttribute('mixin', 'plane');
         entityEx.setAttribute('rotation', '0 0 0');
-       // entityEx.setAttribute('position', '5 0 2');
-       // aframeScene.appendChild(entityEx);
+        entityEx.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 100});
+        // entityEx.setAttribute('position', '5 0 2');
+        // aframeScene.appendChild(entityEx);
         bBox.appendChild(entityEx);
 
-
         // plano axial
-        entityEy.setAttribute('slice',{eje: 'y', depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 100});
+        entityEy.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 100});
         entityEy.setAttribute('id', 'axial');
         entityEy.setAttribute('class', 'plane');
         entityEy.setAttribute('mixin', 'plane');
         entityEy.setAttribute('rotation', '0 0 0');
         // entityEy.setAttribute('position', '3 0 2');
         // aframeScene.appendChild(entityEy);
-       bBox.appendChild(entityEy);
+        bBox.appendChild(entityEy);
 
 
         //  plano sagital
-        entityEz.setAttribute('slice',{eje: 'z', depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 300});
+        entityEz.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 100});
         entityEz.setAttribute('id', "sagital");
         entityEz.setAttribute('class', 'plane');
         entityEz.setAttribute('mixin', 'plane');
@@ -90,12 +93,10 @@ AFRAME.registerComponent('volume', {
 
 AFRAME.registerComponent('slice', {
     schema: {
-        eje: {type: 'string'},
         depth: {type: 'int'},
         width: {type: 'int'},
         height: {type: 'int'},
         paso: {type: 'int'},
-        id: {type: 'string'},
         sliceNum: {type: 'int'}
     },
     init: function(){
@@ -110,7 +111,8 @@ AFRAME.registerComponent('slice', {
             var mesh = selectDataSagital(data.width, data.height, data.depth,data.paso, data.sliceNum);
         }
         this.el.setObject3D('mesh', mesh);
-    }
+    },
+
 });
 
 
