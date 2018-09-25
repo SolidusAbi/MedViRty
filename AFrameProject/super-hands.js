@@ -883,10 +883,9 @@ var time;
                             var comp = comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
                             var time2 = Date.now() - time;
                             console.log(time2);
-                        //    movSlicer(comp, this.el);
+                            movSlicer(comp, this.el);
 
-
-/*
+                            /*
                             this.destPosition.x = entityPosition.x - this.deltaPosition.x * this.xFactor;
                             this.destPosition.y = entityPosition.y - this.deltaPosition.y * this.yFactor;
                             this.destPosition.z = entityPosition.z - this.deltaPosition.z * this.zFactor;

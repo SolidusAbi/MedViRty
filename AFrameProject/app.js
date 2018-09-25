@@ -1,13 +1,5 @@
 var generalDataVolume;
-var ArrayDatos=[3];
-
-AFRAME.registerComponent('log', {
-    schema: {type: 'string'},
-    init: function(){
-        var stringToLog = this.el.sceneEl.camera.projectionMatrix;
-        console.log(stringToLog)
-    }
-});
+var ArrayDatos=[4];
 
 AFRAME.registerComponent('bbox', {
     init: function(){
@@ -29,6 +21,7 @@ AFRAME.registerComponent('volume', {
         this.volume = volume;
         generalDataVolume = volume.data;
 
+
         // Se conecta el componente volumen con su etiqueta HTML //
         var volumenSelector = document.querySelector('#volumenCompleto');
         ArrayDatos[0]=volume.xLength;
@@ -38,10 +31,10 @@ AFRAME.registerComponent('volume', {
         // Formación del boxHelper y sus atributos. Perteneciente al volumen.
         var bBox = document.createElement('a-entity');
         bBox.setAttribute('bbox', '');
-        bBox.setAttribute('position', '0 0 -500');
+        bBox.setAttribute('position', {x: 0 , y: 0, z: -(volume.zLength + 300)});  // ESTE VALOR DEBERIA DEPENDER DEL NRRD A APLICAR
         bBox.setAttribute('dynamic-body', '');
         bBox.setAttribute('id', 'bbox');
-        bBox.setAttribute('scale', '512 512 139');
+        bBox.setAttribute('scale', { x: volume.xLength, y:  volume.yLength,z:  volume.zLength});
         bBox.setAttribute('stretchable', '');
         bBox.setAttribute('rotation', '0 0 0');
         volumenSelector.appendChild(bBox);
@@ -85,6 +78,7 @@ AFRAME.registerComponent('volume', {
 
     init: function(){
         var data = this.data;
+        ArrayDatos[3] = typeOfData(data.volumePath);
         var loader = new THREE.NRRDLoader();
         loader.load(data.volumePath, this.onLoad);
     }

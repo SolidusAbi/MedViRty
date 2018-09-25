@@ -1,4 +1,5 @@
 function selectDataCoronal(width, height, depth, step, num){
+
     var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( width * depth );
     // De izquierda a derecha
@@ -9,8 +10,11 @@ function selectDataCoronal(width, height, depth, step, num){
     for(var n=0 ; n < depth; n++){
         for(var p=0; p < width ; p++){
             var idx= n*width*height+p;
-
-            elementos[t] = ((generalDataVolume[e + idx]+1000)*255/3000);
+            if(ArrayDatos[3] == 'CT') {
+                elementos[t] = ((generalDataVolume[e + idx] + 1000) * 255 / 3000);
+            }else if (ArrayDatos[3] == 'MR'){
+                elementos[t] = ((generalDataVolume[e + idx]));
+            }
             t++;
         }
     }
@@ -27,7 +31,11 @@ function selectDataAxial(width, height, depth, paso, num) {
     var e = width * height * num;
 
     for (var i = 0; i < width * height; i++) {
-        elementos[i] = ((generalDataVolume[e + i]+1000)*255/3000);
+        if(ArrayDatos[3] == 'CT') {
+            elementos[i] = ((generalDataVolume[e + i] + 1000) * 255 / 3000);
+        }else if(ArrayDatos[3] == 'MR'){
+            elementos[i] = ((generalDataVolume[e + i]));
+        }
     }
 
     var texture = new THREE.DataTexture(elementos, width, height, THREE.LuminanceFormat);
@@ -38,6 +46,7 @@ function selectDataAxial(width, height, depth, paso, num) {
 
 
 function selectDataSagital(width, height, depth, paso, num){
+
     var geometry = new THREE.PlaneGeometry(1, 1);
     var elementos = new Uint8Array( 3 * width*depth );
 
@@ -45,7 +54,11 @@ function selectDataSagital(width, height, depth, paso, num){
     var i= num;
 
     while (i < width*height*depth){
-        elementos[t] = ((generalDataVolume[i]+1000)*255/3000);
+        if(ArrayDatos[3] == 'CT') {
+            elementos[t] = ((generalDataVolume[i] + 1000) * 255 / 3000);
+        }else if(ArrayDatos[3] == 'MR'){
+            elementos[t] = ((generalDataVolume[i]));
+        }
         t++;
         i = i+ width;
     }

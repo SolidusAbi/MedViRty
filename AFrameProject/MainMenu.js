@@ -91,3 +91,19 @@ function reset(){
     planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
 }
+
+function movePlano(){
+
+    var coronal = document.querySelector('#coronal');
+    var sagital = document.querySelector('#sagital');
+    var axial =   document.querySelector('#axial');
+
+
+    coronal.setAttribute('position', '-1 0 -1');
+    sagital.setAttribute('position', '-0 0 -1');
+    axial.setAttribute('position', '1 0 -1');
+
+    sagital.setAttribute('rotation', '0 90 0');
+    axial.setAttribute('rotation', '90 0 0');
+
+}
