@@ -15,7 +15,8 @@ AFRAME.registerComponent('bbox', {
 //Volume component
 AFRAME.registerComponent('volume', {
     schema: {
-        volumePath: {type: 'string'}
+        volumePath: {type: 'string'},
+        volumeLoaded: {type: 'boolean', default: 'false'}
     },
     onLoad: function(volume){
         this.volume = volume;
@@ -79,8 +80,31 @@ AFRAME.registerComponent('volume', {
     init: function(){
         var data = this.data;
         ArrayDatos[3] = typeOfData(data.volumePath);
+        console.log(this.data.volumeLoaded)
+        this.eventHandlerFn = function () {
+            console.log("Prueba poderosa!!!"); 
+            console.log(this.el);
+            console.log(self.data.message); 
+        };
+
         var loader = new THREE.NRRDLoader();
-        loader.load(data.volumePath, this.onLoad);
+        //loader.load(data.volumePath, this.onLoad);
+        var self = this;
+        
+        var onLoad = function(volumeDataLoaded){
+            var el = document.querySelector('.volume');
+            el.volumeData = volumeDataLoaded;
+            el.setAttribute('volume', {volumeLoaded: 'true'});
+        };
+        loader.load(data.volumePath, onLoad);
+    },
+
+    update: function(oldData){
+        if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
+        {
+            alert("Se ha cargado el volumen");
+            this.onLoad(this.el.volumeData)
+        }            
     }
 });
 
