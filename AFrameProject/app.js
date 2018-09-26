@@ -104,6 +104,10 @@ AFRAME.registerComponent('volume', {
         {
             alert("Se ha cargado el volumen");
             this.onLoad(this.el.volumeData)
+            /** 
+             * Aqui podemos actualizar el escalado... De esta forma descartamos 
+             * el bounding box. Échale un ojo.
+            */
         }            
     }
 });
