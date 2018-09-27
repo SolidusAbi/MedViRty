@@ -79,7 +79,7 @@ AFRAME.registerComponent('volume', {
 
     init: function(){
         var data = this.data;
-        ArrayDatos[3] = typeOfData(data.volumePath);
+        ArrayDatos[3] = typeOfData(data.volumePath); // Esto está mal...
         console.log(this.data.volumeLoaded)
         this.eventHandlerFn = function () {
             console.log("Prueba poderosa!!!"); 
@@ -94,6 +94,7 @@ AFRAME.registerComponent('volume', {
         var onLoad = function(volumeDataLoaded){
             var el = document.querySelector('.volume');
             el.volumeData = volumeDataLoaded;
+            el.prueba = new Uint8Array(100)
             el.setAttribute('volume', {volumeLoaded: 'true'});
         };
         loader.load(data.volumePath, onLoad);
@@ -102,9 +103,11 @@ AFRAME.registerComponent('volume', {
     update: function(oldData){
         if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
         {
+            console.log(this.el)
             alert("Se ha cargado el volumen");
             this.onLoad(this.el.volumeData)
             /** 
+             * El this.onLoad es accesible, es posible acceder a la entiendad medoiante this.el
              * Aqui podemos actualizar el escalado... De esta forma descartamos 
              * el bounding box. Échale un ojo.
             */
@@ -137,5 +140,37 @@ AFRAME.registerComponent('slice', {
 
 });
 
+AFRAME.registerComponent('coronal-slice',{
+    schema: {
+        nSlice: {type: 'int'}
+    },
+    init: function(){
+        var volumeData = this.el.volumeData;
+        /** 
+         * Mi idea es almacenar la misma información pero con distinto orden,
+         * tratando de reducir los fallos de caché (Con las dimensiones que trabajamos
+         * puede que ganemos bastante ms).
+         */
+        this.stride = volumeData.dimensions[0]; //Width? Compruebalo!!
+        this.sliceSize = volumeData.dimensions[1] * volumeData.dimensions[2]
+        this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        
+        // rellenar el slices con la lógica de tu función selectDataCoronal, 
+        // si hay que transformar datos, hazlo aquí también. El array debe
+        // contener los valores de representación.
+    },
+
+    update: function(){
+        var idx = this.data.nSlice * this.stride;
+        //var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize))
+        //this.repaint(currentSlice)
+    },
+    
+    repaint: function(sliceData){
+        /**
+         * Aquí iría la lógica de pintar: mover mallado, crear texture...  
+         */
+    }
+});
 
 
