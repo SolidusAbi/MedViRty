@@ -87,6 +87,8 @@ AFRAME.registerComponent('volume', {
             console.log(self.data.message); 
         };
 
+        alert(this.update.toString());
+
         var loader = new THREE.NRRDLoader();
         //loader.load(data.volumePath, this.onLoad);
         var self = this;
@@ -112,6 +114,10 @@ AFRAME.registerComponent('volume', {
              * el bounding box. Échale un ojo.
             */
         }            
+    },
+
+    load: function(){
+    
     }
 });
 
@@ -154,14 +160,62 @@ AFRAME.registerComponent('coronal-slice',{
         this.stride = volumeData.dimensions[0]; //Width? Compruebalo!!
         this.sliceSize = volumeData.dimensions[1] * volumeData.dimensions[2]
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
-        
-        // rellenar el slices con la lógica de tu función selectDataCoronal, 
-        // si hay que transformar datos, hazlo aquí también. El array debe
-        // contener los valores de representación.
+
+        /**
+         * //Comprobar si está bien...
+         * //Esta operación hay que hacerla en un worker
+         * function workerFunction ()
+         * { 
+         *   var pixelStride = volumeData.dimenson[0] * volumeData.dimenson[1] 
+         *   for (var nSlice = 0; n < volumeData.dimensions[1]; n++)
+         *   {
+         *     var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
+         *     for (var row = 0; row < volumeData.dimensions[2]; row++ ) 
+         *     {
+         *        for (var col = 0; col < volumeData.dimenson[0]; col++ )
+         *        {
+         *            var pixel_idx = row * pixelStride + col;
+         *            pixelValue = volumeData.data[slice_idx + pixel_idx]
+         *            -- Si hay que transformar... llamar a la funcion oportune --
+         *        }
+         *     }
+         *   }
+         * };
+         * 
+         * //Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
+         * worker.postMessage({data: int8View, moreData: anotherBuffer}, [int8View.buffer, anotherBuffer]);
+         */
     },
 
     update: function(){
-        var idx = this.data.nSlice * this.stride;
+        var idx = this.data.nSlice * this.sliceSize;
+        //var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize))
+        //this.repaint(currentSlice)
+    },
+    
+    repaint: function(sliceData){
+        /**
+         * Aquí iría la lógica de pintar: mover mallado, crear texture...  
+         */
+    },
+});
+
+AFRAME.registerComponent('axial-slice',{
+    schema: {
+        nSlice: {type: 'int'}
+    },
+    init: function(){
+        var volumeData = this.el.volumeData;
+        
+        this.stride = volumeData.dimensions[0]*volumeData.dimensions[0]; //Width*Height
+        this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1]
+        this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        
+        //Los datos aquí mantiene el mismo orden que el volumen original
+    },
+
+    update: function(){
+        var idx = this.data.nSlice * this.sliceSize;
         //var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize))
         //this.repaint(currentSlice)
     },
@@ -172,5 +226,3 @@ AFRAME.registerComponent('coronal-slice',{
          */
     }
 });
-
-
