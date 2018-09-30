@@ -40,41 +40,49 @@ AFRAME.registerComponent('volume', {
         bBox.setAttribute('rotation', '0 0 0');
         volumenSelector.appendChild(bBox);
 
-        //Creación de las entidades de los planos ///
+        //Creación de las entidades de los planos 
         var entityEx = document.createElement('a-entity');
-        var entityEy = document.createElement('a-entity');
-        var entityEz = document.createElement('a-entity');
+//        var entityEy = document.createElement('a-entity');
+//        var entityEz = document.createElement('a-entity');
 
         //plano coronal
-        entityEx.setAttribute('id', 'coronal');
-        entityEx.setAttribute('class', 'plane');
-        entityEx.setAttribute('mixin', 'plane');
-        entityEx.setAttribute('rotation', '0 0 0');
-        entityEx.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 100});
+//        entityEx.setAttribute('id', 'coronal');
+//        entityEx.setAttribute('class', 'plane');
+//        entityEx.setAttribute('mixin', 'plane');
+//        entityEx.setAttribute('rotation', '0 0 0');
+//        entityEx.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength, paso: 1, sliceNum: 100});
         // entityEx.setAttribute('position', '5 0 2');
         // aframeScene.appendChild(entityEx);
-        bBox.appendChild(entityEx);
+//        bBox.appendChild(entityEx);
 
         // plano axial
-        entityEy.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 100});
-        entityEy.setAttribute('id', 'axial');
-        entityEy.setAttribute('class', 'plane');
-        entityEy.setAttribute('mixin', 'plane');
-        entityEy.setAttribute('rotation', '0 0 0');
+//        entityEy.setAttribute('slice',{depth: volume.zLength, width: volume.xLength, height: volume.yLength , paso: 2,  sliceNum: 100});
+//        entityEy.setAttribute('id', 'axial');
+//        entityEy.setAttribute('class', 'plane');
+//        entityEy.setAttribute('mixin', 'plane');
+//        entityEy.setAttribute('rotation', '0 0 0');
         // entityEy.setAttribute('position', '3 0 2');
         // aframeScene.appendChild(entityEy);
-        bBox.appendChild(entityEy);
+//        bBox.appendChild(entityEy);
 
 
         //  plano sagital
-        entityEz.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 100});
-        entityEz.setAttribute('id', "sagital");
-        entityEz.setAttribute('class', 'plane');
-        entityEz.setAttribute('mixin', 'plane');
-        entityEz.setAttribute('rotation', '0 0 0');
+//        entityEz.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: 100});
+//        entityEz.setAttribute('id', "sagital");
+//        entityEz.setAttribute('class', 'plane');
+//        entityEz.setAttribute('mixin', 'plane');
+//        entityEz.setAttribute('rotation', '0 0 0');
         // entityEz.setAttribute('position', '1 0 2');
         // aframeScene.appendChild(entityEz);
-        bBox.appendChild(entityEz);
+//        bBox.appendChild(entityEz);
+
+        /** 
+         * Se debe crear los Slices y enlazar con el entidad actual
+        */
+        var coronaLSlice = document.createElement('a-entity');
+        var nCoronalSlices = this.el.volumeData.dimensions[1];
+        coronaLSlice.setAttribute('coronal-slice',"1");
+        this.el.appendChild(coronaLSlice);
     },
 
     init: function(){
@@ -151,40 +159,52 @@ AFRAME.registerComponent('coronal-slice',{
         nSlice: {type: 'int'}
     },
     init: function(){
-        var volumeData = this.el.volumeData;
+        var volumeData = this.el.parentEl.volumeData;
+        
         /** 
          * Mi idea es almacenar la misma información pero con distinto orden,
          * tratando de reducir los fallos de caché (Con las dimensiones que trabajamos
          * puede que ganemos bastante ms).
          */
         this.stride = volumeData.dimensions[0]; //Width? Compruebalo!!
-        this.sliceSize = volumeData.dimensions[1] * volumeData.dimensions[2]
+        this.sliceSize = volumeData.dimensions[1] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        
+        // Falta comprobar si la función está bien...
+        var loadData = function loadData(volumeData)
+        {
+            var coronalSlicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+            var coronalSlicesIdx = 0;
+            var pixelStride = volumeData.dimenson[0] * volumeData.dimenson[1] 
+            for (var nSlice = 0; n < volumeData.dimensions[1]; n++)
+            {
+                var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
+                for (var row = 0; row < volumeData.dimensions[2]; row++ ) 
+                 {
+                    for (var col = 0; col < volumeData.dimenson[0]; col++ )
+                    {
+                        var pixel_idx = row * pixelStride + col;
+                        pixelValue = volumeData.data[slice_idx + pixel_idx]
+                        /** -- Si hay que transformar... llamar a la funcion oportuna -- */
+                        coronalSlicesData[coronalSlicesIdx++] = pixelValue;
+                    }
+                }
+            }
+            
+            return coronalSlicesData;
+        }; 
 
-        /**
-         * //Comprobar si está bien...
-         * //Esta operación hay que hacerla en un worker
-         * function workerFunction ()
-         * { 
-         *   var pixelStride = volumeData.dimenson[0] * volumeData.dimenson[1] 
-         *   for (var nSlice = 0; n < volumeData.dimensions[1]; n++)
-         *   {
-         *     var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
-         *     for (var row = 0; row < volumeData.dimensions[2]; row++ ) 
-         *     {
-         *        for (var col = 0; col < volumeData.dimenson[0]; col++ )
-         *        {
-         *            var pixel_idx = row * pixelStride + col;
-         *            pixelValue = volumeData.data[slice_idx + pixel_idx]
-         *            -- Si hay que transformar... llamar a la funcion oportune --
-         *        }
-         *     }
-         *   }
-         * };
-         * 
-         * //Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
-         * worker.postMessage({data: int8View, moreData: anotherBuffer}, [int8View.buffer, anotherBuffer]);
-         */
+        if(typeof(Worker) !== "undefined") {
+            //Crear el Worker y que haga el trabajo
+            
+            /**
+            * //Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
+            * worker.postMessage({data: int8View, moreData: anotherBuffer}, [int8View.buffer, anotherBuffer]);
+            */
+        } else {
+            //Pues... cargar los datos aqui mismo
+            this.slicesData = loadData(volumeData);
+        }    
     },
 
     update: function(){
@@ -205,7 +225,7 @@ AFRAME.registerComponent('axial-slice',{
         nSlice: {type: 'int'}
     },
     init: function(){
-        var volumeData = this.el.volumeData;
+        var volumeData = this.el.parentEl.volumeData;
         
         this.stride = volumeData.dimensions[0]*volumeData.dimensions[0]; //Width*Height
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1]
