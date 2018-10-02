@@ -95,8 +95,6 @@ AFRAME.registerComponent('volume', {
             console.log(self.data.message); 
         };
 
-        alert(this.update.toString());
-
         var loader = new THREE.NRRDLoader();
         //loader.load(data.volumePath, this.onLoad);
         var self = this;
@@ -113,10 +111,11 @@ AFRAME.registerComponent('volume', {
         if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
         {
             console.log(this.el.volumeData.data.buffer);
-            alert("Se ha cargado el volumen");
+            alert("Se ha cargado el volumen");  
+            
             this.onLoad(this.el.volumeData)
             /** 
-             * El this.onLoad es accesible, es posible acceder a la entiendad medoiante this.el
+             * El this.onLoad es accesible, es posible acceder a la entiendad mediante this.el
              * Aqui podemos actualizar el escalado... De esta forma descartamos 
              * el bounding box. Échale un ojo.
             */
@@ -196,26 +195,22 @@ AFRAME.registerComponent('coronal-slice',{
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
-                var slicesData = loadData(volume.data, volume.size);
-                var pruebaGuapa = new Uint8Array(volume.size.reduce( (a,b) => a * b ));
-                pruebaGuapa.fill(1);
-                console.log(volume.data);
-                console.log(volume.size);
+                var slicesData = loadData(volume.data, volume.dimensions);
                 self.postMessage(slicesData);
             });
 
             // -- Falta comprobar si la función está bien... -- 
-            function loadData(volumeData, volumeSize){
-                var coronalSlicesData = new Uint8Array( volumeSize.reduce( (a,b) => a * b ) );
+            function loadData(volumeData, volumeDimensions){
+                var coronalSlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
                 var coronalSlicesIdx = 0;
-                var sliceStride = volumeSize[0]
-                var pixelStride = volumeSize[0] * volumeSize[1] 
-                for (var nSlice = 0; nSlice < volumeSize[1]; nSlice++)
+                var sliceStride = volumeDimensions[0]
+                var pixelStride = volumeDimensions[0] * volumeDimensions[1] 
+                for (var nSlice = 0; nSlice < volumeDimensions[1]; nSlice++)
                 {
                     var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
-                    for (var row = 0; row < volumeSize[2]; row++ ) 
+                    for (var row = 0; row < volumeDimensions[2]; row++ ) 
                     {
-                        for (var col = 0; col < volumeSize[0]; col++ )
+                        for (var col = 0; col < volumeDimensions[0]; col++ )
                         {
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx]
@@ -240,7 +235,7 @@ AFRAME.registerComponent('coronal-slice',{
         * reducir los fallos de caché
         */
         this.worker.postMessage(
-            {data: volumeData.data, size: new Uint16Array(volumeData.dimensions)}
+            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions)}
         );
 
         /**
@@ -255,8 +250,12 @@ AFRAME.registerComponent('coronal-slice',{
     },
 
     dataLoaded: function(volumeData){
-        console.log("Me ha llegado el mensaje del WORKER!!");
+        /**
+         * Definir el comportamiento al cargar los datos...
+         */
         this.slicesData.set(volumeData);
+
+        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
         console.log(this.slicesData);
     }
 });
@@ -273,6 +272,7 @@ AFRAME.registerComponent('axial-slice',{
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         
         //Los datos aquí mantiene el mismo orden que el volumen original
+        //Usar workers? Creo que sí para si es necesario aplicar transformaciones a los datos
     },
 
     update: function(){
