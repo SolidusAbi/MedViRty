@@ -104,7 +104,6 @@ AFRAME.registerComponent('volume', {
         var onLoad = function(volumeDataLoaded){
             var el = document.querySelector('.volume');
             el.volumeData = volumeDataLoaded;
-            el.prueba = new Uint8Array(100)
             el.setAttribute('volume', {volumeLoaded: 'true'});
         };
         loader.load(data.volumePath, onLoad);
@@ -113,7 +112,7 @@ AFRAME.registerComponent('volume', {
     update: function(oldData){
         if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
         {
-            console.log(this.el)
+            console.log(this.el.volumeData.data.buffer);
             alert("Se ha cargado el volumen");
             this.onLoad(this.el.volumeData)
             /** 
@@ -170,41 +169,7 @@ AFRAME.registerComponent('coronal-slice',{
         this.sliceSize = volumeData.dimensions[1] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         
-        // Falta comprobar si la función está bien...
-        var loadData = function loadData(volumeData)
-        {
-            var coronalSlicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
-            var coronalSlicesIdx = 0;
-            var pixelStride = volumeData.dimenson[0] * volumeData.dimenson[1] 
-            for (var nSlice = 0; n < volumeData.dimensions[1]; n++)
-            {
-                var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
-                for (var row = 0; row < volumeData.dimensions[2]; row++ ) 
-                 {
-                    for (var col = 0; col < volumeData.dimenson[0]; col++ )
-                    {
-                        var pixel_idx = row * pixelStride + col;
-                        pixelValue = volumeData.data[slice_idx + pixel_idx]
-                        /** -- Si hay que transformar... llamar a la funcion oportuna -- */
-                        coronalSlicesData[coronalSlicesIdx++] = pixelValue;
-                    }
-                }
-            }
-            
-            return coronalSlicesData;
-        }; 
-
-        if(typeof(Worker) !== "undefined") {
-            //Crear el Worker y que haga el trabajo
-            
-            /**
-            * //Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
-            * worker.postMessage({data: int8View, moreData: anotherBuffer}, [int8View.buffer, anotherBuffer]);
-            */
-        } else {
-            //Pues... cargar los datos aqui mismo
-            this.slicesData = loadData(volumeData);
-        }    
+        this.loadData(volumeData);
     },
 
     update: function(){
@@ -218,6 +183,82 @@ AFRAME.registerComponent('coronal-slice',{
          * Aquí iría la lógica de pintar: mover mallado, crear texture...  
          */
     },
+
+    loadData: function(volumeData){
+        /**
+         * Gestionar aqui la carga de datos que será producida por el Worker.
+         * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
+         * y que se use el mismo objeto para todos los worker de alguna forma... Por
+         * ahora es exclusivo de este componente.
+         */
+        var loadDataWorker = function (volumeData)
+        {
+            self.addEventListener("message", function(e){
+                console.log("Soy el WORKER!!!")
+                var volume = e.data;
+                var slicesData = loadData(volume.data, volume.size);
+                var pruebaGuapa = new Uint8Array(volume.size.reduce( (a,b) => a * b ));
+                pruebaGuapa.fill(1);
+                console.log(volume.data);
+                console.log(volume.size);
+                self.postMessage(slicesData);
+            });
+
+            // -- Falta comprobar si la función está bien... -- 
+            function loadData(volumeData, volumeSize){
+                var coronalSlicesData = new Uint8Array( volumeSize.reduce( (a,b) => a * b ) );
+                var coronalSlicesIdx = 0;
+                var sliceStride = volumeSize[0]
+                var pixelStride = volumeSize[0] * volumeSize[1] 
+                for (var nSlice = 0; nSlice < volumeSize[1]; nSlice++)
+                {
+                    var slice_idx = nSlice * this.stride; //Indica el origen de cada slice
+                    for (var row = 0; row < volumeSize[2]; row++ ) 
+                    {
+                        for (var col = 0; col < volumeSize[0]; col++ )
+                        {
+                            var pixel_idx = row * pixelStride + col;
+                            pixelValue = volumeData[slice_idx + pixel_idx]
+                            /** -- Si hay que transformar... llamar a la funcion oportuna -- */
+                            coronalSlicesData[coronalSlicesIdx++] = pixelValue;
+                        }
+                    }
+                }
+                
+                return coronalSlicesData;
+            }
+        };
+
+        var blobURL = URL.createObjectURL(
+            new Blob(['(',loadDataWorker.toString(),')()' ], { type: 'application/javascript' } ) 
+        );
+
+        this.worker = new Worker(blobURL);
+        /**
+        * Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
+        * Este worker será encargado de preparar el volumen bien formateado para
+        * reducir los fallos de caché
+        */
+        this.worker.postMessage(
+            {data: volumeData.data, size: new Uint16Array(volumeData.dimensions)}
+        );
+
+        /**
+         * De esta forma, los eventos se hacen accesible a las funciones
+         * internas de un objeto
+         */
+        var self = this;
+        function messageEvent(e){ self.dataLoaded(e.data); }
+        this.worker.addEventListener("message", messageEvent);
+
+        URL.revokeObjectURL(blobURL);
+    },
+
+    dataLoaded: function(volumeData){
+        console.log("Me ha llegado el mensaje del WORKER!!");
+        this.slicesData.set(volumeData);
+        console.log(this.slicesData);
+    }
 });
 
 AFRAME.registerComponent('axial-slice',{
@@ -227,7 +268,7 @@ AFRAME.registerComponent('axial-slice',{
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
         
-        this.stride = volumeData.dimensions[0]*volumeData.dimensions[0]; //Width*Height
+        this.stride = volumeData.dimensions[0]*volumeData.dimensions[1]; //Width*Height
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1]
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         
