@@ -88,48 +88,19 @@ AFRAME.registerComponent('volume', {
 
     init: function(){
         var data = this.data;
-        ArrayDatos[3] = typeOfData(data.volumePath); // Esto está mal...
-        console.log(this.data.volumeLoaded)
-        this.eventHandlerFn = function () {
-            console.log("Prueba poderosa!!!"); 
-            console.log(this.el);
-            console.log(self.data.message); 
-        };
+        ArrayDatos[3] = typeOfData(data.volumePath); // Esto está mal...)
 
         var loader = new THREE.NRRDLoader();
         //loader.load(data.volumePath, this.onLoad);
         var self = this;
         var onLoad = function(volumeDataLoaded){
-            console.log("Voy a comprobar que accedo al componente:");
-            console.log(self);
             //var el = document.querySelector('.volume');
             //self.el.volumeData = volumeDataLoaded;
             //el.setAttribute('volume', {volumeLoaded: 'true'});
-
+            alert("Se ha cargado el volumen");
             self.onLoad(volumeDataLoaded);
         };
         loader.load(data.volumePath, onLoad);
-    },
-
-    /** A Borrar!!! */
-    update: function(oldData){
-        if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
-        {
-            console.log(this.el.volumeData.data.buffer);
-            alert("Se ha cargado el volumen");  
-            
-            this.onLoad(this.el.volumeData)
-            /** 
-             * El this.onLoad es accesible, es posible acceder a la entiendad mediante this.el
-             * Aqui podemos actualizar el escalado... De esta forma descartamos 
-             * el bounding box. Échale un ojo.
-            */
-        }
-    },
-
-
-    load: function(){
-    
     }
 });
 
