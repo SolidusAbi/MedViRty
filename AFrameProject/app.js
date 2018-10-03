@@ -16,12 +16,13 @@ AFRAME.registerComponent('bbox', {
 AFRAME.registerComponent('volume', {
     schema: {
         volumePath: {type: 'string'},
-        volumeLoaded: {type: 'boolean', default: 'false'}
     },
     onLoad: function(volume){
         this.volume = volume;
         generalDataVolume = volume.data;
 
+        //Guardar datos en la entidad
+        this.el.volumeData = volume; //*Nuevo
 
         // Se conecta el componente volumen con su etiqueta HTML //
         var volumenSelector = document.querySelector('#volumenCompleto');
@@ -98,15 +99,19 @@ AFRAME.registerComponent('volume', {
         var loader = new THREE.NRRDLoader();
         //loader.load(data.volumePath, this.onLoad);
         var self = this;
-        
         var onLoad = function(volumeDataLoaded){
-            var el = document.querySelector('.volume');
-            el.volumeData = volumeDataLoaded;
-            el.setAttribute('volume', {volumeLoaded: 'true'});
+            console.log("Voy a comprobar que accedo al componente:");
+            console.log(self);
+            //var el = document.querySelector('.volume');
+            //self.el.volumeData = volumeDataLoaded;
+            //el.setAttribute('volume', {volumeLoaded: 'true'});
+
+            self.onLoad(volumeDataLoaded);
         };
         loader.load(data.volumePath, onLoad);
     },
 
+    /** A Borrar!!! */
     update: function(oldData){
         if ((oldData.volumePath === this.data.volumePath) & this.data.volumeLoaded)
         {
@@ -119,8 +124,9 @@ AFRAME.registerComponent('volume', {
              * Aqui podemos actualizar el escalado... De esta forma descartamos 
              * el bounding box. Échale un ojo.
             */
-        }            
+        }
     },
+
 
     load: function(){
     
@@ -257,6 +263,9 @@ AFRAME.registerComponent('coronal-slice',{
 
         console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
         console.log(this.slicesData);
+
+        //Eliminar el worker que ya no voy a usar
+        this.worker = null;
     }
 });
 
