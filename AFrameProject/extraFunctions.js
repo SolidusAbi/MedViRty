@@ -58,8 +58,8 @@ function movSlicer(movement, object){
         entityEx.setAttribute('position', pos);
         bBox.appendChild(entityEx);
         return entityEx;
-
     }
+
     if(object.getAttribute('id') == 'axial') {
 
         var pos = object.getAttribute('position');
@@ -78,7 +78,7 @@ function movSlicer(movement, object){
         entityEy.setAttribute('position', pos);
         bBox.appendChild(entityEy);
         return entityEy;
-
+    }
         if(object.getAttribute('id') == 'coronal') {
             var pos = object.getAttribute('position');
             var bBox = document.querySelector('#bbox');
@@ -88,8 +88,6 @@ function movSlicer(movement, object){
             form = Math.trunc( form );
             console.log(form);
 
-
-        }
 
     }
     if(object.getAttribute('id') == 'coronal') {
@@ -111,4 +109,5 @@ function movSlicer(movement, object){
         bBox.appendChild(entityEz);
         return entityEz;
     }
+
 }
