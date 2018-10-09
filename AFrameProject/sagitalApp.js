@@ -51,7 +51,7 @@ AFRAME.registerComponent('sagital-slice',{
                 var SlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
                 var SlicesIdx = 0;
 
-                var sliceStride = volumeDimensions[2];
+                var sliceStride = volumeDimensions[0];
                 var pixelStride = volumeDimensions[0] * volumeDimensions[2] ;
 
 
