@@ -8,6 +8,11 @@
 
   <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 
+  <link rel="stylesheet" href="pag/css/bootstrap.css">
+  <link rel="stylesheet" href="pag/css/style.css">
+
+  <script src="pag/extractVar.js"></script>
+
   <script src="axis.js"></script>
   <script src="NRRDLoader.js"></script>
   <script src="Volume.js"></script>
@@ -67,37 +72,6 @@
     <a-entity id="lhand" mixin="controller-left">   <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
   </a-entity>
 
-
-  <!--CREACION DEL CUBO-->
-
-  <!--<a-assets id="paredfrontal" position="0 0 0">-->
-  <!--<img  id="a" src="assets/models/cubeDesign/FOTO!!!.jpg">-->
-  <!--</a-assets>-->
-
-  <!--<a-assets id="suelo" position="0 0 0">-->
-  <!--<img  id="b" src="assets/models/cubeDesign/baldosa.jpg">-->
-  <!--</a-assets>-->
-
-  <!--<a-assets id="paredes" position="0 0 0">-->
-  <!--<img  id="c" src="assets/models/cubeDesign/pared.jpg">-->
-  <!--</a-assets>-->
-
-  <!--<a-assets id="techo" position="0 0 0">-->
-  <!--<img  id="d" src="assets/models/cubeDesign/techo.jpg">-->
-  <!--</a-assets>-->
-
-  <!--<a-asset-item id="mesa" src="assets/models/worldObjects/objetomesa.gltf"></a-asset-item>-->
-  <!--<a-entity id="Prueba" onPressed() position=" 0 0 0 " geometry="primitive: box; width: 0.33; height: 0.33; depth: 0.33" material="color: green"></a-entity>-->
-
-  <!--<a-plane src="#a" rotation="0 0 0" width="6000" height="4000" position="0 0 -3000" static-body></a-plane>-->
-  <!--<a-plane src="#b" rotation="-90 0 0" width="6000" height="6000" position="0 -1700 0" repeat="10 10" static-body></a-plane>-->
-  <!--<a-plane src="#c" rotation="-180 0 0" width="6000" height="4000" position="0 0 3000" static-body></a-plane>-->
-  <!--<a-plane src="#c" rotation="0 90 0" width="6000" height="4000" position="-3000 0 0 " static-body>  </a-plane>-->
-  <!--<a-plane src="#c" rotation="0 -90 0" width="6000" height="4000" position="3000 0 0" static-body></a-plane>-->
-
-
-  <!--<a-entity gltf-model="#mesa" position="0 -10 0" static-body></a-entity>-->
-
 <!--Menu de opciones de nuestro programa-->
 
   <a-box position="10 -4 -10" id="boxMenu" class="menu" color="#05A8AA" width="5" height="5" depth= "5" onclick="exploreMenu(this)" side="double" >
@@ -126,7 +100,23 @@
   </a-box>
 
   <!--<a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>-->
-  <a-entity class="volume" id="volumenCompleto" volume="volumePath: data/MRBrainTumor1.nrrd" log="event: anEvent; message: Testing!"></a-entity>
+  <a-entity class="volume" id="volumenCompleto"></a-entity>
+
+  <script>
+      // var aframeScene = document.querySelector('a-scene');
+      // console.log(aframeScene);
+
+      if(SelectExample() == '1'){
+        document.querySelector('#volumenCompleto').setAttribute('volume', {volumePath: "data/CTChest.nrrd"});  
+        document.querySelector('#volumenCompleto').setAttribute('type', 'CT'); 
+      }else if(SelectExample() == '2'){
+        document.querySelector('#volumenCompleto').setAttribute('volume', {volumePath: "data/MRBrainTumor1.nrrd"});
+        document.querySelector('#volumenCompleto').setAttribute('type', 'MRI'); 
+      }else{
+        console.log("Se ha seleccionado una opción no contenida en el programa");
+      }
+
+  </script>
 
 </a-scene>
 </body>

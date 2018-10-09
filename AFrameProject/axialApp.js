@@ -25,6 +25,7 @@ AFRAME.registerComponent('axial-slice',{
         texture.needsUpdate = true;
         var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
         var mesh = new THREE.Mesh(geometry, material);
+     //   rotateObject(mesh ,-90,0,0);
         this.el.setObject3D('mesh', mesh);
     },
 
@@ -74,7 +75,7 @@ AFRAME.registerComponent('axial-slice',{
 
     getCurrentSlice: function(){
         //var idx = this.data.nSlice * this.sliceSize;
-        var idx = 50 * this.sliceSize;
+        var idx = 70 * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
     }

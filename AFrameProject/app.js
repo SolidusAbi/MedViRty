@@ -13,18 +13,21 @@ AFRAME.registerComponent('volume', {
 
          var coronaLSlice = document.createElement('a-entity');
          coronaLSlice.setAttribute('position', '0 0 -2');
+
         // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
          coronaLSlice.setAttribute('coronal-slice',"1");
          this.el.appendChild(coronaLSlice);
 
        var AxialSlice = document.createElement('a-entity');
        AxialSlice.setAttribute('position', '2 0 -2');
+     //  AxialSlice.setAttribute('position', '0 0 -2');
        AxialSlice.setAttribute('axial-slice',"1");
        AxialSlice.setAttribute('id', 'axial');
        this.el.appendChild(AxialSlice);
 
        var SagitalSlice = document.createElement('a-entity');
        SagitalSlice.setAttribute('position', '-2 0 -2');
+     //  SagitalSlice.setAttribute('position', '0 0 -2');
        SagitalSlice.setAttribute('sagital-slice',"1");
         SagitalSlice.setAttribute('id', 'sagital');
        this.el.appendChild(SagitalSlice);
@@ -34,12 +37,8 @@ AFRAME.registerComponent('volume', {
         var data = this.data;
 
         var loader = new THREE.NRRDLoader();
-        //loader.load(data.volumePath, this.onLoad);
         var self = this;
         var onLoad = function(volumeDataLoaded){
-            //var el = document.querySelector('.volume');
-            //self.el.volumeData = volumeDataLoaded;
-            //el.setAttribute('volume', {volumeLoaded: 'true'});
             alert("Se ha cargado el volumen");
             self.onLoad(volumeDataLoaded);
         };

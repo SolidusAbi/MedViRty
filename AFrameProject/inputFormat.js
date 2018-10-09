@@ -27,9 +27,3 @@ AFRAME.registerComponent('log', {
         }
     }
 });
-
-
-function typeOfData( data ){
-    var d = data.substr(5,2);
-    return d;
-}

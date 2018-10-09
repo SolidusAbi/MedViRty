@@ -4,6 +4,8 @@ AFRAME.registerComponent('coronal-slice',{
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
+        var volumeType = this.el.parentEl.attributes.type.value;
+      //  En volumen type se guarda el tipo de nrrd que se esta metiendo en el ejemplo. 
 
         /** 
          * Mi idea es almacenar la misma información pero con distinto orden,
@@ -13,6 +15,7 @@ AFRAME.registerComponent('coronal-slice',{
 
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        this.type = volumeType;
 
         this.loadData(volumeData);
     },
@@ -41,12 +44,11 @@ AFRAME.registerComponent('coronal-slice',{
          * ahora es exclusivo de este componente.
          */
 
-        var loadDataWorker = function (volumeData)
+        var loadDataWorker = function (volumeData, volumeType)
         {
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
-            //    console.log(this.el.parentEl.id);
 
                 var slicesData = loadDataCoronal(volume.data, volume.dimensions);
                 self.postMessage(slicesData);
@@ -64,17 +66,20 @@ AFRAME.registerComponent('coronal-slice',{
                 for (var nSlice = 0; nSlice < volumeDimensions[1]; nSlice++)
                 {
                     var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
-                    for (var row = 0; row < volumeDimensions[2]; row++ ) 
+                    for (var row = 0; row < volumeDimensions[2] ; row++ ) 
                     {
                         for (var col = 0; col < volumeDimensions[0]; col++ )
                         {
-                            var pixel_idx = row * pixelStride + col;
+                            var pixel_idx = row * pixelStride + col ;
                             pixelValue = volumeData[slice_idx + pixel_idx];
                             /** -- Si hay que transformar... llamar a la funcion oportuna -- */
-                            coronalSlicesData[coronalSlicesIdx++] = pixelValue;
+
+                               // coronalSlicesData[coronalSlicesIdx++] = (pixelValue + 1000)*255/3000;
+                               
+                                coronalSlicesData[coronalSlicesIdx++] = pixelValue;
+                            }
                         }
                     }
-                }
                 return coronalSlicesData;
             }
 
@@ -124,7 +129,7 @@ AFRAME.registerComponent('coronal-slice',{
 
     getCurrentSlice: function(){
         //var idx = this.data.nSlice * this.sliceSize;
-        var idx = 125 * this.sliceSize;
+        var idx = 70 * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
     }

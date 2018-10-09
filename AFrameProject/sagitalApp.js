@@ -12,7 +12,7 @@ AFRAME.registerComponent('sagital-slice',{
 
     update: function(){
         var idx = this.data.nSlice * this.sliceSize;
-        var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
+       // var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
         this.repaint(this.getCurrentSlice());
     },
     
@@ -23,6 +23,7 @@ AFRAME.registerComponent('sagital-slice',{
         texture.needsUpdate = true;
         var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
         var mesh = new THREE.Mesh(geometry, material);
+       // rotateObject(mesh ,0,-90,0);
         this.el.setObject3D('mesh', mesh);
     },
 

@@ -1,0 +1,46 @@
+html.body{
+    height: 100%;
+}
+
+img{
+    max-width: 100%;
+}
+
+#cover{
+    background: url(../imagePag/fondo.jpg) center center no-repeat;
+    background-size: cover;
+    color: white;
+    height: center;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    padding: 5rem;
+}
+
+#cover-texto{
+    width: 100%;
+
+}
+
+#cover-texto .form-inline{
+    padding: 0rem;
+}
+
+#Acercade{
+    background: url(../imagePag/fondo.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.texto-acerca-de{
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.875rem;
+}
+
+.contenido-seccion{
+    padding: 5rem 0;
+}
+
+.card-img-top{
+    height: 70%;
+}
