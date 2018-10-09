@@ -14,7 +14,7 @@ AFRAME.registerComponent('volume', {
         var coronalSlice = document.createElement('a-entity');
         coronalSlice.setAttribute('position', '0 0 0');
         coronalSlice.setAttribute('id', 'coronal');
-        coronalSlice.setAttribute('coronal-slice', "1");
+        coronalSlice.setAttribute('coronal-slice', {nSlice: '70'});
         coronalSlice.setAttribute('mixin', 'plane');
         coronalSlice.setAttribute('rotation', '0 0 0');
         coronalSlice.setAttribute('dynamic-body', '');
