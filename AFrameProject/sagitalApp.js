@@ -4,8 +4,11 @@ AFRAME.registerComponent('sagital-slice',{
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
+        var volumeType = this.el.parentEl.attributes.type.value;
+
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        this.type = volumeType;
 
         this.loadData(volumeData);
     },
@@ -27,7 +30,7 @@ AFRAME.registerComponent('sagital-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData){
+    loadData: function(volumeData, volumeType){
         /**
          * Gestionar aqui la carga de datos que será producida por el Worker.
          * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
@@ -35,18 +38,18 @@ AFRAME.registerComponent('sagital-slice',{
          * ahora es exclusivo de este componente.
          */
 
-        var loadDataWorker = function (volumeData)
+        var loadDataWorker = function (volumeData, volumeType)
         {
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
               //  console.log(this.el.parentEl.id);
 
-                var slicesData = loadDataSagital(volume.data, volume.dimensions);
+                var slicesData = loadDataSagital(volume.data, volume.dimensions, volume.type);
                 self.postMessage(slicesData);
             });
 
-            function loadDataSagital(volumeData, volumeDimensions){
+            function loadDataSagital(volumeData, volumeDimensions, volumeType){
 
                 var SlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
                 var SlicesIdx = 0;
@@ -64,8 +67,13 @@ AFRAME.registerComponent('sagital-slice',{
                         {
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx];
+                            
                             /** -- Si hay que transformar... llamar a la funcion oportuna -- */
-                            SlicesData[SlicesIdx++] = pixelValue;
+                            if (volumeType == 'CT') {
+                                SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                            } else {
+                                SlicesData[SlicesIdx++] = pixelValue;
+                            }
                         }
                     }
                 }

@@ -1,17 +1,18 @@
-
 AFRAME.registerComponent('axial-slice',{
     schema: {
         nSlice: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
+        var volumeType = this.el.parentEl.attributes.type.value;
+
+
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
+        this.type = volumeType;
 
-        console.log(volumeData.dimensions[0] + " " +
-            volumeData.dimensions[1] + " " + volumeData.dimensions[2]  )
 
-        this.loadData(volumeData);
+        this.loadData(volumeData, volumeType);
     },
 
     update: function(){
@@ -29,15 +30,33 @@ AFRAME.registerComponent('axial-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData){
-        var loadDataWorker = function (volumeData)
+    loadData: function(volumeData, volumeType){
+
+        var loadDataWorker = function (volumeData , volumeType)
         {
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
-                var slicesData = volume.data;
+                if(volume.type == 'CT'){
+                    var slicesData = loadDataAxial(volume.data, volume.dimensions);
+                }else{
+                    var slicesData = volume.data;
+                }
                 self.postMessage(slicesData);
             });
+
+            function loadDataAxial(volumeData, volumeDimensions) {
+
+                var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
+                var SlicesIdx = 0;
+
+                for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
+                    SlicesData[SlicesIdx++] = (volumeData[pixel]+1000)*255/3000;
+                }
+
+                return SlicesData;
+            }
+
         };
 
         var blobURL = URL.createObjectURL(
@@ -47,7 +66,7 @@ AFRAME.registerComponent('axial-slice',{
         this.worker = new Worker(blobURL);
 
         this.worker.postMessage(
-            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions)}
+            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType}
         );
         
         var self = this;

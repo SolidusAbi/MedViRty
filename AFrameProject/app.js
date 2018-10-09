@@ -13,7 +13,7 @@ AFRAME.registerComponent('volume', {
 
          var coronaLSlice = document.createElement('a-entity');
          coronaLSlice.setAttribute('position', '0 0 -2');
-
+         coronaLSlice.setAttribute('id', 'coronal');
         // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
          coronaLSlice.setAttribute('coronal-slice',"1");
          this.el.appendChild(coronaLSlice);
