@@ -862,7 +862,6 @@ var time;
                 var v = new THREE.Vector3();
 
 
-
                 return function () {
                     var entityPosition;
 
@@ -879,6 +878,8 @@ var time;
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
                             entityPosition = this.el.getAttribute('position');
+                            console.log(entityPosition);
+                            console.log("ESTO ES EL ENTITY POSITION");
 
                             var comp = comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
                             var time2 = Date.now() - time;

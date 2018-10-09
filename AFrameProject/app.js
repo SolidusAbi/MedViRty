@@ -11,26 +11,38 @@ AFRAME.registerComponent('volume', {
          * Se debe crear los Slices y enlazar con el entidad actual
         */
 
-         var coronaLSlice = document.createElement('a-entity');
-         coronaLSlice.setAttribute('position', '0 0 -2');
-         coronaLSlice.setAttribute('id', 'coronal');
-        // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
-         coronaLSlice.setAttribute('coronal-slice',"1");
-         this.el.appendChild(coronaLSlice);
+        var coronalSlice = document.createElement('a-entity');
+        coronalSlice.setAttribute('position', '0 0 0');
+        coronalSlice.setAttribute('id', 'coronal');
+        coronalSlice.setAttribute('coronal-slice', "1");
+        coronalSlice.setAttribute('mixin', 'plane');
+        coronalSlice.setAttribute('rotation', '0 0 0');
+        coronalSlice.setAttribute('dynamic-body', '');
+        coronalSlice.setAttribute('class', 'plane');
+        this.el.appendChild(coronalSlice);
+         // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
 
-       var AxialSlice = document.createElement('a-entity');
-       AxialSlice.setAttribute('position', '2 0 -2');
-     //  AxialSlice.setAttribute('position', '0 0 -2');
-       AxialSlice.setAttribute('axial-slice',"1");
-       AxialSlice.setAttribute('id', 'axial');
-       this.el.appendChild(AxialSlice);
+        var AxialSlice = document.createElement('a-entity');
+        //    AxialSlice.setAttribute('position', '2 0 -2');
+        AxialSlice.setAttribute('position', '0 0 0');
+        AxialSlice.setAttribute('axial-slice', "1");
+        AxialSlice.setAttribute('id', 'axial');
+        AxialSlice.setAttribute('mixin', 'plane');
+        AxialSlice.setAttribute('rotation', '0 0 0');
+        AxialSlice.setAttribute('dynamic-body', '');
+        AxialSlice.setAttribute('class', 'plane');
+        this.el.appendChild(AxialSlice);
 
-       var SagitalSlice = document.createElement('a-entity');
-       SagitalSlice.setAttribute('position', '-2 0 -2');
-     //  SagitalSlice.setAttribute('position', '0 0 -2');
-       SagitalSlice.setAttribute('sagital-slice',"1");
+        var SagitalSlice = document.createElement('a-entity');
+        //   SagitalSlice.setAttribute('position', '-2 0 -2');
+        SagitalSlice.setAttribute('position', '0 0 0');
+        SagitalSlice.setAttribute('sagital-slice', "1");
         SagitalSlice.setAttribute('id', 'sagital');
-       this.el.appendChild(SagitalSlice);
+        SagitalSlice.setAttribute('mixin', 'plane');
+        SagitalSlice.setAttribute('rotation', '0 0 0');
+        SagitalSlice.setAttribute('dynamic-body', '');
+        SagitalSlice.setAttribute('class', 'plane');
+        this.el.appendChild(SagitalSlice);
     },
 
     init: function(){

@@ -1,8 +1,5 @@
 function comprobar(posAct, element, destPosition , deltaPosition) {
 
-    var bboix = document.querySelector('#bbox');
-  //  console.log(bboix.getAttribute('position'));
-
     if (element.getAttribute('id') == 'sagital') {
         if ((posAct.x - deltaPosition.x) >= -0.5 && (posAct.x - deltaPosition.x) <= 0.5) {
             destPosition.x = posAct.x - deltaPosition.x * 1;
@@ -13,6 +10,9 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
         }
         return 1;
     } else if (element.getAttribute('id') == 'coronal') {
+
+        console.log(posAct.z - deltaPosition.z >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5);
+
         if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                destPosition.z = posAct.z - deltaPosition.z * 1;
                var cont1 = posAct.z - deltaPosition.z;
@@ -35,79 +35,46 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
         element.setAttribute('position', destPosition);
         return 0;
     }
-    return 0;
 }
 
 
-function movSlicer(movement, object){
+function movSlicer(movement, object) {
 
-    if(object == 'sagital') {
-        var form = (movement + 0.5) / 0.001953;
-        form = Math.trunc( form );
+    if (object.getAttribute('id') == 'sagital') {
 
-        var pos = object.getAttribute('position');
-        var bBox = document.querySelector('#bbox');
-        bBox.removeChild(object);
+        var newSlice = (movement + 0.5) / 0.001953;
+        newSlice = Math.trunc(newSlice);
 
-        var entityEx = document.createElement('a-entity');
-        entityEx.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 3,  sliceNum: form});
-        entityEx.setAttribute('id', "sagital");
-        entityEx.setAttribute('class', 'plane');
-        entityEx.setAttribute('mixin', 'plane');
-        entityEx.setAttribute('rotation', '0 0 0');
-        entityEx.setAttribute('position', pos);
-        bBox.appendChild(entityEx);
-        return entityEx;
+        console.log(document.querySelector('#'+ object.getAttribute('id')));
+
+      //  var newPosSlicer = object.getAttribute('position');
+        
+     //   document.querySelector('#'+ object.getAttribute('id')).update(newSlice);
+     object.update;
     }
 
-    if(object.getAttribute('id') == 'axial') {
+    if (object.getAttribute('id') == 'axial') {
 
-        var pos = object.getAttribute('position');
-        var bBox = document.querySelector('#bbox');
-        bBox.removeChild(object);
-
-        var form = (movement + 0.5) / 0.001953;
-        form = Math.trunc( form );
-
-        var entityEy = document.createElement('a-entity');
-        entityEy.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 2,  sliceNum: form});
-        entityEy.setAttribute('id', "axial");
-        entityEy.setAttribute('class', 'plane');
-        entityEy.setAttribute('mixin', 'plane');
-        entityEy.setAttribute('rotation', '0 0 0');
-        entityEy.setAttribute('position', pos);
-        bBox.appendChild(entityEy);
-        return entityEy;
+        var newSlice = (movement + 0.5) / 0.001953;
+        newSlice = Math.trunc(newSlice);
+        
+        console.log(document.querySelector('#'+ object.getAttribute('id')));
+        object.update;
+      //  document.querySelector('#'+ object.getAttribute('id')).update(newSlice);
     }
-        if(object.getAttribute('id') == 'coronal') {
-            var pos = object.getAttribute('position');
-            var bBox = document.querySelector('#bbox');
-            bBox.removeChild(object);
+    if (object.getAttribute('id') == 'coronal') {
 
-            var form = (movement + 0.5) / 0.001953;
-            form = Math.trunc( form );
-            console.log(form);
+   //     var newPosSlicer = object.update;
 
+        var newSlice = (movement + 0.5) / 0.001953;
+        newSlice = Math.trunc(newSlice);
+        
+        console.log(document.querySelector('#'+ object.getAttribute('id')));
 
-    }
-    if(object.getAttribute('id') == 'coronal') {
-        var pos = object.getAttribute('position');
-        var bBox = document.querySelector('#bbox');
-        bBox.removeChild(object);
+        object.update;
 
-        var form = (movement + 0.5) / 0.001953;
-        form = Math.trunc( form );
-        console.log(form);
+      //  document.querySelector('#'+ object.getAttribute('id')).update(newSlice);
 
-        var entityEz = document.createElement('a-entity');
-        entityEz.setAttribute('slice',{depth: volume.zLength, width: volume.yLength, height: volume.xLength, paso: 1,  sliceNum: form});
-        entityEz.setAttribute('id', "coronal");
-        entityEz.setAttribute('class', 'plane');
-        entityEz.setAttribute('mixin', 'plane');
-        entityEz.setAttribute('rotation', '0 0 0');
-        entityEz.setAttribute('position', pos);
-        bBox.appendChild(entityEz);
-        return entityEz;
     }
 
 }

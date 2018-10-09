@@ -20,10 +20,11 @@ AFRAME.registerComponent('coronal-slice',{
         this.loadData(volumeData, volumeType);
     },
 
-    update: function(){
+    update: function(newSlice){
+        console.log("AQUI ESTOY ACTUALIZANDO");
         // var idx = this.data.nSlice * this.sliceSize;
         // var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
-        this.repaint(this.getCurrentSlice());
+        this.repaint(this.getCurrentSlice(newSlice));
     },
     
     repaint: function(sliceData){
@@ -120,15 +121,15 @@ AFRAME.registerComponent('coronal-slice',{
         console.log(this.slicesData);
 
 
-        this.repaint(this.getCurrentSlice());
+        this.repaint(this.getCurrentSlice(70));
 
         //Eliminar el worker que ya no voy a usar
         this.worker = null;
     },
 
-    getCurrentSlice: function(){
+    getCurrentSlice: function(newSlice){
         //var idx = this.data.nSlice * this.sliceSize;
-        var idx = 70 * this.sliceSize;
+        var idx = newSlice * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
     }
