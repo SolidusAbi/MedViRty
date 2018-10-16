@@ -12,7 +12,7 @@ AFRAME.registerComponent('coronal-slice',{
          * tratando de reducir los fallos de caché (Con las dimensiones que trabajamos
          * puede que ganemos bastante ms).
          */
-
+       
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
@@ -21,7 +21,6 @@ AFRAME.registerComponent('coronal-slice',{
     },
 
     update: function(){
-        console.log("AQUI ESTOY ACTUALIZANDO");
         // var idx = this.data.nSlice * this.sliceSize;
         // var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
         this.repaint(this.getCurrentSlice());
@@ -72,7 +71,7 @@ AFRAME.registerComponent('coronal-slice',{
                             pixelValue = volumeData[slice_idx + pixel_idx];
 
                             if (volumeType == 'CT') {
-                                SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                                 SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
                                 SlicesData[SlicesIdx++] = pixelValue;
                             }
@@ -129,7 +128,7 @@ AFRAME.registerComponent('coronal-slice',{
 
     getCurrentSlice: function(){
         //var idx = this.data.nSlice * this.sliceSize;
-        alert(this.data.nSlice);
+        
         var idx = this.data.nSlice * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;

@@ -6,7 +6,8 @@ AFRAME.registerComponent('volume', {
     onLoad: function(volume){
 
         //Guardar datos en la entidad
-        this.el.volumeData = volume; //*Nuevo
+        this.el.volumeData = volume; 
+        
         /** 
          * Se debe crear los Slices y enlazar con el entidad actual
         */
@@ -19,6 +20,7 @@ AFRAME.registerComponent('volume', {
         coronalSlice.setAttribute('rotation', '0 0 0');
         coronalSlice.setAttribute('dynamic-body', '');
         coronalSlice.setAttribute('class', 'plane');
+        coronalSlice.setAttribute('nSlices', '256');  /* AQUI VA LA DIMENSION DEL PADRE*/
         this.el.appendChild(coronalSlice);
          // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
 

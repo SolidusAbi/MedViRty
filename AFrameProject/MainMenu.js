@@ -38,7 +38,9 @@ function exploreMenu(){
 }
 
 function rotateVolume(){
-    var boxM = document.querySelector('#bbox');
+
+
+    var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('rotation');
 
     aux1.x= aux1.x +45;
@@ -50,7 +52,7 @@ function rotateVolume(){
 
 function bigVolume(){
 
-    var boxM = document.querySelector('#bbox');
+    var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('scale');
 
     aux1.x= aux1.x +10;
@@ -62,7 +64,7 @@ function bigVolume(){
 
 function smallVolume(){
 
-    var boxM = document.querySelector('#bbox');
+    var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('scale');
 
     aux1.x= aux1.x -10;
@@ -74,7 +76,7 @@ function smallVolume(){
 
 function reset(){
 
-    var boxM = document.querySelector('#bbox');
+    var boxM = document.querySelector('#volumenCompleto');
     boxM.setAttribute('scale',{x: 100 ,y: 100 ,z: 100});
     boxM.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     boxM.setAttribute('position',{x: 0, y: 0 ,z: -100});
@@ -99,11 +101,11 @@ function movePlano(){
     var axial =   document.querySelector('#axial');
 
 
-    coronal.setAttribute('position', '-1 0 -1');
-    sagital.setAttribute('position', '-0 0 -1');
-    axial.setAttribute('position', '1 0 -1');
+    coronal.setAttribute('position', '-2 0 -1');
+    sagital.setAttribute('position', '0 0 -1');
+    axial.setAttribute('position', '2 0 -1');
 
     sagital.setAttribute('rotation', '0 90 0');
     axial.setAttribute('rotation', '90 0 0');
-
+    
 }

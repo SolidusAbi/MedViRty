@@ -37,6 +37,7 @@ AFRAME.registerComponent('axial-slice',{
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
+
                 if(volume.type == 'CT'){
                     var slicesData = loadDataAxial(volume.data, volume.dimensions);
                 }else{
@@ -94,7 +95,7 @@ AFRAME.registerComponent('axial-slice',{
 
     getCurrentSlice: function(){
         //var idx = this.data.nSlice * this.sliceSize;
-        var idx = 70 * this.sliceSize;
+        var idx =  this.data.nSlice * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
     }

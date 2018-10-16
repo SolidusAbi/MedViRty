@@ -870,7 +870,6 @@ var time;
                     }
 
                     if (this.grabber) {
-                        time = Date.now();
                         // reflect on z-axis to point in same direction as the laser
                         this.targetPosition.copy(this.grabDirection);
                         this.targetPosition.applyQuaternion(this.grabber.object3D.getWorldQuaternion(q)).setLength(this.grabDistance).add(this.grabber.object3D.getWorldPosition(v)).add(this.grabOffset);
@@ -878,12 +877,7 @@ var time;
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
                             entityPosition = this.el.getAttribute('position');
-                            console.log(entityPosition);
-                            console.log("ESTO ES EL ENTITY POSITION");
-
                             var comp = comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
-                            var time2 = Date.now() - time;
-                            console.log(time2);
                             movSlicer(comp, this.el);
 
                             /*

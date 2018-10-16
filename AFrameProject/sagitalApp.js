@@ -126,7 +126,7 @@ AFRAME.registerComponent('sagital-slice',{
 
     getCurrentSlice: function(){
         //var idx = this.data.nSlice * this.sliceSize;
-        var idx = 125 * this.sliceSize;
+        var idx =  this.data.nSlice * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
     }
