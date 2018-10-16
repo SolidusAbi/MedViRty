@@ -19,7 +19,7 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
         }
         return 1;
     } else if (element.getAttribute('id') == 'axial') {
-        if ((posAct.y - deltaPosition.y) >= -1 && (posAct.y - deltaPosition.y) <= 1) {
+        if ((posAct.y - deltaPosition.y) >= -0.5 && (posAct.y - deltaPosition.y) <= 0.5) {
             destPosition.y = posAct.y - deltaPosition.y * 1;
             var cont1 = posAct.y - deltaPosition.y;
             element.setAttribute('position', destPosition);
@@ -42,7 +42,7 @@ function movSlicer(movement, object) {
 
     if (object.getAttribute('id') == 'sagital') {
 
-        var newSlice = (movement + 1) / (1/ object.getAttribute('nSlices'));
+        var newSlice = (movement + 0.5) / (1/ object.getAttribute('nSlices'));
         newSlice = Math.trunc(newSlice);
 
              
@@ -54,7 +54,7 @@ function movSlicer(movement, object) {
 
     if (object.getAttribute('id') == 'axial') {
 
-        var newSlice = (movement + 0.5) / 0.001953;
+        var newSlice = (movement + 0.5) / (1/ object.getAttribute('nSlices'));
         newSlice = Math.trunc(newSlice);
         
         
@@ -62,20 +62,16 @@ function movSlicer(movement, object) {
         object.setAttribute('axial-slice', {nSlice: newSlice});
         
     }
+
     if (object.getAttribute('id') == 'coronal') {
 
-
-   //     var newPosSlicer = object.update;
-
-        var newSlice = (movement + 0.5) / 0.001953;
+        var newSlice = (movement + 0.5) / (1/ object.getAttribute('nSlices'));
         newSlice = Math.trunc(newSlice);
         
-        
+    
         var a = document.getElementById('coronal');
         object.setAttribute('coronal-slice', {nSlice: newSlice});
         
-
-      
 
     }
 

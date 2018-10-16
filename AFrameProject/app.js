@@ -7,6 +7,7 @@ AFRAME.registerComponent('volume', {
 
         //Guardar datos en la entidad
         this.el.volumeData = volume; 
+        console.log(this.el.volumeData);
         
         /** 
          * Se debe crear los Slices y enlazar con el entidad actual
@@ -33,6 +34,7 @@ AFRAME.registerComponent('volume', {
         AxialSlice.setAttribute('rotation', '0 0 0');
         AxialSlice.setAttribute('dynamic-body', '');
         AxialSlice.setAttribute('class', 'plane');
+        AxialSlice.setAttribute('nSlices', '112');
         this.el.appendChild(AxialSlice);
 
         var SagitalSlice = document.createElement('a-entity');
@@ -44,6 +46,7 @@ AFRAME.registerComponent('volume', {
         SagitalSlice.setAttribute('rotation', '0 0 0');
         SagitalSlice.setAttribute('dynamic-body', '');
         SagitalSlice.setAttribute('class', 'plane');
+        SagitalSlice.setAttribute('nSlices', '256');
         this.el.appendChild(SagitalSlice);
     },
 
