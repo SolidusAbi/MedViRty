@@ -63,7 +63,7 @@
 
   <!-- CREACION DE LA CAMARA PRINCIPAL -->
 
-  <a-camera position="0 0 0" axis></a-camera>
+  <a-camera position="0 0 0" axis  id="camera"></a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
 
@@ -102,13 +102,15 @@
   <!--<a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>-->
   <a-entity class="volume" id="volumenCompleto"></a-entity>
 
+
   <script>
       // var aframeScene = document.querySelector('a-scene');
       // console.log(aframeScene);
 
     document.querySelector('#volumenCompleto').setAttribute('dinamic-body', ''); 
-    document.querySelector('#volumenCompleto').setAttribute('position', {x: 0 , y : 0 , z: -600}); 
-    document.querySelector('#volumenCompleto').setAttribute('scale', {x: 512 , y : 512 , z: 139}); 
+    document.querySelector('#volumenCompleto').setAttribute('stretchable', ''); 
+    document.querySelector('#volumenCompleto').setAttribute('position', {x: 0 , y : 0 , z: -19}); 
+    document.querySelector('#volumenCompleto').setAttribute('scale', {x: 16 , y : 16 , z: 5}); 
 
       if(SelectExample() == '1'){
         document.querySelector('#volumenCompleto').setAttribute('volume', {volumePath: "data/CTChest.nrrd"});  
@@ -119,7 +121,8 @@
       }else{
         console.log("Se ha seleccionado una opción no contenida en el programa");
       }
-
+      
+      
   </script>
 
 </a-scene>

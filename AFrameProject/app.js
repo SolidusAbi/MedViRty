@@ -28,7 +28,7 @@ AFRAME.registerComponent('volume', {
         var AxialSlice = document.createElement('a-entity');
         //    AxialSlice.setAttribute('position', '2 0 -2');
         AxialSlice.setAttribute('position', '0 0 0');
-        AxialSlice.setAttribute('axial-slice', "1");
+        AxialSlice.setAttribute('axial-slice',  {nSlice: '70'});
         AxialSlice.setAttribute('id', 'axial');
         AxialSlice.setAttribute('mixin', 'plane');
         AxialSlice.setAttribute('rotation', '0 0 0');
@@ -40,7 +40,7 @@ AFRAME.registerComponent('volume', {
         var SagitalSlice = document.createElement('a-entity');
         //   SagitalSlice.setAttribute('position', '-2 0 -2');
         SagitalSlice.setAttribute('position', '0 0 0');
-        SagitalSlice.setAttribute('sagital-slice', "1");
+        SagitalSlice.setAttribute('sagital-slice',  {nSlice: '70'});
         SagitalSlice.setAttribute('id', 'sagital');
         SagitalSlice.setAttribute('mixin', 'plane');
         SagitalSlice.setAttribute('rotation', '0 0 0');

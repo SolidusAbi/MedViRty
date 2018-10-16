@@ -39,15 +39,15 @@ function exploreMenu(){
 
 function rotateVolume(){
 
-
     var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('rotation');
 
-    aux1.x= aux1.x +45;
-    aux1.y= aux1.y +45;
-    aux1.z= aux1.z +45;
+    aux1.x= aux1.x +40;
+    aux1.y= aux1.y +40;
+    aux1.z= aux1.z +40;
 
     boxM.setAttribute('rotation',{x: aux1.x ,y: aux1.y ,z: aux1.z});
+    rotateVolume();
 }
 
 function bigVolume(){
@@ -111,11 +111,9 @@ function movePlano(){
     sagital.setAttribute('P', 'lineal');
     axial.setAttribute('P', 'lineal');
 
-
-
-    coronal.setAttribute('position', '-2 0 -1');
-    sagital.setAttribute('position', '0 0 -1');
-    axial.setAttribute('position', '2 0 -1');
+    coronal.setAttribute('position', '-2 0 0');
+    sagital.setAttribute('position', '0 0 0');
+    axial.setAttribute('position', '2 0 0');
 
     sagital.setAttribute('rotation', '0 90 0');
     axial.setAttribute('rotation', '90 0 0');

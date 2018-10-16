@@ -863,6 +863,9 @@ var time;
 
 
                 return function () {
+
+                    /*SE HAN REALIZADO MODIFICACIONES AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
+                    
                     var entityPosition;
 
                     if (this.stretched) {
@@ -880,11 +883,6 @@ var time;
                             var comp = comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
                             movSlicer(comp, this.el);
 
-                            /*
-                            this.destPosition.x = entityPosition.x - this.deltaPosition.x * this.xFactor;
-                            this.destPosition.y = entityPosition.y - this.deltaPosition.y * this.yFactor;
-                            this.destPosition.z = entityPosition.z - this.deltaPosition.z * this.zFactor;
-                            this.el.setAttribute('position', this.destPosition);*/
                         } else {
                             this.deltaPositionIsValid = true;
                         }
