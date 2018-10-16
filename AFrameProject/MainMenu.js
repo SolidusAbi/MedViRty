@@ -92,6 +92,10 @@ function reset(){
     planoSagital.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
+
+    coronal.setAttribute('P', 'normal');
+    sagital.setAttribute('P', 'normal');
+    axial.setAttribute('P', 'normal');
 }
 
 function movePlano(){
@@ -99,6 +103,14 @@ function movePlano(){
     var coronal = document.querySelector('#coronal');
     var sagital = document.querySelector('#sagital');
     var axial =   document.querySelector('#axial');
+
+
+    /* ESTO HAY QUE PONERLE UN NOMBRE SIGNIFICATIVO */
+
+    coronal.setAttribute('P', 'lineal');
+    sagital.setAttribute('P', 'lineal');
+    axial.setAttribute('P', 'lineal');
+
 
 
     coronal.setAttribute('position', '-2 0 -1');

@@ -7,7 +7,7 @@ AFRAME.registerComponent('volume', {
 
         //Guardar datos en la entidad
         this.el.volumeData = volume; 
-        console.log(this.el.volumeData);
+     
         
         /** 
          * Se debe crear los Slices y enlazar con el entidad actual
@@ -21,9 +21,9 @@ AFRAME.registerComponent('volume', {
         coronalSlice.setAttribute('rotation', '0 0 0');
         coronalSlice.setAttribute('dynamic-body', '');
         coronalSlice.setAttribute('class', 'plane');
-        coronalSlice.setAttribute('nSlices', '256');  /* AQUI VA LA DIMENSION DEL PADRE*/
+        coronalSlice.setAttribute('nSlices', this.el.volumeData.dimensions[0]);  
         this.el.appendChild(coronalSlice);
-         // var nCoronalSlices = this.el.volumeData.dimensions[1];  Esto puede hacer falta para comprobaciones posteriores
+         
 
         var AxialSlice = document.createElement('a-entity');
         //    AxialSlice.setAttribute('position', '2 0 -2');
@@ -34,7 +34,7 @@ AFRAME.registerComponent('volume', {
         AxialSlice.setAttribute('rotation', '0 0 0');
         AxialSlice.setAttribute('dynamic-body', '');
         AxialSlice.setAttribute('class', 'plane');
-        AxialSlice.setAttribute('nSlices', '112');
+        AxialSlice.setAttribute('nSlices', this.el.volumeData.dimensions[2]);
         this.el.appendChild(AxialSlice);
 
         var SagitalSlice = document.createElement('a-entity');
@@ -46,7 +46,7 @@ AFRAME.registerComponent('volume', {
         SagitalSlice.setAttribute('rotation', '0 0 0');
         SagitalSlice.setAttribute('dynamic-body', '');
         SagitalSlice.setAttribute('class', 'plane');
-        SagitalSlice.setAttribute('nSlices', '256');
+        SagitalSlice.setAttribute('nSlices', this.el.volumeData.dimensions[1]);
         this.el.appendChild(SagitalSlice);
     },
 

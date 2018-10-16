@@ -1,7 +1,14 @@
 function comprobar(posAct, element, destPosition , deltaPosition) {
 
     if (element.getAttribute('id') == 'sagital') {
-        if ((posAct.x - deltaPosition.x) >= -0.5 && (posAct.x - deltaPosition.x) <= 0.5) {
+        if(element.getAttribute('P') == "lineal"){
+            if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
+                destPosition.z = posAct.z - deltaPosition.z * 1;
+                var cont1 = posAct.z - deltaPosition.z;
+                element.setAttribute('position', destPosition);
+                return cont1;
+            }
+        }else if ((posAct.x - deltaPosition.x) >= -0.5 && (posAct.x - deltaPosition.x) <= 0.5) {
             destPosition.x = posAct.x - deltaPosition.x * 1;
             var cont1 = posAct.x - deltaPosition.x;
             element.setAttribute('position', destPosition);
@@ -19,7 +26,15 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
         }
         return 1;
     } else if (element.getAttribute('id') == 'axial') {
-        if ((posAct.y - deltaPosition.y) >= -0.5 && (posAct.y - deltaPosition.y) <= 0.5) {
+
+        if(element.getAttribute('P') == "lineal"){
+            if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
+                destPosition.z = posAct.z - deltaPosition.z * 1;
+                var cont1 = posAct.z - deltaPosition.z;
+                element.setAttribute('position', destPosition);
+                return cont1;
+            }
+        } else if ((posAct.y - deltaPosition.y) >= -0.5 && (posAct.y - deltaPosition.y) <= 0.5) {
             destPosition.y = posAct.y - deltaPosition.y * 1;
             var cont1 = posAct.y - deltaPosition.y;
             element.setAttribute('position', destPosition);
@@ -37,8 +52,6 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
 
 
 function movSlicer(movement, object) {
-
-    console.log(object);
 
     if (object.getAttribute('id') == 'sagital') {
 
