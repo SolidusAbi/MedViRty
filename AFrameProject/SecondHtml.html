@@ -63,7 +63,22 @@
 
   <!-- CREACION DE LA CAMARA PRINCIPAL -->
 
-  <a-camera position="0 0 0" axis  id="camera"></a-camera>
+  <a-camera position="0 0 0" axis  id="camera">
+
+      <a-circle position="8 -13 -22" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
+      </a-circle>
+      <a-circle position="5 -13 -22" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
+      </a-circle>
+      <a-circle position="2 -13 -22" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 10; value: Disminuir.; color: black; align:center;"visible="true">
+      </a-circle>
+      <a-circle position="-2 -13 -22" class="menu" id="movPlane" color="#93C174" onclick="movePlano(this)" side="double" text="width: 10; value: Planos 2D.; color: black; align:center;"visible="true">
+      </a-circle>
+      <a-circle position="-5 -13 -22" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
+      </a-circle>
+      <a-circle position="-8 -13 -22" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
+      </a-circle>
+  
+  </a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
 
@@ -74,30 +89,7 @@
 
 <!--Menu de opciones de nuestro programa-->
 
-  <a-box position="10 -4 -10" id="boxMenu" class="menu" color="#05A8AA" width="5" height="5" depth= "5" onclick="exploreMenu(this)" side="double" >
 
-    <a-sphere position="0 5 0" class="menu" id="rotate" color="#8FD694" onclick="rotateVolume(this)" side="double" text="width: 6; value: Rotar.; color: black; align:center;" visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 13 0" dur="1000" begin="fade"></a-animation>
-      <a-animation attribute="position" from="0 13 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
-    </a-sphere>
-    <a-sphere position="0 7 0" class="menu" id="big" color="#A1E44D" onclick="bigVolume(this)" side="double" text="value: Agrandar.; color: black; " visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 4 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 4 0" to="0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
-    </a-sphere>
-    <a-sphere position="0 9 0" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 6; value: Disminuir.; color: black; align:center;"visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 7 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 7 0" to=" 0 0 0" dur="3000" begin="loose" visible="false"></a-animation>
-    </a-sphere>
-    <a-sphere position="0 15 0" class="menu" id="movPlane" color="red" onclick="movePlano(this)" side="double" visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 15 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 15 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
-    </a-sphere>
-    <a-sphere position="0 11 0" class="menu" id="reset" color="#557F5A" onclick="reset(this)" side="double" text="width: 6; value: Reset.; color: black; align:center;"visible="false">
-      <a-animation attribute="position" from="0 0 0" to="0 11 0" begin="fade" dur="1000"></a-animation>
-      <a-animation attribute="position" from="0 11 0" to="0 0 -0" dur="3000" begin="loose" visible="false"></a-animation>
-    </a-sphere>
-
-  </a-box>
 
   <!--<a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>-->
   <a-entity class="volume" id="volumenCompleto"></a-entity>

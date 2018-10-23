@@ -1,41 +1,3 @@
-function exploreMenu(){
-
-    var reset = document.querySelector('#reset');
-    var rot = document.querySelector('#rotate');
-    var big = document.querySelector('#big');
-    var sm = document.querySelector('#small');
-    var tt = document.querySelector('#movPlane');
-
-    if( document.querySelector('#boxMenu').getAttribute('color') == '#05A8AA' ){
-
-        reset.setAttribute('visible', 'true');
-        document.querySelector('#reset').emit('fade');
-
-        rot.setAttribute('visible', 'true');
-        document.querySelector('#rotate').emit('fade');
-
-        big.setAttribute('visible', 'true');
-        document.querySelector('#big').emit('fade');
-
-        sm.setAttribute('visible', 'true');
-        document.querySelector('#small').emit('fade');
-
-        tt.setAttribute('visible', 'true');
-        document.querySelector('#movPlane').emit('fade');
-
-        document.querySelector('#boxMenu').setAttribute('color', '#0daa2d');
-
-    }else{
-
-        document.querySelector('#reset').emit('loose');
-        document.querySelector('#rotate').emit('loose');
-        document.querySelector('#big').emit('loose');
-        document.querySelector('#small').emit('loose');
-        document.querySelector('#movPlane').emit('loose');
-
-        document.querySelector('#boxMenu').setAttribute('color', '#05A8AA');
-    }
-}
 
 function rotateVolume(){
 
@@ -118,4 +80,12 @@ function movePlano(){
     sagital.setAttribute('rotation', '0 90 0');
     axial.setAttribute('rotation', '90 0 0');
     
+}
+
+function back(){
+
+    /* DO CODE HERE: 
+        - Pantalla de seguro que quiere salir
+        - Vuelves a la pag web
+    */
 }
