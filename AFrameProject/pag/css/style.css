@@ -7,7 +7,8 @@ img{
 }
 
 #cover{
-    background: url(../imagePag/fondo.jpg) center center no-repeat;
+  /*  background: url(../imagePag/fondo.jpg) center center no-repeat;*/
+    background-color: #336666  ;
     background-size: cover;
     color: white;
     height: center;
@@ -27,7 +28,7 @@ img{
 }
 
 #Acercade{
-    background: url(../imagePag/fondo.jpg) center center no-repeat;
+    background: #336666  center center no-repeat;
     background-size: cover;
 }
 
@@ -44,3 +45,7 @@ img{
 .card-img-top{
     height: 70%;
 }
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #009999 !important;
+}
+

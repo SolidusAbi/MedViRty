@@ -83,9 +83,13 @@ function movePlano(){
 }
 
 function back(){
+    
+    if(confirm("como se ve esto en 3D") == true){
+        document.location.href='index.html';
+    }
 
     /* DO CODE HERE: 
-        - Pantalla de seguro que quiere salir
+        - Pantalla de seguro que quiere salir ( que ocurran las cosas bien)
         - Vuelves a la pag web
     */
 }
