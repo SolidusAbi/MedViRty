@@ -57,11 +57,10 @@ AFRAME.registerComponent('sagital-slice',{
                 var sliceStride = volumeDimensions[0];
                 var pixelStride = volumeDimensions[0] * volumeDimensions[2] ;
 
-
-                for (var nSlice = 0; nSlice < volumeDimensions[1]; nSlice++)
+                for (var nSlice = 0; nSlice < volumeDimensions[2] * volumeDimensions[1] * volumeDimensions[0]; nSlice++)
                 {
                     var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
-                    for (var row = 0; row < volumeDimensions[2]; row++ ) 
+                    for (var row = 0; row < volumeDimensions[2] ; row++ ) 
                     {
                         for (var col = 0; col < volumeDimensions[0]; col++ )
                         {

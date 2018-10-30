@@ -57,9 +57,9 @@ function reset(){
     planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
 
-    coronal.setAttribute('P', 'normal');
-    sagital.setAttribute('P', 'normal');
-    axial.setAttribute('P', 'normal');
+    coronal.setAttribute('LinearOrNormalPlane', 'normal');
+    sagital.setAttribute('LinearOrNormalPlane', 'normal');
+    axial.setAttribute('LinearOrNormalPlane', 'normal');
 }
 
 function movePlano(){
@@ -69,11 +69,9 @@ function movePlano(){
     var axial =   document.querySelector('#axial');
 
 
-    /* ESTO HAY QUE PONERLE UN NOMBRE SIGNIFICATIVO */
-
-    coronal.setAttribute('P', 'lineal');
-    sagital.setAttribute('P', 'lineal');
-    axial.setAttribute('P', 'lineal');
+    coronal.setAttribute('LinearOrNormalPlane', 'lineal');
+    sagital.setAttribute('LinearOrNormalPlane', 'lineal');
+    axial.setAttribute('LinearOrNormalPlane', 'lineal');
 
     coronal.setAttribute('position', '-2 0 0');
     sagital.setAttribute('position', '0 0 0');
@@ -90,39 +88,38 @@ function back(){
     var planoSeguro = document.createElement('a-entity');
     planoSeguro.setAttribute('geometry', 'primitive: plane; height: 5; width: 5 ');
     planoSeguro.setAttribute('material', 'color: white');
-    buttonAcept.setAttribute('text', '¿Seguro que quiere salir?');
-    planoSeguro.setAttribute('position', {x: 0 , y: 0 , z: -5});
+    planoSeguro.setAttribute('text', 'value: "¿Seguro que quiere salir?"');
+    planoSeguro.setAttribute('position', {x: 0 , y: 0 , z: -6});
     planoSeguro.setAttribute('clickable', ''); 
   //  planoSeguro.setAttribute('onClick', "document.location.href='index.html'");
   //  planoSeguro.setAttribute('dynamic-body', '');
  //   planoSeguro.setAttribute('class', 'plane');
     aframeScene.appendChild(planoSeguro);
 
-    // var buttonAcept = document.createElement('a-entity');
-    // buttonAcept.setAttribute('geometry', 'primitive: plane; height: 5; width: 5');
-    // planoSeguro.setAttribute('material', 'color: white');
-    // buttonAcept.setAttribute('position' , {x:-1 , y:0 , z:-5});
-    // buttonAcept.setAttribute('onClick', "document.location.href='index.html'");
-    // buttonAcept.setAttribute('text', 'Aceptar');
-    // planoSeguro.setAttribute('clickable', ''); 
-    // planoSeguro.setAttribute('dynamic-body', '');
-    // planoSeguro.setAttribute('class', 'plane');
-    // planoSeguro.appendChild(buttonAcept);
+    var buttonAcept = document.createElement('a-entity');
+    buttonAcept.setAttribute('geometry', 'primitive: plane; height: 2; width: 2');
+    buttonAcept.setAttribute('material', 'color: red');
+    buttonAcept.setAttribute('position' , {x:-1 , y:0 , z:0.1});
+    buttonAcept.setAttribute('onClick', "document.location.href='index.html'");
+    buttonAcept.setAttribute('text', 'Aceptar');
+    buttonAcept.setAttribute('clickable', ''); 
+    buttonAcept.setAttribute('dynamic-body', '');
+    buttonAcept.setAttribute('class', 'plane');
+    planoSeguro.appendChild(buttonAcept);
+
+    var buttonCancel = document.createElement('a-entity');
+    buttonCancel.setAttribute('geometry', 'primitive: plane; height: 2; width: 2');
+    buttonCancel.setAttribute('material', 'color: blue');
+    buttonCancel.setAttribute('position' , {x:1 , y:0 , z:0.1});
+    buttonCancel.setAttribute('onClick', "document.location.href='index.html'");
+    buttonCancel.setAttribute('text', 'Aceptar');
+    buttonCancel.setAttribute('clickable', ''); 
+    buttonCancel.setAttribute('dynamic-body', '');
+    buttonCancel.setAttribute('class', 'plane');
+    planoSeguro.appendChild(buttonCancel);
     
 
-    // var buttonCancel = document.createElement('a-entity');
-    // buttonCancel.setAttribute('position' , {x:-3 , y:0 , z:0});
-    // buttonCancel.setAttribute('text', 'vamoaquedarnos');
-    // buttonCancel.setAttribute('onClick', 'document.parentNode.removeChild(planoSeguro)');
-    // planoSeguro.appendChild(buttonCancel);
-
-    // var geometry = new THREE.PlaneGeometry(1,  1);
-    // var texture = new THREE.DataTexture(planoSeguro, 500 , 500 , THREE.LuminanceFormat);
-    // texture.needsUpdate = true;
-    // var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
-    // var mesh = new THREE.Mesh(geometry, material);
-    // this.el.setObject3D('mesh', mesh);
-    
+ 
 
     // if(confirm("¿seguro que quiere salir?") == true){
     //     document.location.href='index.html';

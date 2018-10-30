@@ -1,7 +1,7 @@
 function comprobar(posAct, element, destPosition , deltaPosition) {
 
     if (element.getAttribute('id') == 'sagital') {
-        if(element.getAttribute('P') == "lineal"){
+        if(element.getAttribute('LinearOrNormalPlane') == "lineal"){
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                 destPosition.z = posAct.z - deltaPosition.z * 1;
                 destPosition.x = posAct.x;
@@ -25,7 +25,7 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
     
     
     else if (element.getAttribute('id') == 'coronal') {
-        if(element.getAttribute('P') == "lineal"){
+        if(element.getAttribute('LinearOrNormalPlane') == "lineal"){
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                 destPosition.z = posAct.z - deltaPosition.z * 1;
                 destPosition.x = posAct.x;
@@ -50,7 +50,7 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
     
     
     else if (element.getAttribute('id') == 'axial') {
-        if(element.getAttribute('P') == "lineal"){
+        if(element.getAttribute('LinearOrNormalPlane') == "lineal"){
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
