@@ -551,6 +551,8 @@ var time;
                 this.el.removeEventListener(this.UNCLICK_EVENT, this.end);
             },
             start: function (evt) {
+
+                console.log("clicado")
                 if (evt.defaultPrevented || !this.startButtonOk(evt)) {
                     return;
                 }
@@ -876,6 +878,7 @@ var time;
                         // reflect on z-axis to point in same direction as the laser
                         this.targetPosition.copy(this.grabDirection);
                         this.targetPosition.applyQuaternion(this.grabber.object3D.getWorldQuaternion(q)).setLength(this.grabDistance).add(this.grabber.object3D.getWorldPosition(v)).add(this.grabOffset);
+                       // console.log(q)
                         if (this.deltaPositionIsValid) {
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
@@ -951,6 +954,8 @@ var time;
                     raycaster = this.grabber.getAttribute('raycaster');
                     this.deltaPositionIsValid = false;
                     this.grabDistance = this.el.object3D.getWorldPosition(objPos).distanceTo(this.grabber.object3D.getWorldPosition(grabPos));
+                    // console.log(this.el.object3D.getWorldPosition(objPos));
+                    // console.log(this.grabber.object3D.getWorldPosition(grabPos));
                     if (raycaster) {
                         this.grabDirection = raycaster.direction;
                         this.grabOffset = raycaster.origin;

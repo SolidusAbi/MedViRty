@@ -65,17 +65,17 @@
 
   <a-camera position="0 0 0" axis  id="camera">
 
-      <a-circle position="8 -13 -22" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
+      <a-circle position="-3 -10 -30"  radius="1" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
       </a-circle>
-      <a-circle position="5 -13 -22" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
+      <a-circle position="-1 -10 -30"  radius="1" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
       </a-circle>
-      <a-circle position="2 -13 -22" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 10; value: Disminuir.; color: black; align:center;"visible="true">
+      <a-circle position="1 -10 -30"  radius="1" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 10; value: Disminuir.; color: black; align:center;"visible="true">
       </a-circle>
-      <a-circle position="-2 -13 -22" class="menu" id="movPlane" color="#93C174" onclick="movePlano(this)" side="double" text="width: 10; value: Planos 2D.; color: black; align:center;"visible="true">
+      <a-circle position="3 -10 -30"  radius="1" class="menu" id="movPlane" color="#93C174" onclick="movePlano(this)" side="double" text="width: 10; value: Planos 2D.; color: black; align:center;"visible="true">
       </a-circle>
-      <a-circle position="-5 -13 -22" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
+      <a-circle position="-5 -10 -30"  radius="1" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
       </a-circle>
-      <a-circle position="-8 -13 -22" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
+      <a-circle position="5 -10 -30"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
       </a-circle>
   
   </a-camera>
@@ -118,5 +118,9 @@
   </script>
 
 </a-scene>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="pag/bootstrap.js"></script>
 </body>
 </html>
