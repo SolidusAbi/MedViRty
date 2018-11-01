@@ -47,7 +47,7 @@
              dynamic-body ></a-mixin>
 
 
-    <a-mixin id="pointer" raycaster="showLine: true; objects: .plane,.menu"
+    <a-mixin id="pointer" raycaster="showLine: true; objects: .plane,.menu,.cube"
              super-hands="colliderEvent: raycaster-intersection;
                                colliderEventProperty: els;
                                colliderEndEvent:raycaster-intersection-cleared;
@@ -67,7 +67,7 @@
 
   <a-camera position="0 0 0" axis  id="camera">
 
-      <a-circle position="-3 -10 -30"  radius="1" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
+      <!--<a-circle position="-3 -10 -30"  radius="1" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
       </a-circle>
       <a-circle position="-1 -10 -30"  radius="1" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
       </a-circle>
@@ -78,8 +78,7 @@
       <a-circle position="-5 -10 -30"  radius="1" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
       </a-circle>
       <a-circle position="5 -10 -30"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
-      </a-circle>
-  
+      </a-circle>-->
   </a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
@@ -90,9 +89,10 @@
   </a-entity>
 
 <!--Menu de opciones de nuestro programa-->
-
-
-
+  <!--<a-entity id="test_parent" scale="10 10 10" position="100 100 -100"> 
+    <a-box id="test_cube"class="cube" position="0 0 -10" color="tomato" depth="4" height="4" width="4" mixin="plane" dynamic-body=""></a-box>
+  </a-entity>-->
+  
   <!--<a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>-->
   <a-entity class="volume" id="volumenCompleto"></a-entity>
 
@@ -118,7 +118,6 @@
       
       
   </script>
-
 </a-scene>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

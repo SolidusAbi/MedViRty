@@ -1,9 +1,13 @@
-function comprobar(posAct, element, destPosition , deltaPosition) {
+function comprobar(element, destPosition , deltaPosition) {
+    posAct = element.getAttribute('position')
+    translateFactor = 1;
+    if (element.parentEl)
+        translateFactor = element.parentEl.object3D.getWorldScale(); 
 
     if (element.getAttribute('id') == 'sagital') {
         if(element.getAttribute('LinearOrNormalPlane') == "lineal"){
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
-                destPosition.z = posAct.z - deltaPosition.z * 1;
+                destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
 
@@ -12,7 +16,7 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
                 return cont1;
             }
         }else if ((posAct.x - deltaPosition.x) >= -0.5 && (posAct.x - deltaPosition.x) <= 0.5) {
-            destPosition.x = posAct.x - deltaPosition.x * 1;
+            destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
             destPosition.y = posAct.y;
             destPosition.z = posAct.z;
             var cont1 = posAct.x - deltaPosition.x;
@@ -20,14 +24,13 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
             return cont1;
         }
         return 1;
-    
     }
     
     
     else if (element.getAttribute('id') == 'coronal') {
         if(element.getAttribute('LinearOrNormalPlane') == "lineal"){
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
-                destPosition.z = posAct.z - deltaPosition.z * 1;
+                destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
 
@@ -38,7 +41,7 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
             
         }else if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                console.log(posAct);
-               destPosition.z = posAct.z - deltaPosition.z * 1;
+               destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
                destPosition.y = posAct.y;
                destPosition.x = posAct.x;
                var cont1 = posAct.z - deltaPosition.z;
@@ -54,13 +57,13 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
             if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
-                destPosition.z = posAct.z - deltaPosition.z * 1;
+                destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
                 var cont1 = posAct.z - deltaPosition.z;
                 element.setAttribute('position', destPosition);
                 return cont1;
             }
         } else if ((posAct.y - deltaPosition.y) >= -0.5 && (posAct.y - deltaPosition.y) <= 0.5) {
-            destPosition.y = posAct.y - deltaPosition.y * 1;
+            destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
             destPosition.x = posAct.x;
             destPosition.z = posAct.z;
             var cont1 = posAct.y - deltaPosition.y;
@@ -71,9 +74,10 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
 
         
     } else {
-        destPosition.x = posAct.x - deltaPosition.x * 1;
-        destPosition.y = posAct.y - deltaPosition.y * 1;
-        destPosition.z = posAct.z - deltaPosition.z * 1;
+        parentScale = element.parentEl.object3D.getWorldScale();
+        destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
+        destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
+        destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
         element.setAttribute('position', destPosition);
         return 0;
     }

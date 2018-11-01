@@ -865,8 +865,9 @@ var time;
 
 
                 return function () {
-
+                    /*****************************************************************************************/
                     /*SE HAN REALIZADO MODIFICACIONES AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
+                    /*****************************************************************************************/
                     
                     var entityPosition;
 
@@ -882,10 +883,8 @@ var time;
                         if (this.deltaPositionIsValid) {
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
-                            entityPosition = this.el.getAttribute('position');
-                            var comp = comprobar(entityPosition, this.el , this.destPosition , this.deltaPosition, this.xFactor );
+                            var comp = comprobar(this.el , this.destPosition , this.deltaPosition );
                             movSlicer(comp, this.el);
-
                         } else {
                             this.deltaPositionIsValid = true;
                         }
@@ -954,8 +953,6 @@ var time;
                     raycaster = this.grabber.getAttribute('raycaster');
                     this.deltaPositionIsValid = false;
                     this.grabDistance = this.el.object3D.getWorldPosition(objPos).distanceTo(this.grabber.object3D.getWorldPosition(grabPos));
-                    // console.log(this.el.object3D.getWorldPosition(objPos));
-                    // console.log(this.grabber.object3D.getWorldPosition(grabPos));
                     if (raycaster) {
                         this.grabDirection = raycaster.direction;
                         this.grabOffset = raycaster.origin;
