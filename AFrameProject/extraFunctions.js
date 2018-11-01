@@ -11,7 +11,7 @@ function comprobar(element, destPosition , deltaPosition) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
 
-                var cont1 = posAct.z - deltaPosition.z;
+                var cont1 = posAct.z - deltaPosition.z / translateFactor.z;
                 element.setAttribute('position', destPosition);
                 return cont1;
             }
@@ -19,7 +19,7 @@ function comprobar(element, destPosition , deltaPosition) {
             destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
             destPosition.y = posAct.y;
             destPosition.z = posAct.z;
-            var cont1 = posAct.x - deltaPosition.x;
+            var cont1 = posAct.x - deltaPosition.x / translateFactor.x;
             element.setAttribute('position', destPosition);
             return cont1;
         }
@@ -34,7 +34,7 @@ function comprobar(element, destPosition , deltaPosition) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
 
-                var cont1 = posAct.z - deltaPosition.z;
+                var cont1 = posAct.z - deltaPosition.z / translateFactor.z;
                 element.setAttribute('position', destPosition);
                 return cont1;
             }
@@ -44,7 +44,7 @@ function comprobar(element, destPosition , deltaPosition) {
                destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
                destPosition.y = posAct.y;
                destPosition.x = posAct.x;
-               var cont1 = posAct.z - deltaPosition.z;
+               var cont1 = posAct.z - deltaPosition.z / translateFactor.z;
                element.setAttribute('position', destPosition);
                return cont1;
         }
@@ -58,7 +58,7 @@ function comprobar(element, destPosition , deltaPosition) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
                 destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
-                var cont1 = posAct.z - deltaPosition.z;
+                var cont1 = posAct.z - deltaPosition.z; / translateFactor.z
                 element.setAttribute('position', destPosition);
                 return cont1;
             }
@@ -66,7 +66,7 @@ function comprobar(element, destPosition , deltaPosition) {
             destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
             destPosition.x = posAct.x;
             destPosition.z = posAct.z;
-            var cont1 = posAct.y - deltaPosition.y;
+            var cont1 = posAct.y - deltaPosition.y / translateFactor.y;
             element.setAttribute('position', destPosition);
             return cont1;
         }
@@ -74,7 +74,6 @@ function comprobar(element, destPosition , deltaPosition) {
 
         
     } else {
-        parentScale = element.parentEl.object3D.getWorldScale();
         destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
         destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
         destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
