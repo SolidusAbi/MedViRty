@@ -1,6 +1,6 @@
 function comprobar(element, destPosition , deltaPosition) {
     posAct = element.getAttribute('position')
-    translateFactor = 1;
+    translateFactor = new THREE.Vector3(1, 1, 1);
     if (element.parentEl)
         translateFactor = element.parentEl.object3D.getWorldScale(); 
 
@@ -58,7 +58,7 @@ function comprobar(element, destPosition , deltaPosition) {
                 destPosition.x = posAct.x;
                 destPosition.y = posAct.y;
                 destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
-                var cont1 = posAct.z - deltaPosition.z; / translateFactor.z
+                var cont1 = posAct.z - deltaPosition.z / translateFactor.z;
                 element.setAttribute('position', destPosition);
                 return cont1;
             }
@@ -74,6 +74,7 @@ function comprobar(element, destPosition , deltaPosition) {
 
         
     } else {
+        parentScale = element.parentEl.object3D.getWorldScale();
         destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
         destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
         destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
