@@ -18,3 +18,10 @@ html.body{
 p{
     color: white;
 }
+
+#cambiarEjemplo{
+    position:absolute;
+    bottom:30px;
+    left: 60px;
+    
+}

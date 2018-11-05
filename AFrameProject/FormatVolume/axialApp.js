@@ -1,6 +1,7 @@
 AFRAME.registerComponent('axial-slice',{
     schema: {
-        nSlice: {type: 'int'}
+        nSlice: {type: 'int'},
+        umbral:{type:'int', default: '255'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;

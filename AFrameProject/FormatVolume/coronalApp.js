@@ -1,23 +1,18 @@
 AFRAME.registerComponent('coronal-slice',{
     schema: {
-        nSlice: {type: 'int'}
+        nSlice: {type: 'int'},
+        umbral:{type:'int', default: '255'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
         var volumeType = this.el.parentEl.attributes.type.value;
-      //  En volumen type se guarda el tipo de nrrd que se esta metiendo en el ejemplo. 
 
-        /** 
-         * Mi idea es almacenar la misma información pero con distinto orden,
-         * tratando de reducir los fallos de caché (Con las dimensiones que trabajamos
-         * puede que ganemos bastante ms).
-         */
        
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
 
-        this.loadData(volumeData, volumeType);
+        this.loadData(volumeData, volumeType,  this.data.umbral);
     },
 
     update: function(){
@@ -36,7 +31,7 @@ AFRAME.registerComponent('coronal-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData, volumeType){
+    loadData: function(volumeData, volumeType, umbral){
         /**
          * Gestionar aqui la carga de datos que será producida por el Worker.
          * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
@@ -44,18 +39,17 @@ AFRAME.registerComponent('coronal-slice',{
          * ahora es exclusivo de este componente.
          */
 
-        var loadDataWorker = function (volumeData, volumeType)
+        var loadDataWorker = function (volumeData, volumeType, umbral)
         {
             self.addEventListener("message", function(e){
-                console.log("Soy el WORKER!!!")
                 var volume = e.data;
 
-                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type);
+                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type, umbral);
                 self.postMessage(slicesData);
             });
 
             // -- Falta comprobar si la función está bien... -- 
-            function loadDataCoronal(volumeData, volumeDimensions, volumeType) {
+            function loadDataCoronal(volumeData, volumeDimensions, volumeType, umbral) {
 
                 var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
@@ -69,7 +63,7 @@ AFRAME.registerComponent('coronal-slice',{
                         for (var col = 0; col < volumeDimensions[0]; col++) {
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx];
-
+                            if(pixelValue >= umbral) pixelValue = 0;
                             if (volumeType == 'CT') {
                                  SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {

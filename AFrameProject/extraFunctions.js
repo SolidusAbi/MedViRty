@@ -37,7 +37,6 @@ function comprobar(posAct, element, destPosition , deltaPosition) {
             }
             
         }else if ((posAct.z - deltaPosition.z) >= -0.5 && (posAct.z - deltaPosition.z) <= 0.5) {
-               console.log(posAct);
                destPosition.z = posAct.z - deltaPosition.z * 1;
                destPosition.y = posAct.y;
                destPosition.x = posAct.x;

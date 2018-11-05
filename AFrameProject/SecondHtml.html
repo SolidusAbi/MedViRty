@@ -30,6 +30,8 @@
   <script src="FormatVolume/axialApp.js"></script>
   <script src="FormatVolume/coronalApp.js"></script>
   <script src="FormatVolume/sagitalApp.js"></script>
+
+  <script src="processing.js"></script>
 </head>
 
 <body>
@@ -127,6 +129,28 @@
 </div>
 <div id="menusito">
   <p>Visualizacion de imagenes médicas</p>
+<!-- FALTA HACER EL BACKEND -->
+  <div>
+    <br>
+    <p>Umbralización</p>
+  <input type="number" id="umbralizacion" value=255 onchange="umbralizacion(this)">
+  </div>
+
+  <div>
+    <br>
+    <p>Opciones</p>
+    <button onclick="reset(this)">Reset</button>
+    <button onclick="rotateVolume(this)">Rotar</button>
+    <br>
+    <button onclick="movePlano(this)">Cambiar planos</button>
+    <br>
+    <button onclick="bigVolume(this)">Agrandar</button>
+    <button onclick="smallVolume(this)">Disminuir</button>
+
+    </div>
+    <div id="cambiarEjemplo">
+        <button onclick="back(this)">Cambiar de ejemplo</button>
+    </div>
 </div>
 </div> 
 
