@@ -7,7 +7,6 @@ img{
 }
 
 #cover{
-  /*  background: url(../imagePag/fondo.jpg) center center no-repeat;*/
     background-color: #336666  ;
     background-size: cover;
     color: white;
@@ -48,4 +47,3 @@ img{
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #009999 !important;
 }
-

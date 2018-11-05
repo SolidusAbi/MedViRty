@@ -10,32 +10,37 @@
 
   <link rel="stylesheet" href="pag/css/bootstrap.css">
   <link rel="stylesheet" href="pag/css/style.css">
+  <link rel="stylesheet" href="style3D.css">
 
   <script src="pag/extractVar.js"></script>
 
   <script src="axis.js"></script>
-  <script src="NRRDLoader.js"></script>
-  <script src="Volume.js"></script>
-  <script src="gunzip.min.js"></script>
-  <script src="app.js"></script>
+
+  <script src="ChargeVolume/NRRDLoader.js"></script>
+  <script src="ChargeVolume/Volume.js"></script>
+  <script src="ChargeVolume/gunzip.min.js"></script>
+
+
   <script src="extraFunctions.js"></script>
   <script src="super-hands.js"></script>
   <script src="MainMenu.js"></script>
-  <script src="inputFormat.js"></script>
+  <script src="log.js"></script>
 
-  <script src="axialApp.js"></script>
-  <script src="coronalApp.js"></script>
-  <script src="sagitalApp.js"></script>
-
+  <script src="FormatVolume/app.js"></script>
+  <script src="FormatVolume/axialApp.js"></script>
+  <script src="FormatVolume/coronalApp.js"></script>
+  <script src="FormatVolume/sagitalApp.js"></script>
 </head>
 
 <body>
+ <div>
 
+<!-- // environment="preset: default; shadow: false"  -->
+<a-scene embedded class="escena">
 
+  <a-sky color= #336666></a-sky>
 
-<a-scene environment="preset: default; shadow: false">
-
-  <a-sky color="#ECECEC"></a-sky>
+  <a-entity cursor="rayOrigin: mouse"></a-entity>
 
   <a-assets>
 
@@ -79,7 +84,6 @@
       </a-circle>
       <a-circle position="5 -10 -30"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
       </a-circle>
-  
   </a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
@@ -120,6 +124,12 @@
   </script>
 
 </a-scene>
+</div>
+<div id="menusito">
+  <p>Visualizacion de imagenes médicas</p>
+</div>
+</div> 
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

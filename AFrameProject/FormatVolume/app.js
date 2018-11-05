@@ -56,7 +56,6 @@ AFRAME.registerComponent('volume', {
         var loader = new THREE.NRRDLoader();
         var self = this;
         var onLoad = function(volumeDataLoaded){
-            alert("Se ha cargado el volumen");
             self.onLoad(volumeDataLoaded);
         };
         loader.load(data.volumePath, onLoad);

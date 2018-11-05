@@ -91,9 +91,6 @@ function back(){
     planoSeguro.setAttribute('text', 'value: "¿Seguro que quiere salir?"');
     planoSeguro.setAttribute('position', {x: 0 , y: 0 , z: -6});
     planoSeguro.setAttribute('clickable', ''); 
-  //  planoSeguro.setAttribute('onClick', "document.location.href='index.html'");
-  //  planoSeguro.setAttribute('dynamic-body', '');
- //   planoSeguro.setAttribute('class', 'plane');
     aframeScene.appendChild(planoSeguro);
 
     var buttonAcept = document.createElement('a-entity');
