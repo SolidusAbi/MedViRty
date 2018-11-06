@@ -1,27 +1,42 @@
 .escena{
-    height: 650px;
-    width: 1000px;
-    float: right;
+    position:absolute;
+    right: 0%;
+
+    height: 99%;
+    width: 80%;
     
 }
 
 #menusito{
-    height: 650px;
-
-    background-color: #336666;
+    position:absolute;
+    left: 0%;
+    top: 3.5%;
     text-align: center;
 
-}
-html.body{
-    background-color: #336666;
-}
-p{
-    color: white;
+    height: 96%;
+    width: 20%;
+
+    background-color: antiquewhite;
+    
 }
 
 #cambiarEjemplo{
     position:absolute;
-    bottom:30px;
-    left: 60px;
+    bottom: 10%;
+    left: 25%;
     
+}
+#divSuperior{
+    position:absolute;
+    top:0px;
+    left: 0px;
+
+    height: 25px;
+    width: 100%;
+
+    background-color:#336666 ;
+    text-align: center;  
+}
+#titulo{
+    color: white;
 }

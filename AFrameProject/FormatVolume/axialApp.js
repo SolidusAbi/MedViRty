@@ -1,7 +1,6 @@
 AFRAME.registerComponent('axial-slice',{
     schema: {
-        nSlice: {type: 'int'},
-        umbral:{type:'int', default: '255'}
+        nSlice: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
@@ -36,7 +35,6 @@ AFRAME.registerComponent('axial-slice',{
         var loadDataWorker = function (volumeData , volumeType)
         {
             self.addEventListener("message", function(e){
-                console.log("Soy el WORKER!!!")
                 var volume = e.data;
 
                 if(volume.type == 'CT'){
@@ -83,11 +81,6 @@ AFRAME.registerComponent('axial-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
-
-        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
-        console.log(this.slicesData);
-
-
         this.repaint(this.getCurrentSlice());
 
         //Eliminar el worker que ya no voy a usar

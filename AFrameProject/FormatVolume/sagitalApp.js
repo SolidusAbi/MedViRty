@@ -1,7 +1,6 @@
 AFRAME.registerComponent('sagital-slice',{
     schema: {
-        nSlice: {type: 'int'},
-        umbral:{type:'int', default: '255'}
+        nSlice: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
@@ -52,34 +51,23 @@ AFRAME.registerComponent('sagital-slice',{
 
             function loadDataSagital(volumeData, volumeDimensions, volumeType){
 
-                var SlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
+           
+                var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
 
-                var sliceStride = volumeDimensions[0];
-                var pixelStride = volumeDimensions[0] * volumeDimensions[2] ;
-
-                for (var nSlice = 0; nSlice < volumeDimensions[2] * volumeDimensions[1] * volumeDimensions[0]; nSlice++)
-                {
-                    var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
-                    for (var row = 0; row < volumeDimensions[2] ; row++ ) 
-                    {
-                        for (var col = 0; col < volumeDimensions[0]; col++ )
-                        {
-                            var pixel_idx = row * pixelStride + col;
-                            pixelValue = volumeData[slice_idx + pixel_idx];
-                            
-                            /** -- Si hay que transformar... llamar a la funcion oportuna -- */
+                for (var nSlice = 0; nSlice < volumeDimensions[1] * volumeDimensions[2] * volumeDimensions[0]; nSlice++) {
+                            var slice_idx = nSlice; //Indica el origen de cada slice
+                            pixelValue = volumeData[slice_idx];
+                            // if(pixelValue >= umbral) pixelValue = 0;
                             if (volumeType == 'CT') {
-                                SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                                 SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
                                 SlicesData[SlicesIdx++] = pixelValue;
                             }
-                        }
-                    }
+                            nSlice = nSlice + volumeDimensions[1];
                 }
                 return SlicesData;
             }
-
 
         };
 

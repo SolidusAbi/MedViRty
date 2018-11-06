@@ -35,12 +35,9 @@
 </head>
 
 <body>
- <div>
-
-<!-- // environment="preset: default; shadow: false"  -->
 <a-scene embedded class="escena">
 
-  <a-sky color= #336666></a-sky>
+  <a-sky></a-sky>
 
   <a-entity cursor="rayOrigin: mouse"></a-entity>
 
@@ -86,6 +83,7 @@
       </a-circle>
       <a-circle position="5 -10 -30"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
       </a-circle>
+      
   </a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
@@ -117,7 +115,7 @@
         document.querySelector('#volumenCompleto').setAttribute('type', 'CT'); 
       }else if(SelectExample() == '2'){
         document.querySelector('#volumenCompleto').setAttribute('volume', {volumePath: "data/MRBrainTumor1.nrrd"});
-        document.querySelector('#volumenCompleto').setAttribute('type', 'MRI'); 
+        document.querySelector('#volumenCompleto').setAttribute('type', 'MRI');
       }else{
         console.log("Se ha seleccionado una opción no contenida en el programa");
       }
@@ -126,9 +124,11 @@
   </script>
 
 </a-scene>
-</div>
+
+<div id="divSuperior"><p id="titulo">Visualización y tratamiento de imágenes</p></div>
+
 <div id="menusito">
-  <p>Visualizacion de imagenes médicas</p>
+
 <!-- FALTA HACER EL BACKEND -->
   <div>
     <br>
@@ -146,13 +146,14 @@
     <br>
     <button onclick="bigVolume(this)">Agrandar</button>
     <button onclick="smallVolume(this)">Disminuir</button>
-
     </div>
+
     <div id="cambiarEjemplo">
         <button onclick="back(this)">Cambiar de ejemplo</button>
     </div>
+
 </div>
-</div> 
+
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

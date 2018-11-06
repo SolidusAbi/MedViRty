@@ -1,7 +1,7 @@
 AFRAME.registerComponent('coronal-slice',{
     schema: {
         nSlice: {type: 'int'},
-        umbral:{type:'int', default: '255'}
+
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
@@ -12,7 +12,7 @@ AFRAME.registerComponent('coronal-slice',{
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
 
-        this.loadData(volumeData, volumeType,  this.data.umbral);
+        this.loadData(volumeData, volumeType);
     },
 
     update: function(){
@@ -31,7 +31,7 @@ AFRAME.registerComponent('coronal-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData, volumeType, umbral){
+    loadData: function(volumeData, volumeType){
         /**
          * Gestionar aqui la carga de datos que será producida por el Worker.
          * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
@@ -39,23 +39,23 @@ AFRAME.registerComponent('coronal-slice',{
          * ahora es exclusivo de este componente.
          */
 
-        var loadDataWorker = function (volumeData, volumeType, umbral)
+        var loadDataWorker = function (volumeData, volumeType)
         {
             self.addEventListener("message", function(e){
                 var volume = e.data;
 
-                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type, umbral);
+                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type);
                 self.postMessage(slicesData);
             });
 
             // -- Falta comprobar si la función está bien... -- 
-            function loadDataCoronal(volumeData, volumeDimensions, volumeType, umbral) {
+            function loadDataCoronal(volumeData, volumeDimensions, volumeType) {
 
                 var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
+                
                 var sliceStride = volumeDimensions[0]
                 var pixelStride = volumeDimensions[0] * volumeDimensions[1]
-
 
                 for (var nSlice = 0; nSlice < volumeDimensions[1]; nSlice++) {
                     var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
@@ -63,7 +63,7 @@ AFRAME.registerComponent('coronal-slice',{
                         for (var col = 0; col < volumeDimensions[0]; col++) {
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx];
-                            if(pixelValue >= umbral) pixelValue = 0;
+                            // if(pixelValue >= umbral) pixelValue = 0;
                             if (volumeType == 'CT') {
                                  SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
