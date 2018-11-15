@@ -126,7 +126,8 @@
   </script>
 
 </a-scene>
-
+<div class="container">
+<div class="row">
 <div id="divSuperior"><p id="titulo">Visualización y tratamiento de imágenes</p></div>
 
 <div id="menusito">
@@ -135,7 +136,8 @@
   <div>
     <br>
     <p>Umbralización</p>
-  <input type="number" id="umbralizacion" value=255 onchange="umbralizacion(this)">
+  <input type="number" id="umbralizacion" value=0 onchange="umbralizacion(this)">
+  <input type="range" id="range" max="255" min="0" step="1" value="0" onchange="changeBar(this)" oninput="changeBar(this)" class="slider" >
   </div>
 
   <div>
@@ -155,7 +157,7 @@
     </div>
 
 </div>
-
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
