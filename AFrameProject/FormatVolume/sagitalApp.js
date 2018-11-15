@@ -58,7 +58,7 @@ AFRAME.registerComponent('sagital-slice',{
                 for (var nSlice = 0; nSlice < volumeDimensions[1] * volumeDimensions[2] * volumeDimensions[0]; nSlice++) {
                             var slice_idx = nSlice; //Indica el origen de cada slice
                             pixelValue = volumeData[slice_idx];
-                            // if(pixelValue >= umbral) pixelValue = 0;
+                        //    if(pixelValue >= umbral) pixelValue = 0;
                             if (volumeType == 'CT') {
                                  SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
@@ -101,10 +101,6 @@ AFRAME.registerComponent('sagital-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
-
-        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
-        console.log(this.slicesData);
-
 
         this.repaint(this.getCurrentSlice());
 

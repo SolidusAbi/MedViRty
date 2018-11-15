@@ -1,23 +1,29 @@
 AFRAME.registerComponent('coronal-slice',{
     schema: {
         nSlice: {type: 'int'},
-
+        umbral: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
         var volumeType = this.el.parentEl.attributes.type.value;
 
-       
+      //  var umbral = document.querySelector('#coronal').getAttribute('umbral');
+        console.log(this.data.umbral);
+
+
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
+        this.umbral = this.data.umbral;
 
-        this.loadData(volumeData, volumeType);
+        this.loadData(volumeData, volumeType, this.umbral);
     },
 
-    update: function(){
-        // var idx = this.data.nSlice * this.sliceSize;
-        // var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
+    update: function(oldData){
+        if (this.data.umbral != oldData.umbral){
+            this.loadData(this.el.parentEl.volumeData, this.el.parentEl.attributes.type.value, this.data.umbral);
+        }   
+
         this.repaint(this.getCurrentSlice());
     },
     
@@ -31,26 +37,18 @@ AFRAME.registerComponent('coronal-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData, volumeType){
-        /**
-         * Gestionar aqui la carga de datos que será producida por el Worker.
-         * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
-         * y que se use el mismo objeto para todos los worker de alguna forma... Por
-         * ahora es exclusivo de este componente.
-         */
-
-        var loadDataWorker = function (volumeData, volumeType)
+    loadData: function(volumeData, volumeType, umbral){
+        var loadDataWorker = function (volumeData, volumeType, umbral)
         {
             self.addEventListener("message", function(e){
                 var volume = e.data;
 
-                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type);
+                var slicesData = loadDataCoronal(volume.data, volume.dimensions, volume.type, e.data.umbral);
                 self.postMessage(slicesData);
             });
 
             // -- Falta comprobar si la función está bien... -- 
-            function loadDataCoronal(volumeData, volumeDimensions, volumeType) {
-
+            function loadDataCoronal(volumeData, volumeDimensions, volumeType, umbral) {
                 var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
                 
@@ -63,16 +61,21 @@ AFRAME.registerComponent('coronal-slice',{
                         for (var col = 0; col < volumeDimensions[0]; col++) {
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx];
-                            // if(pixelValue >= umbral) pixelValue = 0;
                             if (volumeType == 'CT') {
                                  SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
+                                if (pixelValue > 255)
+                                    pixelValue = 255;
+
+                                if(pixelValue <= umbral)
+                                    pixelValue = 0;
+
                                 SlicesData[SlicesIdx++] = pixelValue;
                             }
-
                         }
                     }
                 }
+                
                 return SlicesData;
             }
 
@@ -90,7 +93,7 @@ AFRAME.registerComponent('coronal-slice',{
         * reducir los fallos de caché
         */
         this.worker.postMessage(
-            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType}
+            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType, umbral: umbral}
         );
 
         /**
@@ -98,7 +101,7 @@ AFRAME.registerComponent('coronal-slice',{
          * internas de un objeto
          */
         var self = this;
-        function messageEvent(e){ self.dataLoaded(e.data); }
+        function messageEvent(e){ self.dataLoaded(e.data, umbral); }
         this.worker.addEventListener("message", messageEvent);
 
         URL.revokeObjectURL(blobURL);
@@ -109,11 +112,6 @@ AFRAME.registerComponent('coronal-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
-
-        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
-        console.log(this.slicesData);
-
-
         this.repaint(this.getCurrentSlice());
 
         //Eliminar el worker que ya no voy a usar

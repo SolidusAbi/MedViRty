@@ -69,27 +69,29 @@
 
   <!-- CREACION DE LA CAMARA PRINCIPAL -->
 
-  <a-camera position="0 0 0" axis  id="camera">
-
-      <a-circle position="-3 -10 -30"  radius="1" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
-      </a-circle>
-      <a-circle position="-1 -10 -30"  radius="1" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
-      </a-circle>
-      <a-circle position="1 -10 -30"  radius="1" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 10; value: Disminuir.; color: black; align:center;"visible="true">
-      </a-circle>
-      <a-circle position="3 -10 -30"  radius="1" class="menu" id="movPlane" color="#93C174" onclick="movePlano(this)" side="double" text="width: 10; value: Planos 2D.; color: black; align:center;"visible="true">
-      </a-circle>
-      <a-circle position="-5 -10 -30"  radius="1" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
-      </a-circle>
-      <a-circle position="5 -10 -30"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
-      </a-circle>
-      
-  </a-camera>
+  <a-camera position="0 0 0" axis  id="camera"></a-camera>
 
   <!--INTRODUCCION DE LOS CONTROLES-->
 
   <a-entity>
-    <a-entity id="rhand" mixin="controller-right">  <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
+    <a-entity id="rhand" mixin="controller-right">  <a-entity gltf-model="#viveControllerGLTF"> 
+    </a-entity>
+  
+    <a-circle position="1 -1 -1"  radius="0.3" class="menu" id="rotate" color="#93C174" onclick="rotateVolume(this)" side="double" text="width: 10; value: Rotar.; color: black; align:center;" visible="true">
+    </a-circle>
+    <a-circle position="-1 -1 -4"  radius="1" class="menu" id="big" color="#93C174" onclick="bigVolume(this)" side="double" text="width: 10;value: Agrandar.; color: black;align:center;" visible="true">
+    </a-circle>
+    <a-circle position="-3 -1 -4"  radius="1" class="menu" id="small" color="#93C174" onclick="smallVolume(this)" side="double" text="width: 10; value: Disminuir.; color: black; align:center;"visible="true">
+    </a-circle>
+    <a-circle position="3 -1 -4"  radius="1" class="menu" id="movPlane" color="#93C174" onclick="movePlano(this)" side="double" text="width: 10; value: Planos 2D.; color: black; align:center;"visible="true">
+    </a-circle>
+    <a-circle position="-5 -1 -4"  radius="1" class="menu" id="reset" color="#93C174" onclick="reset(this)" side="double" text="width: 10; value: Reset.; color: black; align:center;"visible="true">
+    </a-circle>
+    <a-circle position="5 -1 -4"  radius="1" class="menu" id="back" color="#93C174" onclick="back(this)" side="double" text="width: 10; value: Otro Ejemplo; color: black; align:center;"visible="true">
+    </a-circle>
+  
+    </a-entity>
+
     <a-entity id="lhand" mixin="controller-left">   <a-entity gltf-model="#viveControllerGLTF"> </a-entity></a-entity>
   </a-entity>
 
@@ -115,7 +117,7 @@
         document.querySelector('#volumenCompleto').setAttribute('type', 'CT'); 
       }else if(SelectExample() == '2'){
         document.querySelector('#volumenCompleto').setAttribute('volume', {volumePath: "data/MRBrainTumor1.nrrd"});
-        document.querySelector('#volumenCompleto').setAttribute('type', 'MRI');
+        document.querySelector('#volumenCompleto').setAttribute('type', 'MRI');     
       }else{
         console.log("Se ha seleccionado una opción no contenida en el programa");
       }

@@ -5,6 +5,7 @@ AFRAME.registerComponent('axial-slice',{
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
         var volumeType = this.el.parentEl.attributes.type.value;
+        
 
 
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1];
@@ -37,11 +38,8 @@ AFRAME.registerComponent('axial-slice',{
             self.addEventListener("message", function(e){
                 var volume = e.data;
 
-                if(volume.type == 'CT'){
-                    var slicesData = loadDataAxial(volume.data, volume.dimensions);
-                }else{
-                    var slicesData = volume.data;
-                }
+                
+                    var slicesData = loadDataAxial(volume.data, volume.dimensions)
                 self.postMessage(slicesData);
             });
 
@@ -50,9 +48,17 @@ AFRAME.registerComponent('axial-slice',{
                 var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
 
-                for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
-                    SlicesData[SlicesIdx++] = (volumeData[pixel]+1000)*255/3000;
-                }
+              //  if(volume.type == 'CT'){
+                    // for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
+                    //   //  if(volumeData[pixel] >= umbral) volumeData[pixel] = 0;
+                    //     SlicesData[SlicesIdx++] = (volumeData[pixel]);
+                    // }
+            //    }else{
+                // for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
+                //   //  if(volumeData[pixel] >= umbral) volumeData[pixel] = 0;
+                //     SlicesData[SlicesIdx++] = (volumeData[pixel]+1000)*255/3000;
+                 //}
+               // }
 
                 return SlicesData;
             }
