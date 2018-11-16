@@ -1,6 +1,7 @@
 AFRAME.registerComponent('sagital-slice',{
     schema: {
-        nSlice: {type: 'int'}
+        nSlice: {type: 'int'},
+        umbral: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
@@ -9,13 +10,15 @@ AFRAME.registerComponent('sagital-slice',{
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
+        this.umbral = this.data.umbral;
 
-        this.loadData(volumeData);
+        this.loadData(volumeData, volumeType, this.umbral);
     },
 
-    update: function(){
-        var idx = this.data.nSlice * this.sliceSize;
-       // var currentSlice = this.slicesData.slice(idx, (idx + this.slicesSize));
+    update: function(oldData){
+        if (this.data.umbral != oldData.umbral){
+            this.loadData(this.el.parentEl.volumeData, this.el.parentEl.attributes.type.value, this.data.umbral);
+        }   
         this.repaint(this.getCurrentSlice());
     },
     
@@ -30,7 +33,7 @@ AFRAME.registerComponent('sagital-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData, volumeType){
+    loadData: function(volumeData, volumeType, umbral){
         /**
          * Gestionar aqui la carga de datos que será producida por el Worker.
          * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
@@ -38,36 +41,47 @@ AFRAME.registerComponent('sagital-slice',{
          * ahora es exclusivo de este componente.
          */
 
-        var loadDataWorker = function (volumeData, volumeType)
+        var loadDataWorker = function (volumeData, volumeType, umbral)
         {
             self.addEventListener("message", function(e){
                 console.log("Soy el WORKER!!!")
                 var volume = e.data;
               //  console.log(this.el.parentEl.id);
 
-                var slicesData = loadDataSagital(volume.data, volume.dimensions, volume.type);
+                var slicesData = loadDataSagital(volume.data, volume.dimensions,  volume.type, e.data.umbral);
                 self.postMessage(slicesData);
             });
 
-            function loadDataSagital(volumeData, volumeDimensions, volumeType){
+            function loadDataSagital(volumeData, volumeDimensions, volumeType, umbral){
 
-           
-                var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
+                var SlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
                 var SlicesIdx = 0;
 
-                for (var nSlice = 0; nSlice < volumeDimensions[1] * volumeDimensions[2] * volumeDimensions[0]; nSlice++) {
-                            var slice_idx = nSlice; //Indica el origen de cada slice
-                            pixelValue = volumeData[slice_idx];
-                        //    if(pixelValue >= umbral) pixelValue = 0;
+                var sliceStride = volumeDimensions[0];
+                var pixelStride = volumeDimensions[0] * volumeDimensions[2] ;
+
+                for (var nSlice = 0; nSlice < volumeDimensions[2] * volumeDimensions[1] * volumeDimensions[0]; nSlice++)
+                {
+                    var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
+                    for (var row = 0; row < volumeDimensions[2] ; row++ ) 
+                    {
+                        for (var col = 0; col < volumeDimensions[0]; col++ )
+                        {
+                            var pixel_idx = row * pixelStride + col;
+                            pixelValue = volumeData[slice_idx + pixel_idx];
+                            
+                            /** -- Si hay que transformar... llamar a la funcion oportuna -- */
                             if (volumeType == 'CT') {
-                                 SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                                SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
                             } else {
                                 SlicesData[SlicesIdx++] = pixelValue;
                             }
-                            nSlice = nSlice + volumeDimensions[1];
+                        }
+                    }
                 }
                 return SlicesData;
             }
+
 
         };
 
@@ -82,7 +96,7 @@ AFRAME.registerComponent('sagital-slice',{
         * reducir los fallos de caché
         */
         this.worker.postMessage(
-            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions)}
+            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions) ,type: volumeType, umbral: umbral}
         );
 
         /**
@@ -90,7 +104,7 @@ AFRAME.registerComponent('sagital-slice',{
          * internas de un objeto
          */
         var self = this;
-        function messageEvent(e){ self.dataLoaded(e.data); }
+        function messageEvent(e){ self.dataLoaded(e.data,umbral); }
         this.worker.addEventListener("message", messageEvent);
 
         URL.revokeObjectURL(blobURL);
@@ -101,6 +115,10 @@ AFRAME.registerComponent('sagital-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
+
+        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
+        console.log(this.slicesData);
+
 
         this.repaint(this.getCurrentSlice());
 

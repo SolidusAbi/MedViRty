@@ -1,22 +1,26 @@
 AFRAME.registerComponent('axial-slice',{
     schema: {
-        nSlice: {type: 'int'}
+        nSlice: {type: 'int'},
+        umbral: {type: 'int'}
     },
     init: function(){
         var volumeData = this.el.parentEl.volumeData;
         var volumeType = this.el.parentEl.attributes.type.value;
-        
 
 
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[1];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
+        this.umbral = this.data.umbral;
 
 
-        this.loadData(volumeData, volumeType);
+        this.loadData(volumeData, volumeType, this.umbral);
     },
 
-    update: function(){
+    update: function(oldData){
+        if (this.data.umbral != oldData.umbral){
+            this.loadData(this.el.parentEl.volumeData, this.el.parentEl.attributes.type.value, this.data.umbral);
+        }   
         this.repaint(this.getCurrentSlice());
     },
     
@@ -31,34 +35,44 @@ AFRAME.registerComponent('axial-slice',{
         this.el.setObject3D('mesh', mesh);
     },
 
-    loadData: function(volumeData, volumeType){
+    loadData: function(volumeData, volumeType , umbral){
 
-        var loadDataWorker = function (volumeData , volumeType)
+        var loadDataWorker = function (volumeData , volumeType, umbral)
         {
             self.addEventListener("message", function(e){
                 var volume = e.data;
 
-                
-                    var slicesData = loadDataAxial(volume.data, volume.dimensions)
+                var slicesData = loadDataAxial(volume.data, volume.dimensions, volume.type, e.data.umbral);
+
                 self.postMessage(slicesData);
             });
 
-            function loadDataAxial(volumeData, volumeDimensions) {
+            function loadDataAxial(volumeData, volumeDimensions,volumeType, umbral) {
 
                 var SlicesData = new Uint8Array(volumeDimensions.reduce((a, b) => a * b));
                 var SlicesIdx = 0;
 
-              //  if(volume.type == 'CT'){
-                    // for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
-                    //   //  if(volumeData[pixel] >= umbral) volumeData[pixel] = 0;
-                    //     SlicesData[SlicesIdx++] = (volumeData[pixel]);
-                    // }
-            //    }else{
-                // for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
-                //   //  if(volumeData[pixel] >= umbral) volumeData[pixel] = 0;
-                //     SlicesData[SlicesIdx++] = (volumeData[pixel]+1000)*255/3000;
-                 //}
-               // }
+                
+                if (volumeType == 'CT') {
+                for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
+
+                    var valor = (volumeData[pixel]+1000)*255/3000;
+                    if(valor <= umbral){
+                        valor = 0;}
+                        SlicesData[SlicesIdx++] = valor;
+                }
+                }else{
+                    for(var pixel = 0 ; pixel < volumeDimensions[1]*volumeDimensions[2]*volumeDimensions[0]; pixel++ ){
+                        var pixelValue = volumeData[pixel]
+                        if (pixelValue > 255)
+                            pixelValue = 255;
+
+                        if(pixelValue <= umbral)
+                            pixelValue = 0;
+
+                        SlicesData[SlicesIdx++] = pixelValue;
+                    }  
+                }
 
                 return SlicesData;
             }
@@ -72,11 +86,11 @@ AFRAME.registerComponent('axial-slice',{
         this.worker = new Worker(blobURL);
 
         this.worker.postMessage(
-            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType}
+            {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType, umbral: umbral}
         );
         
         var self = this;
-        function messageEvent(e){ self.dataLoaded(e.data); }
+        function messageEvent(e){ self.dataLoaded(e.data,umbral); }
         this.worker.addEventListener("message", messageEvent);
 
         URL.revokeObjectURL(blobURL);
@@ -87,6 +101,7 @@ AFRAME.registerComponent('axial-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
+
         this.repaint(this.getCurrentSlice());
 
         //Eliminar el worker que ya no voy a usar

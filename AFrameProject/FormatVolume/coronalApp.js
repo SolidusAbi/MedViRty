@@ -7,10 +7,6 @@ AFRAME.registerComponent('coronal-slice',{
         var volumeData = this.el.parentEl.volumeData;
         var volumeType = this.el.parentEl.attributes.type.value;
 
-      //  var umbral = document.querySelector('#coronal').getAttribute('umbral');
-        console.log(this.data.umbral);
-
-
         this.sliceSize = volumeData.dimensions[0] * volumeData.dimensions[2];
         this.slicesData = new Uint8Array( volumeData.dimensions.reduce( (a,b) => a * b ) );
         this.type = volumeType;
@@ -62,7 +58,10 @@ AFRAME.registerComponent('coronal-slice',{
                             var pixel_idx = row * pixelStride + col;
                             pixelValue = volumeData[slice_idx + pixel_idx];
                             if (volumeType == 'CT') {
-                                 SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                                var valor =(pixelValue + 1000) * 255 / 3000;
+                                if(valor <= umbral){
+                                    valor = 0;}
+                                    SlicesData[SlicesIdx++] = valor;
                             } else {
                                 if (pixelValue > 255)
                                     pixelValue = 255;
@@ -74,12 +73,9 @@ AFRAME.registerComponent('coronal-slice',{
                             }
                         }
                     }
-                }
-                
+                }  
                 return SlicesData;
             }
-
-
         };
 
         var blobURL = URL.createObjectURL(

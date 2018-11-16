@@ -84,42 +84,5 @@ function movePlano(){
 
 function back(){
     var aframeScene = document.querySelector('a-scene');
-
-    var planoSeguro = document.createElement('a-entity');
-    planoSeguro.setAttribute('geometry', 'primitive: plane; height: 5; width: 5 ');
-    planoSeguro.setAttribute('material', 'color: white');
-    planoSeguro.setAttribute('text', 'value: "¿Seguro que quiere salir?"');
-    planoSeguro.setAttribute('position', {x: 0 , y: 0 , z: -6});
-    planoSeguro.setAttribute('clickable', ''); 
-    aframeScene.appendChild(planoSeguro);
-
-    var buttonAcept = document.createElement('a-entity');
-    buttonAcept.setAttribute('geometry', 'primitive: plane; height: 2; width: 2');
-    buttonAcept.setAttribute('material', 'color: red');
-    buttonAcept.setAttribute('position' , {x:-1 , y:0 , z:0.1});
-    buttonAcept.setAttribute('onClick', "document.location.href='index.html'");
-    buttonAcept.setAttribute('text', 'Aceptar');
-    buttonAcept.setAttribute('clickable', ''); 
-    buttonAcept.setAttribute('dynamic-body', '');
-    buttonAcept.setAttribute('class', 'plane');
-    planoSeguro.appendChild(buttonAcept);
-
-    var buttonCancel = document.createElement('a-entity');
-    buttonCancel.setAttribute('geometry', 'primitive: plane; height: 2; width: 2');
-    buttonCancel.setAttribute('material', 'color: blue');
-    buttonCancel.setAttribute('position' , {x:1 , y:0 , z:0.1});
-    buttonCancel.setAttribute('onClick', "document.location.href='index.html'");
-    buttonCancel.setAttribute('text', 'Aceptar');
-    buttonCancel.setAttribute('clickable', ''); 
-    buttonCancel.setAttribute('dynamic-body', '');
-    buttonCancel.setAttribute('class', 'plane');
-    planoSeguro.appendChild(buttonCancel);
-    
-
- 
-
-    // if(confirm("¿seguro que quiere salir?") == true){
-    //     document.location.href='index.html';
-    // }
-   
+    document.location.href='index.html';
 }

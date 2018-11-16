@@ -24,12 +24,25 @@ AFRAME.registerComponent('volume', {
         coronalSlice.setAttribute('class', 'plane');
         coronalSlice.setAttribute('nSlices', this.el.volumeData.dimensions[0]);  
         this.el.appendChild(coronalSlice);
+
+        var SagitalSlice = document.createElement('a-entity');
+        //   SagitalSlice.setAttribute('position', '-2 0 -2');
+        SagitalSlice.setAttribute('position', '0 0 0');
+        SagitalSlice.setAttribute('id', 'sagital');
+        SagitalSlice.setAttribute('umbral', this.data.umbral);
+        SagitalSlice.setAttribute('sagital-slice',  {nSlice: '70', umbral: this.data.umbral});
+        SagitalSlice.setAttribute('mixin', 'plane');
+        SagitalSlice.setAttribute('rotation', '0 0 0');
+        SagitalSlice.setAttribute('dynamic-body', '');
+        SagitalSlice.setAttribute('class', 'plane');
+        SagitalSlice.setAttribute('nSlices', this.el.volumeData.dimensions[1]);
+        this.el.appendChild(SagitalSlice);
          
 
         var AxialSlice = document.createElement('a-entity');
         //    AxialSlice.setAttribute('position', '2 0 -2');
         AxialSlice.setAttribute('position', '0 0 0');
-        AxialSlice.setAttribute('axial-slice',  {nSlice: '70'});
+        AxialSlice.setAttribute('axial-slice',  {nSlice: '70', umbral: this.data.umbral});
         AxialSlice.setAttribute('umbral', this.data.umbral);
         AxialSlice.setAttribute('id', 'axial');
         AxialSlice.setAttribute('mixin', 'plane');
@@ -39,18 +52,6 @@ AFRAME.registerComponent('volume', {
         AxialSlice.setAttribute('nSlices', this.el.volumeData.dimensions[2]);
         this.el.appendChild(AxialSlice);
 
-        var SagitalSlice = document.createElement('a-entity');
-        //   SagitalSlice.setAttribute('position', '-2 0 -2');
-        SagitalSlice.setAttribute('position', '0 0 0');
-        SagitalSlice.setAttribute('umbral', this.data.umbral);
-        SagitalSlice.setAttribute('sagital-slice',  {nSlice: '70'});
-        SagitalSlice.setAttribute('id', 'sagital');
-        SagitalSlice.setAttribute('mixin', 'plane');
-        SagitalSlice.setAttribute('rotation', '0 0 0');
-        SagitalSlice.setAttribute('dynamic-body', '');
-        SagitalSlice.setAttribute('class', 'plane');
-        SagitalSlice.setAttribute('nSlices', this.el.volumeData.dimensions[1]);
-        this.el.appendChild(SagitalSlice);
     },
 
     init: function(){
@@ -66,6 +67,7 @@ AFRAME.registerComponent('volume', {
         if (this.el.children.length > 0){
              //console.log(this.el.children.coronal);
             this.el.children.coronal.setAttribute('coronal-slice', {umbral: this.data.umbral})
+            this.el.children.axial.setAttribute('axial-slice', {umbral: this.data.umbral})
         }
     }
 });
