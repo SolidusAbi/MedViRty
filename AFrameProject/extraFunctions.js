@@ -73,7 +73,6 @@ function comprobar(element, destPosition , deltaPosition) {
 
         
     } else {
-        parentScale = element.parentEl.object3D.getWorldScale();
         destPosition.x = posAct.x - deltaPosition.x / translateFactor.x;
         destPosition.y = posAct.y - deltaPosition.y / translateFactor.y;
         destPosition.z = posAct.z - deltaPosition.z / translateFactor.z;
