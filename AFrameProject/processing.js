@@ -5,11 +5,14 @@ function umbralizacion(){
     document.getElementById("range").value = umbr;
     }else{
         var umbr = document.getElementById("umbralizacion").value;
-        if(umbr == ""){
-            console.log("roto");
+        if(parseInt(umbr)){
+            document.getElementById('ControlJS').style.visibility ='hidden';
+            document.querySelector('#volumenCompleto').setAttribute('volume', { umbral : umbr })
+            document.getElementById("range").value = umbr;
+        }else{
+            document.getElementById('ControlJS').style.visibility ='visible';
         }           
-        document.querySelector('#volumenCompleto').setAttribute('volume', { umbral : umbr })
-        document.getElementById("range").value = umbr;
+       
     }
 }
 

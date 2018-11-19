@@ -29,12 +29,14 @@ img{
 #Acercade{
     background: #336666  center center no-repeat;
     background-size: cover;
+    text-align: justify;
 }
 
 .texto-acerca-de{
     background: rgba(0, 0, 0, 0.8);
     color: white;
     padding: 0.875rem;
+    text-align: justify;
 }
 
 .contenido-seccion{
@@ -46,4 +48,7 @@ img{
 }
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #009999 !important;
+}
+h4{
+    text-align: justify;
 }
