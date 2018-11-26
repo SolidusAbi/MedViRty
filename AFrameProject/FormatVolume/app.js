@@ -17,7 +17,7 @@ AFRAME.registerComponent('volume', {
         coronalSlice.setAttribute('position', '0 0 0');
         coronalSlice.setAttribute('id', 'coronal');
         coronalSlice.setAttribute('umbral', this.data.umbral);
-        coronalSlice.setAttribute('coronal-slice', {nSlice: '70', umbral: this.data.umbral});
+        coronalSlice.setAttribute('coronal-slice', {nSlice: this.el.volumeData.dimensions[0]/2, umbral: this.data.umbral});
         coronalSlice.setAttribute('mixin', 'plane');
         coronalSlice.setAttribute('rotation', '0 0 0');
         coronalSlice.setAttribute('dynamic-body', ''); 
@@ -26,11 +26,10 @@ AFRAME.registerComponent('volume', {
         this.el.appendChild(coronalSlice);
 
         var SagitalSlice = document.createElement('a-entity');
-        //   SagitalSlice.setAttribute('position', '-2 0 -2');
         SagitalSlice.setAttribute('position', '0 0 0');
         SagitalSlice.setAttribute('id', 'sagital');
         SagitalSlice.setAttribute('umbral', this.data.umbral);
-        SagitalSlice.setAttribute('sagital-slice',  {nSlice: '70', umbral: this.data.umbral});
+        SagitalSlice.setAttribute('sagital-slice',  {nSlice: this.el.volumeData.dimensions[1]/2, umbral: this.data.umbral});
         SagitalSlice.setAttribute('mixin', 'plane');
         SagitalSlice.setAttribute('rotation', '0 0 0');
         SagitalSlice.setAttribute('dynamic-body', '');
@@ -40,9 +39,8 @@ AFRAME.registerComponent('volume', {
          
 
         var AxialSlice = document.createElement('a-entity');
-        //    AxialSlice.setAttribute('position', '2 0 -2');
         AxialSlice.setAttribute('position', '0 0 0');
-        AxialSlice.setAttribute('axial-slice',  {nSlice: '70', umbral: this.data.umbral});
+        AxialSlice.setAttribute('axial-slice',  {nSlice: this.el.volumeData.dimensions[2]/2 , umbral: this.data.umbral});
         AxialSlice.setAttribute('umbral', this.data.umbral);
         AxialSlice.setAttribute('id', 'axial');
         AxialSlice.setAttribute('mixin', 'plane');
@@ -66,8 +64,9 @@ AFRAME.registerComponent('volume', {
     update: function(){
         if (this.el.children.length > 0){
              //console.log(this.el.children.coronal);
-            this.el.children.coronal.setAttribute('coronal-slice', {umbral: this.data.umbral})
-            this.el.children.axial.setAttribute('axial-slice', {umbral: this.data.umbral})
+            this.el.children.coronal.setAttribute('coronal-slice', {umbral: this.data.umbral});
+            this.el.children.axial.setAttribute('axial-slice', {umbral: this.data.umbral});
+            this.el.children.sagital.setAttribute('sagital-slice', {umbral: this.data.umbral})
         }
     }
 });

@@ -5,8 +5,8 @@ function rotateVolume(){
     var aux1 = boxM.getAttribute('rotation');
 
     aux1.x= aux1.x +40;
-    // aux1.y= aux1.y +40;
-    // aux1.z= aux1.z +40;
+    aux1.y= aux1.y +40;
+    aux1.z= aux1.z +40;
     aux1.y= aux1.y;
     aux1.z= aux1.z;
 

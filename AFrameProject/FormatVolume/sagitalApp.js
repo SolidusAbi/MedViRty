@@ -29,22 +29,16 @@ AFRAME.registerComponent('sagital-slice',{
         texture.needsUpdate = true;
         var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
         var mesh = new THREE.Mesh(geometry, material);
-        rotateObject(mesh ,0,-90,0);
+        rotateObject(mesh,0,90,0);
         this.el.setObject3D('mesh', mesh);
     },
 
     loadData: function(volumeData, volumeType, umbral){
-        /**
-         * Gestionar aqui la carga de datos que será producida por el Worker.
-         * Comprobar si puede incluirse todas las funciones de carga (coronal, sagital y axial)
-         * y que se use el mismo objeto para todos los worker de alguna forma... Por
-         * ahora es exclusivo de este componente.
-         */
 
         var loadDataWorker = function (volumeData, volumeType, umbral)
         {
             self.addEventListener("message", function(e){
-                console.log("Soy el WORKER!!!")
+                
                 var volume = e.data;
               //  console.log(this.el.parentEl.id);
 
@@ -57,23 +51,30 @@ AFRAME.registerComponent('sagital-slice',{
                 var SlicesData = new Uint8Array( volumeDimensions.reduce( (a,b) => a * b ) );
                 var SlicesIdx = 0;
 
-                var sliceStride = volumeDimensions[0];
-                var pixelStride = volumeDimensions[0] * volumeDimensions[2] ;
+                var sliceStride = volumeDimensions[1];
+                var pixelStride = volumeDimensions[1] * volumeDimensions[2] ;
 
-                for (var nSlice = 0; nSlice < volumeDimensions[2] * volumeDimensions[1] * volumeDimensions[0]; nSlice++)
-                {
-                    var slice_idx = nSlice * sliceStride; //Indica el origen de cada slice
-                    for (var row = 0; row < volumeDimensions[2] ; row++ ) 
+                for (var nSlice = 0; nSlice < volumeDimensions[0] ; nSlice++)
+                { 
+                    for (var row = 0; row < volumeDimensions[1] ; row++ ) 
                     {
-                        for (var col = 0; col < volumeDimensions[0]; col++ )
+                        for (var col = 0; col < volumeDimensions[2]; col++ )
                         {
-                            var pixel_idx = row * pixelStride + col;
-                            pixelValue = volumeData[slice_idx + pixel_idx];
-                            
-                            /** -- Si hay que transformar... llamar a la funcion oportuna -- */
+                            var slice_idx = col * sliceStride;
+                            pixelValue = volumeData[slice_idx + (row * pixelStride + nSlice)]
                             if (volumeType == 'CT') {
-                                SlicesData[SlicesIdx++] = (pixelValue + 1000) * 255 / 3000;
+                                var valor = (pixelValue + 1000) * 255 / 3000;
+                                if(valor <= umbral){
+                                    valor = 0;}
+                                    SlicesData[SlicesIdx++] = valor;
+                             
                             } else {
+                                if (pixelValue > 255)
+                                    pixelValue = 255;
+
+                                if(pixelValue <= umbral)
+                                    pixelValue = 0;
+
                                 SlicesData[SlicesIdx++] = pixelValue;
                             }
                         }
@@ -81,8 +82,6 @@ AFRAME.registerComponent('sagital-slice',{
                 }
                 return SlicesData;
             }
-
-
         };
 
         var blobURL = URL.createObjectURL(
@@ -90,11 +89,7 @@ AFRAME.registerComponent('sagital-slice',{
         );
 
         this.worker = new Worker(blobURL);
-        /**
-        * Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
-        * Este worker será encargado de preparar el volumen bien formateado para
-        * reducir los fallos de caché
-        */
+
         this.worker.postMessage(
             {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions) ,type: volumeType, umbral: umbral}
         );
@@ -115,10 +110,6 @@ AFRAME.registerComponent('sagital-slice',{
          * Definir el comportamiento al cargar los datos...
          */
         this.slicesData.set(volumeData);
-
-        console.log("Me ha llegado el mensaje del WORKER!! y este es el resultado: ");
-        console.log(this.slicesData);
-
 
         this.repaint(this.getCurrentSlice());
 

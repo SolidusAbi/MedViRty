@@ -83,11 +83,7 @@ AFRAME.registerComponent('coronal-slice',{
         );
 
         this.worker = new Worker(blobURL);
-        /**
-        * Pasar datos al worker en formato JSON (https://stackoverflow.com/questions/19152772/how-to-pass-large-data-to-web-workers)
-        * Este worker será encargado de preparar el volumen bien formateado para
-        * reducir los fallos de caché
-        */
+
         this.worker.postMessage(
             {data: volumeData.data, dimensions: new Uint16Array(volumeData.dimensions), type: volumeType, umbral: umbral}
         );
@@ -104,19 +100,12 @@ AFRAME.registerComponent('coronal-slice',{
     },
 
     dataLoaded: function(volumeData) {
-        /**
-         * Definir el comportamiento al cargar los datos...
-         */
         this.slicesData.set(volumeData);
         this.repaint(this.getCurrentSlice());
-
-        //Eliminar el worker que ya no voy a usar
         this.worker = null;
     },
 
     getCurrentSlice: function(){
-        //var idx = this.data.nSlice * this.sliceSize;
-        
         var idx = this.data.nSlice * this.sliceSize;
         var currentSlice = this.slicesData.slice(idx, (idx + this.sliceSize));
         return currentSlice;
