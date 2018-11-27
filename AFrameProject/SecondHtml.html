@@ -69,34 +69,34 @@
     <!--INTRODUCCION DE LOS CONTROLES-->
 
     <a-entity>
-      <a-entity id="rhand" mixin="controller-right" >
+      <a-entity id="rhand" mixin="controller-right">
         <a-entity gltf-model="#viveControllerGLTF">
         </a-entity>
-
-          <a-circle position="-0 0.9 -3" radius="0.2" class="menu" id="rotate" color="#e5cdae" onclick="rotateVolume(this)"
-            side="double" text="width: 2; value: Rotar.; color: black; align:center;" visible="true">
-          </a-circle>
-
-          <a-circle position="0.8 0.2 -3" radius="0.2" class="menu" id="big" color="#e5cdae" onclick="bigVolume(this)" side="double"
-            text="width: 2;value: Agrandar.; color: black;align:center;" visible="true">
-          </a-circle>
-
-          <a-circle position="-0.8 0.2 -3" radius="0.2" class="menu" id="small" color="#e5cdae" onclick="smallVolume(this)"
-            side="double" text="width: 2; value: Disminuir.; color: black; align:center;" visible="true">
-          </a-circle>
-
-          <a-circle position="0.5 0.7 -3" radius="0.2" class="menu" id="movPlane" color="#e5cdae" onclick="movePlano(this)"
-            side="double" text="width: 2; value: C.Planos.; color: black; align:center;" visible="true">
-          </a-circle>
-
-          <a-circle position="-0.5 0.7 -3" radius="0.2" class="menu" id="reset" color="#e5cdae" onclick="reset(this)" side="double"
-            text="width: 2; value: Reset.; color: black; align:center;" visible="true">
-          </a-circle>
-
       </a-entity>
 
       <a-entity id="lhand" mixin="controller-left">
         <a-entity gltf-model="#viveControllerGLTF"> </a-entity>
+
+        <a-circle position="-0 0.9 -3" radius="0.2" class="menu" id="rotate" color="#e5cdae" onclick="rotateVolume(this)"
+          side="double" text="width: 2; value: Rotar.; color: black; align:center;" visible="true">
+        </a-circle>
+
+        <a-circle position="0.8 0.2 -3" radius="0.2" class="menu" id="big" color="#e5cdae" onclick="bigVolume(this)"
+          side="double" text="width: 2;value: Agrandar.; color: black;align:center;" visible="true">
+        </a-circle>
+
+        <a-circle position="-0.8 0.2 -3" radius="0.2" class="menu" id="small" color="#e5cdae" onclick="smallVolume(this)"
+          side="double" text="width: 2; value: Disminuir.; color: black; align:center;" visible="true">
+        </a-circle>
+
+        <a-circle position="0.5 0.7 -3" radius="0.2" class="menu" id="movPlane" color="#e5cdae" onclick="movePlano(this)"
+          side="double" text="width: 2; value: C.Planos.; color: black; align:center;" visible="true">
+        </a-circle>
+
+        <a-circle position="-0.5 0.7 -3" radius="0.2" class="menu" id="reset" color="#e5cdae" onclick="reset(this)"
+          side="double" text="width: 2; value: Reset.; color: black; align:center;" visible="true">
+        </a-circle>
+        
       </a-entity>
     </a-entity>
 
@@ -147,8 +147,7 @@
           <br>
           <p>Umbralización</p>
           <input type="number" id="umbralizacion" value=0 onchange="umbralizacion(this)">
-          <input type="range" onmouseup="changeBar()" id="range" max="255" min="0" step="1" value="0" 
-            class="slider">
+          <input type="range" onmouseup="changeBar()" id="range" max="255" min="0" step="1" value="0" class="slider">
           <p id="ControlJS">El umbral debe ser numérico mayor que 0</p>
         </div>
 
