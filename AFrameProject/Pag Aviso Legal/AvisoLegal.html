@@ -13,16 +13,18 @@
 
     <link rel="stylesheet" href="AvisoLegalCSS.css">
 
+    <script src="../lenguages.js"></script>
+
     <title>Aviso legal!</title>
 </head>
 
-
+<body>
 <section id="cover" >
         <div id="cover-texto" >
             <div class="container" >
                 <div class="row">
                     <div class="col-sm-12" id="Titulo" >
-                        <h1>Aviso Legal</h1>
+                        <h1 id="AL">Aviso Legal</h1>
                     </div>
                 </div>
             </div>
@@ -33,24 +35,27 @@
             <div class="contenido-seccion">
                 <div class="container">
 
-                    <h3>Propiedad Intelectual</h3>
-                    <p id="PIntel"> La propiedad intelectual está integrada por una serie de derechos de carácter personal y/o patrimonial que atribuyen al autor 
+                    <h3 id="PI">Propiedad Intelectual</h3>
+                    <p id="PIntel1" > La propiedad intelectual está integrada por una serie de derechos de carácter personal y/o patrimonial que atribuyen al autor 
                         y a otros titulares la disposición y explotación de sus obras y prestaciones.
                         La propiedad intelectual de este proyecto recae en el autor del mismo,
                         Sara Arribas del Rosario así como sus tutores José Daniel Hernández Sosa y Abián Hernández Guedes</p>
 
-                    <h3>Licencias</h3>
-                    <p id="PIntel"> Una licencia es un contrato mediante el cual una persona recibe de otra el derecho de uso, de copia,
+                    <h3 id="lic">Licencias</h3>
+                    <p id="PIntel2" > Una licencia es un contrato mediante el cual una persona recibe de otra el derecho de uso, de copia,
                         de distribución, de estudio y de modificación (en el caso del Software Libre) de varios de sus bienes, 
                         normalmente de carácter no tangible o intelectual, pudiendo darse a cambio del pago de un monto
                         determinado por el uso de los mismos.
                         Estos activos son propiedad del otorgante, y pueden ser bienes de propiedad intelectual como una marca, 
                         patentes o tecnologías. También pueden ser objeto de licencia otros bienes de carácter intangible.
                     </p>
-                    <p> Todo los elementos incluidos en el trabajo están bajo la licencia MIT o BSD. Dichas licencias las podemos encontrar en los siguientes enlaces: </p></p>
+                    <p id="PIntel3"> Todos los elementos incluidos en el trabajo están bajo la licencia MIT o BSD. Dichas licencias las podemos encontrar en los siguientes enlaces: </p>
                     <a href= "https://github.com/aframevr/aframe/blob/master/LICENSE" target=”_blank”>A-Frame</a><br>
                     <a href= "https://github.com/wmurphyrd/aframe-super-hands-component/blob/master/LICENSE" target=”_blank”>SuperHands</a><br>
                     <a href="https://github.com/ritwickdey/vscode-live-server/blob/master/LICENSE" target=”_blank”>Visual Studio Server</a>
                     </div>
                 </div>
     </section>
+    <script>ChangeAdvice();</script>
+</body>
+    

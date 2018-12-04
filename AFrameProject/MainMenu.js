@@ -3,15 +3,11 @@ function rotateVolume(){
 
     var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('rotation');
-
     aux1.x= aux1.x +40;
     aux1.y= aux1.y +40;
     aux1.z= aux1.z +40;
-    aux1.y= aux1.y;
-    aux1.z= aux1.z;
 
     boxM.setAttribute('rotation',{x: aux1.x ,y: aux1.y ,z: aux1.z});
-    rotateVolume();
 }
 
 function bigVolume(){

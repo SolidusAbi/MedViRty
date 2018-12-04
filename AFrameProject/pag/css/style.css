@@ -52,3 +52,35 @@ img{
 h4{
     text-align: justify;
 }
+
+#avLeg{
+    color: #d3d3d3;
+}
+.lenguage{
+    background-color: gray ;
+    border-color: #336666;
+    border-block-start-color: #336666;
+    position:absolute;
+    top: 300px;
+    background-size:     cover;                      
+    background-repeat:   no-repeat;
+    background-position: center center;
+    font-weight: 600;
+    opacity: 10;
+}
+#botonEN{
+    right: 10px;
+    background-image: url("../../assets/Banderas/ingles.png");
+}
+#botonES{
+    right: 60px;
+    background-image: url("../../assets/Banderas/españa.jpg");
+}
+#botonFR{
+    right: 110px;
+    background-image: url("../../assets/Banderas/frances.png");
+}
+#botonPT{
+    right: 160px;
+    background-image: url("../../assets/Banderas/portugues.jpg");
+}

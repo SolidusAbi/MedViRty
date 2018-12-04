@@ -1,92 +1,107 @@
 <!doctype html>
-<html lang="en">
+<html>
+
 <head>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="pag/css/bootstrap.css">
     <link rel="stylesheet" href="pag/css/style.css">
 
+    <script src="lenguages.js"></script>
+    
     <title>Index!</title>
 </head>
-<body>
 
-<section id="cover">
-    <div id="cover-texto">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1 class="display-3">Visualizador de imágenes médicas</h1>
-                    <p>Sara Arribas del Rosario</p>
+<body onload="setIdiomaInIndex();">   
+    <input id="botonEN" class="lenguage" type='button' value="EN" i=0 onclick='changeLeng("EN")'>
+    <input id="botonES" class="lenguage" type='button' value="ES" i=0 onclick='changeLeng("ES")'>
+    <input id="botonPT" class="lenguage" type='button' value="PT" i=0 onclick='changeLeng("PT")'>
+    <input id="botonFR" class="lenguage" type='button' value="FR" i=0 onclick='changeLeng("FR")'>
+    <section id="cover">
+        <div id="cover-texto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1 class="display-3" id="text1">Visualizador de imágenes médicas</h1>
+                        <p>Sara Arribas del Rosario</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="empresa">
-    <div class="contenido-seccion">
-        <div class="container">
-            <h2>Descripción</h2>
-            <h4>En esta página se podrá visualizar diferentes imágenes médicas, de diferentes patologías, con las que podremos interactuar en Realidad Virtual, permitiendo una mayor inmersión y concentración en su estudio </h4>
-            <br>
-            <br>
-            <p class="lead"> Seleccione un ejemplo</p>
-            <div class="row">
-                <div class="col-sm-6">
-
-                    <div class="card-group">
-                        <div class="card">
-                            <img class="card-img-top" src="pag/imagePag/ct.jpg" alt="ct">
-                            <div class="card-body">
-                                <h5 class="card-title">Ejemplo de CT </h5>
-                                <button class="btn btn-primary" onclick=document.location.href="SecondHtml.html?indice=1";>Aceptar</button>
-                                <!--Boton para ejemplo CT-->
+    <section id="empresa">
+        <div class="contenido-seccion">
+            <div class="container">
+                <h2 id="text2">Descripción</h2>
+                <h4 id="text3">En esta página se podrá visualizar diferentes imágenes médicas, de diferentes
+                    patologías, con las que podremos interactuar en Realidad Virtual. Esto nos permitirá una mayor
+                    inmersión y concentración en su estudio. Para ello, se ha propuesto los siguientes dos ejemplos:
+                </h4>
+                <br>
+                <br>
+                <p class="lead" id="text4"> Seleccione un ejemplo </p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card-group">
+                            <div class="card">
+                                <img class="card-img-top" src="pag/imagePag/ct.jpg" alt="ct">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="text5">Ejemplo de CT </h5>
+                                    <button id="text6" class="btn btn-primary" onclick=document.location.href="SecondHtml.html?indice=1"
+                                        ;>Aceptar</button>
+                                    <!--Boton para ejemplo CT-->
+                                </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <img class="card-img-top" src="pag/imagePag/mri.jpg" alt="mri">
-                            <div class="card-body">
-                                <h5 class="card-title">Ejemplo de MRI</h5>
-                                <button class="btn btn-primary" onclick=document.location.href="SecondHtml.html?indice=2"; >Aceptar</button>
-                                <!--Boton para ejemplo MRI-->
+                            <div class="card">
+                                <img class="card-img-top" src="pag/imagePag/mri.jpg" alt="mri">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="text7">Ejemplo de MRI</h5>
+                                    <button id="text6" class="btn btn-primary" onclick=document.location.href="SecondHtml.html?indice=2">Aceptar</button>
+                                    <!--Boton para ejemplo MRI-->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div id="separador"></div>
-<section id="Acercade" class="row-md-4">
-    <div class="contenido-seccion">
-        <div class="container">
-            <div class="col-md-6" >
-                <div class="texto-acerca-de">
-                    <h3>Acerca de TFG sara</h3>
-                    <p class="leaf">
-                        Este TFG ha sido desarrolado en colaboración con la cátedra de tecnologías médicas de la universidad de las palmas de gran canaria y por el proyecto MacBiolDi.
-                    </p>
+    <div id="separador"></div>
+    <section id="Acercade" class="row-md-4">
+        <div class="contenido-seccion">
+            <div class="container">
+                <div class="col-md-6">
+                    <div class="texto-acerca-de">
+                        <h3 id="text8">Acerca de TFG sara</h3>
+                        <p id="text9" class="leaf">
+                            Este TFG ha sido desarrollado en colaboración con la cátedra de tecnologías médicas de la
+                            universidad de las palmas de gran canaria y por el proyecto MacBiolDi.
+                        </p>
+                    </div>
+                </div>
+                <div class="col">
+                    <br>
+                    <a id="text10" href="Pag Aviso Legal/AvisoLegal.html" id="avLeg">Aviso Legal</a>
                 </div>
             </div>
-            <div class="col">
-                <a href="Pag Aviso Legal/AvisoLegal.html">Aviso Legal</a>
-   
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="pag/bootstrap.js"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="pag/bootstrap.js"></script>
 </body>
 </html>

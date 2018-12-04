@@ -1,4 +1,3 @@
-
 function SelectExample() {
     var paramstr = document.location.search.substr(1);
     var paramarr = paramstr.split("&");

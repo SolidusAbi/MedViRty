@@ -32,10 +32,14 @@
   <script src="FormatVolume/coronalApp.js"></script>
   <script src="FormatVolume/sagitalApp.js"></script>
 
+  <script src="lenguages.js"></script>
+
   <script src="processing.js"></script>
 </head>
 
 <body>
+
+
   <a-scene embedded class="escena">
 
     <a-sky src="assets/blue.jpg"></a-sky>
@@ -77,41 +81,40 @@
       <a-entity id="lhand" mixin="controller-left">
         <a-entity gltf-model="#viveControllerGLTF"> </a-entity>
 
-        <a-circle position="-0 0.9 -3" radius="0.2" class="menu" id="rotate" color="#e5cdae" onclick="rotateVolume(this)"
+        
+        <!--Menu de opciones de nuestro programa-->
+
+        <a-circle id="a" position="-0 0.9 -3" radius="0.2" class="menu" id="rotate" color="#e5cdae" onclick="rotateVolume(this)"
           side="double" text="width: 2; value: Rotar.; color: black; align:center;" visible="true">
         </a-circle>
 
-        <a-circle position="0.8 0.2 -3" radius="0.2" class="menu" id="big" color="#e5cdae" onclick="bigVolume(this)"
-          side="double" text="width: 2;value: Agrandar.; color: black;align:center;" visible="true">
+        <a-circle id="b" position="0.8 0.2 -3" radius="0.2" class="menu" id="big" color="#e5cdae" onclick="bigVolume(this)"
+          side="double" text="width: 2; value: Agrandar.; color: black;align:center;" visible="true">
         </a-circle>
 
-        <a-circle position="-0.8 0.2 -3" radius="0.2" class="menu" id="small" color="#e5cdae" onclick="smallVolume(this)"
+        <a-circle id="c" position="-0.8 0.2 -3" radius="0.2" class="menu" id="small" color="#e5cdae" onclick="smallVolume(this)"
           side="double" text="width: 2; value: Disminuir.; color: black; align:center;" visible="true">
         </a-circle>
 
-        <a-circle position="0.5 0.7 -3" radius="0.2" class="menu" id="movPlane" color="#e5cdae" onclick="movePlano(this)"
+        <a-circle id="d" position="0.5 0.7 -3" radius="0.2" class="menu" id="movPlane" color="#e5cdae" onclick="movePlano(this)"
           side="double" text="width: 2; value: C.Planos.; color: black; align:center;" visible="true">
         </a-circle>
 
-        <a-circle position="-0.5 0.7 -3" radius="0.2" class="menu" id="reset" color="#e5cdae" onclick="reset(this)"
+        <a-circle id="e" position="-0.5 0.7 -3" radius="0.2" class="menu" id="reset" color="#e5cdae" onclick="reset(this)"
           side="double" text="width: 2; value: Reset.; color: black; align:center;" visible="true">
         </a-circle>
-        
       </a-entity>
     </a-entity>
 
-    <!--Menu de opciones de nuestro programa-->
 
 
 
     <!--<a-entity id="volumenCompleto" volume="volumePath: data/CTchest.nrrd"></a-entity>-->
     <a-entity class="volume" id="volumenCompleto"></a-entity>
 
-
     <script>
       // var aframeScene = document.querySelector('a-scene');
       // console.log(aframeScene);
-
       document.querySelector('#volumenCompleto').setAttribute('dinamic-body', '');
       document.querySelector('#volumenCompleto').setAttribute('stretchable', '');
       document.querySelector('#volumenCompleto').setAttribute('position', { x: 0, y: 0, z: -19 });
@@ -126,8 +129,6 @@
       } else {
         console.log("Se ha seleccionado una opción no contenida en el programa");
       }
-
-
     </script>
 
   </a-scene>
@@ -145,7 +146,7 @@
 
         <div>
           <br>
-          <p>Umbralización</p>
+          <p id="textumb">Umbralización</p>
           <input type="number" id="umbralizacion" value=0 onchange="umbralizacion(this)">
           <input type="range" onmouseup="changeBar()" id="range" max="255" min="0" step="1" value="0" class="slider">
           <p id="ControlJS">El umbral debe ser numérico mayor que 0</p>
@@ -153,24 +154,27 @@
 
         <div>
           <br>
-          <p>Opciones</p>
-          <button onclick="reset(this)">Reset</button>
-          <button onclick="rotateVolume(this)">Rotar</button>
+          <p id="options">Opciones</p>
+          <button id="button1" onclick="reset(this)">Reset</button>
+          <button id="button2" onclick="rotateVolume(this)">Rotar</button>
           <br>
-          <button onclick="movePlano(this)">Cambiar planos</button>
+          <button id="button3" onclick="movePlano(this)">Cambiar planos</button>
           <br>
-          <button onclick="bigVolume(this)">Agrandar</button>
-          <button onclick="smallVolume(this)">Disminuir</button>
+          <button id="button4" onclick="bigVolume(this)">Agrandar</button>
+          <button id="button5" onclick="smallVolume(this)">Disminuir</button>
         </div>
 
         <div id="cambiarEjemplo">
-          <button onclick="back(this)">Página principal</button>
+          <button id="button6" onclick="back(this)">Página principal</button>
         </div>
 
       </div>
 
     </div>
-
+    <script>
+       var lenguage =localStorage.getItem("lenguage");
+      changeLenguageOfMenu(lenguage);
+    </script>
   </div>
 
 
