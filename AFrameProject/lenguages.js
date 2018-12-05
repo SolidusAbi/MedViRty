@@ -23,16 +23,16 @@ function setIdiomaInIndex() {
 
     if (lenguage == "EN") {
         console.log(lenguage);
-        text1 = "hola1";
-        text2 = "hola2";
-        text3 = "hola3";
-        text4 = "hola4";
-        text5 = "hola5";
-        text6 = "hola6";
-        text7 = "hola7";
-        text8 = "hola8";
-        text9 = "hola9";
-        text10 = "hola9";
+        text1 = "Medical images viewer";
+        text2 = "Description";
+        text3 = "In this page you can visualize different medical images, from different pathologies, with which to interact in a Virtual Reality environment. Examples:";
+        text4 = "Select an example";
+        text5 = "CT example";
+        text6 = "Accept";
+        text7 = "MRI example";
+        text8 = "Sara’s TFG about";
+        text9 = "This work has been developed with the support of the Cátedra de Tecnologías Médicas of the Universidad de Las Palmas de Gran Canaria and in collaboration with the MacBiolDi project.";
+        text10 = "Legal warning";
     } else if (lenguage == "FR") {
         text1 = "hola1";
         text2 = "hola2";
@@ -55,6 +55,17 @@ function setIdiomaInIndex() {
         text8 = "Acerca de TFG sara";
         text9 = "Este TFG ha sido desarrollado en colaboración con la cátedra de tecnologías médicas de la\nuniversidad de las palmas de gran canaria y por el proyecto MacBiolDi.";
         text10 = "Aviso Legal";
+    } else if(lenguage == "PT"){
+        text1 = "Visualisation d'images médicales";
+        text2 = "Descrição";
+        text3 = "Nesta página você pode visualizar diferentes imagens médicas, de diferentes patologias, com as quais interage em um ambiente de Realidade Virtual. Exemplos:";
+        text4 = "Selecione um exemplo";
+        text5 = "CT exemplo";
+        text6 = "Aceitar";
+        text7 = "MRI exemplo";
+        text8 = "Sobre o TFG Sara";
+        text9 = "Este trabalho foi desenvolvido com o apoio da Cátedra de Tecnologias Médicas da Universidade de Las Palmas de Gran Canaria e em colaboração com o projeto MacBiolDi.";
+        text10 = "Aviso Legal";
     }
 
     document.querySelector("#text1").innerHTML = text1;
@@ -63,8 +74,9 @@ function setIdiomaInIndex() {
     document.querySelector("#text4").innerHTML = text4;
     document.querySelector("#text5").innerHTML = text5;
     document.querySelector("#text6").innerHTML = text6;
+    document.querySelector("#text6-2").innerHTML = text6;
     document.querySelector("#text7").innerHTML = text7;
-    document.querySelector("#text8").innerHTML = text6;
+    document.querySelector("#text8").innerHTML = text8;
     document.querySelector("#text9").innerHTML = text9;
     document.querySelector("#text10").innerHTML = text10;
 
@@ -74,24 +86,23 @@ function setIdiomaInIndex() {
 function changeLenguageOfMenu() {
 
     if (lenguage == "EN") {
-        text1 = "hola1";
-        text2 = "hola2";
-        text3 = "hola3";
-        text4 = "hola4";
-        text5 = "hola5";
+        text1 = "Rotate";
+        text2 = "Zoom In";
+        text3 = "Zoom out";
+        text4 = "Switch plane";
+        text5 = "Reset";
 
-        text6 = "hola1";
-        text7 = "hola2";
-        text8 = "hola3";
-        text9 = "Cagoento";
+        text6 = "Visualization and treatment of images";
+        text7 = "Threshold";
+        text8 = "The threshold must be numeric greater than 0";
+        text9 = "Options";
 
-
-        text10 = "hola4";
-        text11 = "hola5";
-        text12 = "hola4";
-        text13 = "hola5";
-        text14 = "hola4";
-        text15 = "hola5";
+        text10 = "Reset";
+        text11 = "Rotate";
+        text12 = "Switch plane";
+        text13 = "Zoom In";
+        text14 = "Zoom out";
+        text15 = "Main page";
     } else if (lenguage == "ES") {
         text1 = "Rotar";
         text2 = "Agrandar";
@@ -111,7 +122,28 @@ function changeLenguageOfMenu() {
         text13 = "Agrandar";
         text14 = "Disminuir";
         text15 = "Página principal";
+    }else if(lenguage == "PT"){
+        text1 = "Rodar";
+        text2 = "Ampliar";
+        text3 = "Reduzir";
+        text4 = "Mudar de plano";
+        text5 = "Reset";
+
+        text6 = "Visualização e tratamento de imagens";
+        text7 = "Limiarização";
+        text8 = "O limite deve ser numérico maior que 0";
+        text9 = "Opções";
+
+
+        text10 = "Reset";
+        text11 = "Rodar";
+        text12 = "Mudar de plano";
+        text13 = "Ampliar";
+        text14 = "Reduzir";
+        text15 = "Página inicial";
     }
+
+
     document.querySelector("#a").setAttribute('text', { value: text1 });
     document.querySelector("#b").setAttribute('text', { value: text2 });
     document.querySelector("#c").setAttribute('text', { value: text3 });
@@ -141,14 +173,13 @@ function ChangeAdvice(){
     }
 
     if (lenguage == "EN") {
-        text1 = "hola1";
-        text2 = "hola2";
-        text3 = "hola3";
-        text4 = "hola4";
-        text5 = "hola5";
-        text6 = "hola6";
-    }
-
+        text1 = "Legal warning";
+        text2 = "Intellectual property";
+        text3 = "The intellectual property is compose of a number of rights of personal and / or patrimonial nature that attribute to the author and other owners the disposition and exploitation of their works and services. The intellectual property of this project applies on its author as well as its tutors";
+        text4 = "License";
+        text5 = "A license is a contract whereby one person receives from another the right to use, copy, distribute, study and modification (in the case of Free Software) of several of their assets, usually of a non-tangible or intellectual nature, it could also be given in exchange for the payment of a certain amount for their use. These assets are property of the grantor, and may be intellectual property such as a trademark, patents or technologies. Other intangible assets may also be licensed.";
+        text6 = "All the elements included in this work are distributed under MIT or BSD license. These licenses can be found at:";
+    }else 
     if (lenguage == "ES") {
         text1 = "Aviso Legal";
         text2 = "Propiedad Intelectual";
@@ -156,6 +187,14 @@ function ChangeAdvice(){
         text4 = "Licencias";
         text5 = "Una licencia es un contrato mediante el cual una persona recibe de otra el derecho de uso, de copia,de distribución, de estudio y de modificación (en el caso del Software Libre) de varios de sus bienes,normalmente de carácter no tangible o intelectual, pudiendo darse a cambio del pago de un monto determinado por el uso de los mismos.\nEstos activos son propiedad del otorgante, y pueden ser bienes de propiedad intelectual como una marca,patentes o tecnologías. También pueden ser objeto de licencia otros bienes de carácter intangible.";
         text6 = "Todos los elementos incluidos en el trabajo están bajo la licencia MIT o BSD. Dichas licencias las podemos encontrar en los siguientes enlaces: ";
+    } else 
+    if(lenguage == "PT"){
+        text1 = "Aviso Legal";
+        text2 = "Propriedade intelectual";
+        text3 = "A propriedade intelectual é composta de uma série de direitos de natureza pessoal e / ou patrimonial que atribuem ao autor e a outros proprietários a disposição e a exploração de suas obras e serviços. A propriedade intelectual deste projeto recai sobre o autor do mesmo, bem como seus tutores.";
+        text4 = "Licença";
+        text5 = "Uma licença é um contrato pelo qual uma pessoa recebe de outra o direito de usar, copiar, distribuir, estudar e modificar (no caso do Software Livre) vários de seus ativos, geralmente de natureza não tangível ou intelectual, pode ser dado em troca do pagamento de uma certa quantia pelo uso destes. Esses ativos são de propriedade do concedente e podem ser propriedade intelectual, como marcas, patentes ou tecnologias. Outros ativos intangíveis também podem ser licenciados.";
+        text6 = "Todos os elementos incluídos no trabalho são distribuídos licença BSD. Essas licenças podem ser encontradas nos seguintes links:"
     }
 
     document.querySelector("#AL").innerHTML = text1;
