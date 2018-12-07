@@ -34,16 +34,16 @@ function setIdiomaInIndex() {
         text9 = "This work has been developed with the support of the Cátedra de Tecnologías Médicas of the Universidad de Las Palmas de Gran Canaria and in collaboration with the MacBiolDi project.";
         text10 = "Legal warning";
     } else if (lenguage == "FR") {
-        text1 = "hola1";
-        text2 = "hola2";
-        text3 = "hola3";
-        text4 = "hola4";
-        text5 = "hola5";
-        text6 = "hola6";
-        text7 = "hola7";
-        text8 = "hola8";
-        text9 = "hola9";
-        text10 = "hola9";
+        text1 = "Visualisation d'images médicales";
+        text2 = "Description";
+        text3 = "Dans cette page, vous pouvez visualiser différentes images médicales, de différentes pathologies, avec lesquelles interagir dans un environnement de réalité virtuelle. Exemples:";
+        text4 = "Sélectionnez un exemple";
+        text5 = "CT exemple";
+        text6 = "Accepter";
+        text7 = "IRM exemple";
+        text8 = "Le TFG de Sara à propos de";
+        text9 = "Ce travail a été développé avec le soutien de la Cátedra de Tecnologías Médicas de l’Université de Las Palmas de Grande Canarie et en collaboration avec le projet MacBiolDi.";
+        text10 = "Avertissement légal";
     } else if (lenguage == "ES") {
         text1 = "Visualizador de imágenes médicas";
         text2 = "Descripción";
@@ -141,6 +141,26 @@ function changeLenguageOfMenu() {
         text13 = "Ampliar";
         text14 = "Reduzir";
         text15 = "Página inicial";
+
+    }else if(lenguage == "FR"){
+        text1 = "Tourner";
+        text2 = "Zoomer";
+        text3 = "Dézoomer";
+        text4 = "Changer le plan";
+        text5 = "Réinitialiser";
+
+        text6 = " Visualisation et traitement des images.";
+        text7 = "Seuil";
+        text8 = "Le seuil doit être numérique supérieur à 0";
+        text9 = "Options";
+
+
+        text10 = "Réinitialiser";
+        text11 = "Tourner";
+        text12 = "Changer le plan";
+        text13 = "Zoomer";
+        text14 = "Dézoomer";
+        text15 = "page d'accueil";
     }
 
 
@@ -195,6 +215,14 @@ function ChangeAdvice(){
         text4 = "Licença";
         text5 = "Uma licença é um contrato pelo qual uma pessoa recebe de outra o direito de usar, copiar, distribuir, estudar e modificar (no caso do Software Livre) vários de seus ativos, geralmente de natureza não tangível ou intelectual, pode ser dado em troca do pagamento de uma certa quantia pelo uso destes. Esses ativos são de propriedade do concedente e podem ser propriedade intelectual, como marcas, patentes ou tecnologias. Outros ativos intangíveis também podem ser licenciados.";
         text6 = "Todos os elementos incluídos no trabalho são distribuídos licença BSD. Essas licenças podem ser encontradas nos seguintes links:"
+    }else
+    if (lenguage == "FR") {
+        text1 = "Avertissement légal";
+        text2 = "Propriété intellectuelle";
+        text3 = "La propriété intellectuelle est composée d’un certain nombre de droits de la personne et / ou de nature patrimoniale  qui attribuent à l’auteur et aux autres propriétaires la disposition et l’exploitation de leurs œuvres et services. La propriété intellectuelle de ce projet s'applique à son auteur ainsi qu'à ses tuteurs.";
+        text4 = "Licence";
+        text5 = "Une licence est un contrat par lequel une personne reçoit d'une autre personne le droit d'utiliser, de copier, de distribuer, d'étudier et de modifier (dans le cas des logiciels libres) plusieurs de ses actifs, généralement de nature non matérielle ou intellectuelle, il pourrait également être donné en échange du paiement d'un certain montant pour leur utilisation. Ces actifs sont la propriété du cédant et peuvent être une propriété intellectuelle telle qu'une marque, des brevets ou des technologies. D'autres actifs incorporels peuvent également être concédés sous licence.";
+        text6 = "Tous les éléments inclus dans ce travail sont distribués sous licence MIT ou BSD. Ces licences sont disponibles sur: ";
     }
 
     document.querySelector("#AL").innerHTML = text1;
