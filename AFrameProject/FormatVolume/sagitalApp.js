@@ -29,7 +29,7 @@ AFRAME.registerComponent('sagital-slice',{
         texture.needsUpdate = true;
         var material = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide , wireframe: false, map : texture});
         var mesh = new THREE.Mesh(geometry, material);
-        rotateObject(mesh,0,90,0);
+        rotateObject(mesh,0,-90,0);
         this.el.setObject3D('mesh', mesh);
     },
 
