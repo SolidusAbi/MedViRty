@@ -1,13 +1,13 @@
-function changeLeng(lenguage) {
-    localStorage.setItem("lenguage", lenguage);
+function changeLeng(language) {
+    localStorage.setItem("language", language);
     setIdiomaInIndex();
 }
 
 function setIdiomaInIndex() {
 
-    var lenguage = localStorage.getItem("lenguage");
-    if(lenguage == null){
-        lenguage = "ES";
+    var language = localStorage.getItem("language");
+    if(language == null){
+        language = "ES";
     }
 
     var text1;
@@ -21,8 +21,8 @@ function setIdiomaInIndex() {
     var text9;
     var text10;
 
-    if (lenguage == "EN") {
-        console.log(lenguage);
+    if (language == "EN") {
+        console.log(language);
         text1 = "Medical images viewer";
         text2 = "Description";
         text3 = "In this page you can visualize different medical images, from different pathologies, with which to interact in a Virtual Reality environment. Examples:";
@@ -33,7 +33,7 @@ function setIdiomaInIndex() {
         text8 = "Sara’s TFG about";
         text9 = "This work has been developed with the support of the Cátedra de Tecnologías Médicas of the Universidad de Las Palmas de Gran Canaria and in collaboration with the MacBiolDi project.";
         text10 = "Legal warning";
-    } else if (lenguage == "FR") {
+    } else if (language == "FR") {
         text1 = "Visualisation d'images médicales";
         text2 = "Description";
         text3 = "Dans cette page, vous pouvez visualiser différentes images médicales, de différentes pathologies, avec lesquelles interagir dans un environnement de réalité virtuelle. Exemples:";
@@ -44,7 +44,7 @@ function setIdiomaInIndex() {
         text8 = "Le TFG de Sara à propos de";
         text9 = "Ce travail a été développé avec le soutien de la Cátedra de Tecnologías Médicas de l’Université de Las Palmas de Grande Canarie et en collaboration avec le projet MacBiolDi.";
         text10 = "Avertissement légal";
-    } else if (lenguage == "ES") {
+    } else if (language == "ES") {
         text1 = "Visualizador de imágenes médicas";
         text2 = "Descripción";
         text3 = "En esta página se podrá visualizar diferentes imágenes médicas, de diferentes patologías, con las que podremos interactuar en Realidad Virtual. Esto nos permitirá una mayor\ninmersión y concentración en su estudio. Para ello, se ha propuesto los siguientes dos ejemplos:";
@@ -55,8 +55,8 @@ function setIdiomaInIndex() {
         text8 = "Acerca de TFG sara";
         text9 = "Este TFG ha sido desarrollado en colaboración con la cátedra de tecnologías médicas de la\nuniversidad de las palmas de gran canaria y por el proyecto MacBiolDi.";
         text10 = "Aviso Legal";
-    } else if(lenguage == "PT"){
-        text1 = "Visualisation d'images médicales";
+    } else if(language == "PT"){
+        text1 = "Visualizador de imagens médicas";
         text2 = "Descrição";
         text3 = "Nesta página você pode visualizar diferentes imagens médicas, de diferentes patologias, com as quais interage em um ambiente de Realidade Virtual. Exemplos:";
         text4 = "Selecione um exemplo";
@@ -83,9 +83,9 @@ function setIdiomaInIndex() {
 
 }
 
-function changeLenguageOfMenu() {
+function changelanguageOfMenu() {
 
-    if (lenguage == "EN") {
+    if (language == "EN") {
         text1 = "Rotate";
         text2 = "Zoom In";
         text3 = "Zoom out";
@@ -103,7 +103,7 @@ function changeLenguageOfMenu() {
         text13 = "Zoom In";
         text14 = "Zoom out";
         text15 = "Main page";
-    } else if (lenguage == "ES") {
+    } else if (language == "ES") {
         text1 = "Rotar";
         text2 = "Agrandar";
         text3 = "Disminuir";
@@ -122,7 +122,7 @@ function changeLenguageOfMenu() {
         text13 = "Agrandar";
         text14 = "Disminuir";
         text15 = "Página principal";
-    }else if(lenguage == "PT"){
+    }else if(language == "PT"){
         text1 = "Rodar";
         text2 = "Ampliar";
         text3 = "Reduzir";
@@ -142,7 +142,7 @@ function changeLenguageOfMenu() {
         text14 = "Reduzir";
         text15 = "Página inicial";
 
-    }else if(lenguage == "FR"){
+    }else if(language == "FR"){
         text1 = "Tourner";
         text2 = "Zoomer";
         text3 = "Dézoomer";
@@ -186,13 +186,13 @@ function changeLenguageOfMenu() {
 
 
 function ChangeAdvice(){
-    var lenguage = localStorage.getItem("lenguage");
+    var language = localStorage.getItem("language");
 
-    if(lenguage == null){
-        lenguage = "ES";
+    if(language == null){
+        language = "ES";
     }
 
-    if (lenguage == "EN") {
+    if (language == "EN") {
         text1 = "Legal warning";
         text2 = "Intellectual property";
         text3 = "The intellectual property is compose of a number of rights of personal and / or patrimonial nature that attribute to the author and other owners the disposition and exploitation of their works and services. The intellectual property of this project applies on its author as well as its tutors";
@@ -200,7 +200,7 @@ function ChangeAdvice(){
         text5 = "A license is a contract whereby one person receives from another the right to use, copy, distribute, study and modification (in the case of Free Software) of several of their assets, usually of a non-tangible or intellectual nature, it could also be given in exchange for the payment of a certain amount for their use. These assets are property of the grantor, and may be intellectual property such as a trademark, patents or technologies. Other intangible assets may also be licensed.";
         text6 = "All the elements included in this work are distributed under MIT or BSD license. These licenses can be found at:";
     }else 
-    if (lenguage == "ES") {
+    if (language == "ES") {
         text1 = "Aviso Legal";
         text2 = "Propiedad Intelectual";
         text3 = "La propiedad intelectual está integrada por una serie de derechos de carácter personal y/o patrimonial que atribuyen al autor y a otros titulares la disposición y explotación de sus obras y prestaciones.\nLa propiedad intelectual de este proyecto recae en el autor del mismo,Sara Arribas del Rosario así como sus tutores José Daniel Hernández Sosa y Abián Hernández Guedes";
@@ -208,7 +208,7 @@ function ChangeAdvice(){
         text5 = "Una licencia es un contrato mediante el cual una persona recibe de otra el derecho de uso, de copia,de distribución, de estudio y de modificación (en el caso del Software Libre) de varios de sus bienes,normalmente de carácter no tangible o intelectual, pudiendo darse a cambio del pago de un monto determinado por el uso de los mismos.\nEstos activos son propiedad del otorgante, y pueden ser bienes de propiedad intelectual como una marca,patentes o tecnologías. También pueden ser objeto de licencia otros bienes de carácter intangible.";
         text6 = "Todos los elementos incluidos en el trabajo están bajo la licencia MIT o BSD. Dichas licencias las podemos encontrar en los siguientes enlaces: ";
     } else 
-    if(lenguage == "PT"){
+    if(language == "PT"){
         text1 = "Aviso Legal";
         text2 = "Propriedade intelectual";
         text3 = "A propriedade intelectual é composta de uma série de direitos de natureza pessoal e / ou patrimonial que atribuem ao autor e a outros proprietários a disposição e a exploração de suas obras e serviços. A propriedade intelectual deste projeto recai sobre o autor do mesmo, bem como seus tutores.";
@@ -216,7 +216,7 @@ function ChangeAdvice(){
         text5 = "Uma licença é um contrato pelo qual uma pessoa recebe de outra o direito de usar, copiar, distribuir, estudar e modificar (no caso do Software Livre) vários de seus ativos, geralmente de natureza não tangível ou intelectual, pode ser dado em troca do pagamento de uma certa quantia pelo uso destes. Esses ativos são de propriedade do concedente e podem ser propriedade intelectual, como marcas, patentes ou tecnologias. Outros ativos intangíveis também podem ser licenciados.";
         text6 = "Todos os elementos incluídos no trabalho são distribuídos licença BSD. Essas licenças podem ser encontradas nos seguintes links:"
     }else
-    if (lenguage == "FR") {
+    if (language == "FR") {
         text1 = "Avertissement légal";
         text2 = "Propriété intellectuelle";
         text3 = "La propriété intellectuelle est composée d’un certain nombre de droits de la personne et / ou de nature patrimoniale  qui attribuent à l’auteur et aux autres propriétaires la disposition et l’exploitation de leurs œuvres et services. La propriété intellectuelle de ce projet s'applique à son auteur ainsi qu'à ses tuteurs.";
