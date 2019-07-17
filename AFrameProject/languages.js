@@ -6,7 +6,7 @@ function changeLeng(language) {
 function setIdiomaInIndex() {
 
     var language = localStorage.getItem("language");
-    if(language == null){
+    if(language == null ){
         language = "ES";
     }
 
@@ -22,7 +22,6 @@ function setIdiomaInIndex() {
     var text10;
 
     if (language == "EN") {
-        console.log(language);
         text1 = "Medical images viewer";
         text2 = "Description";
         text3 = "In this page you can visualize different medical images, from different pathologies, with which to interact in a Virtual Reality environment. Examples:";
@@ -67,7 +66,7 @@ function setIdiomaInIndex() {
         text9 = "Este trabalho foi desenvolvido com o apoio da Cátedra de Tecnologias Médicas da Universidade de Las Palmas de Gran Canaria e em colaboração com o projeto MacBiolDi.";
         text10 = "Aviso Legal";
     }
-
+    console.log(language);
     document.querySelector("#text1").innerHTML = text1;
     document.querySelector("#text2").innerHTML = text2;
     document.querySelector("#text3").innerHTML = text3;
@@ -83,8 +82,10 @@ function setIdiomaInIndex() {
 
 }
 
-function changelanguageOfMenu() {
-
+function changeLanguageOfMenu() {
+    if(language == null ){
+        language = "ES";
+    }
     if (language == "EN") {
         text1 = "Rotate";
         text2 = "Zoom In";
