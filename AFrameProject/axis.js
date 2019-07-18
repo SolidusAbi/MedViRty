@@ -39,7 +39,7 @@ AFRAME.registerComponent('axis', {
     },
 
     makeAxisHelper: function () {
-        var axisHelper = new THREE.AxisHelper(this.data.size);
+        var axisHelper = new THREE.AxesHelper(this.data.size);
         axisHelper.material.transparent = true;
         axisHelper.material.depthTest = false;
 
