@@ -2,7 +2,7 @@ function comprobar(element, destPosition , deltaPosition) {
     posAct = element.getAttribute('position')
     translateFactor = new THREE.Vector3(1, 1, 1);
     if (element.parentEl)
-        translateFactor = element.parentEl.object3D.getWorldScale(); 
+       element.parentEl.object3D.getWorldScale( translateFactor ); 
 
     if (element.getAttribute('id') == 'sagital') {
         if(element.getAttribute('LinearOrNormalPlane') == "lineal"){

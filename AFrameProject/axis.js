@@ -64,7 +64,8 @@ AFRAME.registerComponent('axis', {
 
     tick: function () {
         if (this.isCamera) {
-            var q = this.el.sceneEl.camera.getWorldQuaternion();
+            var q = new THREE.Quaternion();
+            this.el.sceneEl.camera.getWorldQuaternion(q);
             this.axisHelper.setRotationFromQuaternion(q.inverse());
             this.axisRenderer.render(this.axisScene, this.axisCamera);
         }
