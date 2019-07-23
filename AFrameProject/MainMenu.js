@@ -82,3 +82,23 @@ function back(){
     var aframeScene = document.querySelector('a-scene');
     document.location.href='index.html';
 }
+
+AFRAME.registerComponent('menu-event', {
+    init: function(){
+        this.DOWNMENU_EVENT = 'menudown'
+        this.UPMENU_EVENT = 'menuup'
+
+        this.onMenuDown = this.onMenuDown.bind(this);
+    },
+    play: function() {
+        this.el.addEventListener(this.DOWNMENU_EVENT, this.onMenuDown);
+    },
+    pause: function(){
+        this.el.removeEventListener(this.DOWNMENU_EVENT, this.onMenuDown);
+    },
+    onMenuDown: function(){
+        var hand = document.getElementsByClassName("menu");
+        console.log(hand);
+        for (let item of hand) {item.setAttribute('visible',!item.getAttribute('visible')); }
+    },
+})
