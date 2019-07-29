@@ -22,7 +22,7 @@ function bigVolume(){
     boxM.setAttribute('scale',{x: aux1.x ,y: aux1.y ,z: aux1.z});
 }
 
-function smallVolume(){
+function smallVolume(componentClicked){
 
     var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('scale');
@@ -97,8 +97,15 @@ AFRAME.registerComponent('menu-event', {
         this.el.removeEventListener(this.DOWNMENU_EVENT, this.onMenuDown);
     },
     onMenuDown: function(){
-        var hand = document.getElementsByClassName("menu");
-        console.log(hand);
-        for (let item of hand) {item.setAttribute('visible',!item.getAttribute('visible')); }
+        var menu = this.el.getElementsByClassName("menu-container");
+        for (let item of menu) {item.setAttribute("visible",!item.getAttribute("visible")); }
+        //Making the menu invisible hides it but it can still be clicked so i'll just move it to another place 
+        for (let item of menu) {
+            var pos = item.getAttribute("position");
+            if(pos){
+                pos.z = -pos.z;
+                item.setAttribute("position", pos);
+                } 
+            }
     },
 })
