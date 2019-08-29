@@ -165,9 +165,9 @@ function changeLanguageOfMenu() {
     }
 
 
-    document.querySelector("#a").setAttribute('text', { value: text1 });
-    document.querySelector("#b").setAttribute('text', { value: text2 });
-    document.querySelector("#c").setAttribute('text', { value: text3 });
+    /* document.querySelector("#a").setAttribute('text', { value: text1 }); */
+    /* document.querySelector("#b").setAttribute('text', { value: text2 }); */
+    /* document.querySelector("#c").setAttribute('text', { value: text3 }); */
     document.querySelector("#d").setAttribute('text', { value: text4 });
     document.querySelector("#e").setAttribute('text', { value: text5 });
 
