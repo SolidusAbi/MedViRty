@@ -157,7 +157,11 @@ window.drawIcon = function (ctx, canvas, iconFontSize, icon, color) {
 
 AFRAME.registerComponent('gui-button', {
     schema: {
-        on: { default: 'click' },
+
+        on: { default: 'clicked' },
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         toggle: { type: 'boolean', default: false },
         toggleState: { type: 'boolean', default: false },
         text: { type: 'string', default: 'text' },
@@ -216,14 +220,16 @@ AFRAME.registerComponent('gui-button', {
         this.buttonEntity = buttonEntity;
 
         this.setText(data.text);
+        
+        //Cambiados los eventos de hover
 
-        el.addEventListener('mouseenter', function (event) {
+        el.addEventListener(data.hoverEvent, function (event) {
             buttonEntity.removeAttribute('animation__leave');
             if (!data.toggle) {
                 buttonEntity.setAttribute('animation__enter', 'property: material.color; from: ' + data.backgroundColor + '; to:' + data.hoverColor + '; dur:200;');
             }
         });
-        el.addEventListener('mouseleave', function (event) {
+        el.addEventListener(data.unHoverEvent, function (event) {
             if (!data.toggle) {
                 buttonEntity.removeAttribute('animation__click');
                 buttonEntity.setAttribute('animation__leave', 'property: material.color; from: ' + data.hoverColor + '; to:' + data.backgroundColor + '; dur:200; easing: easeOutQuad;');
@@ -296,6 +302,9 @@ AFRAME.registerPrimitive('a-gui-button', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-button.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-button.hoverEvent',
+        'unHoverEvent': 'gui-button.unHoverEvent',
         'value': 'gui-button.text',
         'font-color': 'gui-button.fontColor',
         'font-size': 'gui-button.fontSize',
@@ -1217,7 +1226,10 @@ AFRAME.registerPrimitive('a-gui-flex-container', {
 
 AFRAME.registerComponent('gui-icon-button', {
     schema: {
-        on: { default: 'click' },
+        on: { default: 'clicked' },
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         toggle: { type: 'boolean', default: false },
         icon: { type: 'string', default: '' },
         iconActive: { type: 'string', default: '' },
@@ -1281,11 +1293,12 @@ AFRAME.registerComponent('gui-icon-button', {
         textEntity.setAttribute('position', '0 0 0.041');
         el.appendChild(textEntity);
 
-        el.addEventListener('mouseenter', function (evt) {
+        //Cambiados los eventos a los definidos anteriormente
+        el.addEventListener(data.hoverEvent, function (evt) {
             buttonEntity.removeAttribute('animation__leave');
             buttonEntity.setAttribute('animation__enter', 'property: material.color; from: ' + data.backgroundColor + '; to:' + data.hoverColor + '; dur:200;');
         });
-        el.addEventListener('mouseleave', function (evt) {
+        el.addEventListener(data.unHoverEvent, function (evt) {
             if (!data.toggle) {
                 buttonEntity.removeAttribute('animation__click');
             }
@@ -1339,6 +1352,9 @@ AFRAME.registerPrimitive('a-gui-icon-button', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-icon-button.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-icon-button.hoverEvent',
+        'unHoverEvent': 'gui-icon-button.unHoverEvent',
         'font-color': 'gui-icon-button.fontColor',
         'font-family': 'gui-icon-button.fontFamily',
         'border-color': 'gui-icon-button.borderColor',
@@ -1361,7 +1377,10 @@ AFRAME.registerPrimitive('a-gui-icon-button', {
 
 AFRAME.registerComponent('gui-icon-label-button', {
     schema: {
-        on: { default: 'click' },
+        on: { default: 'clicked' },
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         icon: { type: 'string', default: '' },
         iconActive: { type: 'string', default: '' },
         iconFontSize: { type: 'string', default: '400px' },
@@ -1461,11 +1480,11 @@ AFRAME.registerComponent('gui-icon-label-button', {
             el.appendChild(labelEntity);
         }
 
-        el.addEventListener('mouseenter', function (evt) {
+        el.addEventListener(data.hoverEvent, function (evt) {
             buttonEntity.removeAttribute('animation__leave');
             buttonEntity.setAttribute('animation__enter', 'property: material.color; from: ' + data.backgroundColor + '; to:' + data.hoverColor + '; dur:200;');
         });
-        el.addEventListener('mouseleave', function (evt) {
+        el.addEventListener(data.unHoverEvent, function (evt) {
             if (!data.toggle) {
                 buttonEntity.removeAttribute('animation__click');
             }
@@ -1512,6 +1531,9 @@ AFRAME.registerPrimitive('a-gui-icon-label-button', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-icon-label-button.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-button.hoverEvent',
+        'unHoverEvent': 'gui-button.unHoverEvent',
         'font-color': 'gui-icon-label-button.fontColor',
         'font-family': 'gui-icon-label-button.fontFamily',
         'font-size': 'gui-icon-label-button.fontSize',
@@ -1537,7 +1559,10 @@ AFRAME.registerPrimitive('a-gui-icon-label-button', {
 AFRAME.registerComponent('gui-input', {
     schema: {
         align: { type: 'string', default: 'left' },
-        on: { default: 'click' },
+        on: { default: 'clicked' },
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         text: { type: 'string', default: '' },
         toggle: { type: 'boolean', default: false },
         fontSize: { type: 'string', default: '150px' },
@@ -1614,7 +1639,7 @@ AFRAME.registerComponent('gui-input', {
         ////WAI ARIA Support
         el.setAttribute('role', 'input');
 
-        el.addEventListener('mouseenter', function (evt) {
+        el.addEventListener(data.hoverEvent, function (evt) {
             el.setAttribute('material', 'color', data.hoverColor);
             borderTopEntity.setAttribute('material', 'color', data.borderHoverColor);
             borderBottomEntity.setAttribute('material', 'color', data.borderHoverColor);
@@ -1622,7 +1647,7 @@ AFRAME.registerComponent('gui-input', {
             borderRightEntity.setAttribute('material', 'color', data.borderHoverColor);
         });
 
-        el.addEventListener('mouseleave', function (evt) {
+        el.addEventListener(data.unHoverEvent, function (evt) {
             el.setAttribute('material', 'color', data.backgroundColor);
             borderTopEntity.setAttribute('material', 'color', data.borderColor);
             borderBottomEntity.setAttribute('material', 'color', data.borderColor);
@@ -1682,6 +1707,9 @@ AFRAME.registerPrimitive('a-gui-input', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-input.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-input.hoverEvent',
+        'unHoverEvent': 'gui-input.unHoverEvent',
         'value': 'gui-input.inputText',
         'toggle': 'gui-input.toggle',
         'font-color': 'gui-input.fontColor',
@@ -1852,7 +1880,7 @@ AFRAME.registerPrimitive('a-gui-label', {
     'width': 'gui-item.width',
     'height': 'gui-item.height',
     'margin': 'gui-item.margin',
-    'on': 'gui-button.on',
+    'on': 'gui-label.on',
     'align': 'gui-label.align',
     'value': 'gui-label.text',
     'label-for': 'gui-label.labelFor',
@@ -1931,6 +1959,9 @@ AFRAME.registerPrimitive('a-gui-progressbar', {
 AFRAME.registerComponent('gui-radio', {
     schema: {
         on: { default: 'click' },
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         text: { type: 'string', default: 'text' },
         active: { type: 'boolean', default: true },
         checked: { type: 'boolean', default: false },
@@ -2008,11 +2039,12 @@ AFRAME.registerComponent('gui-radio', {
         this.updateToggle(data.active);
         el.setAttribute("checked", data.active);
 
-        el.addEventListener('mouseenter', function (evt) {
+
+        el.addEventListener(data.hoverEvent, function (evt) {
             radioborder.removeAttribute('animation__leave');
             radioborder.setAttribute('animation__enter', 'property: material.color; from: ' + data.borderColor + '; to:' + data.hoverColor + '; dur:200;');
         });
-        el.addEventListener('mouseleave', function (evt) {
+        el.addEventListener(data.unHoverEvent, function (evt) {
             radioborder.removeAttribute('animation__enter');
             radioborder.setAttribute('animation__leave', 'property: material.color; from: ' + data.hoverColor + '; to:' + data.borderColor + '; dur:200; easing: easeOutQuad;');
         });
@@ -2079,6 +2111,9 @@ AFRAME.registerPrimitive('a-gui-radio', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-radio.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-radio.hoverEvent',
+        'unHoverEvent': 'gui-radio.unHoverEvent',
         'value': 'gui-radio.text',
         'active': 'gui-radio.active',
         'checked': 'gui-radio.checked',
@@ -2103,6 +2138,10 @@ AFRAME.registerPrimitive('a-gui-radio', {
 
 AFRAME.registerComponent('gui-slider', {
     schema: {
+        on: {default: "click"},
+        //añadido las definiciones de los eventos de hover para super-hands
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         activeColor: { type: 'string', default: key_orange },
         backgroundColor: { type: 'string', default: key_offwhite },
         borderColor: { type: 'string', default: key_grey },
@@ -2123,22 +2162,39 @@ AFRAME.registerComponent('gui-slider', {
         var data = this.data;
         var el = this.el;
         var guiItem = el.getAttribute("gui-item");
+        this.guiItem = guiItem;
+        var guiInteractable = el.getAttribute("gui-interactable");
+        this.guiInteractable = guiInteractable;
         var sliderWidth = guiItem.width - data.leftRightPadding * 2.0;
         var sliderHeight = guiItem.height - data.topBottomPadding * 2.0;
+
+        //añadido el canvas
+        var canvasContainer = document.createElement('div');
+        canvasContainer.setAttribute('class', 'visuallyhidden');
+        document.body.appendChild(canvasContainer);
+        var canvas = document.createElement("canvas");
+        this.canvas = canvas;
+        canvas.setAttribute('width', sliderWidth);
+        canvas.setAttribute('height', sliderHeight);
+        canvas.id = getUniqueId('canvas');
+        canvasContainer.appendChild(canvas);
+        var ctx = this.ctx = canvas.getContext('2d');
+
 
         el.setAttribute('geometry', 'primitive: plane; height: ' + guiItem.height + '; width: ' + guiItem.height + ';');
         el.setAttribute('material', 'shader: flat; opacity: 1;  color: ' + data.backgroundColor + '; side:front;');
 
+   
         var sliderActiveBar = document.createElement("a-entity");
-        sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent * sliderWidth + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+        sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent*sliderWidth + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
         sliderActiveBar.setAttribute('material', 'shader: flat; opacity: 1; side:double; color: ' + data.activeColor + ';');
-        sliderActiveBar.setAttribute('position', data.percent - sliderWidth * 0.5 + ' 0 ' + (data.sliderBarDepth - 0.01));
+        sliderActiveBar.setAttribute('position', data.percent*sliderWidth * 0.5 - sliderWidth * 0.5  + ' 0 ' + (data.sliderBarDepth - 0.01));
         el.appendChild(sliderActiveBar);
 
         var sliderBar = document.createElement("a-entity");
-        sliderBar.setAttribute('geometry', 'primitive: box; width: ' + (sliderWidth - data.percent * sliderWidth) + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+        sliderBar.setAttribute('geometry', 'primitive: box; width: ' + ((1-data.percent) * sliderWidth) + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
         sliderBar.setAttribute('material', 'shader: flat; opacity: 1; side:double; color: ' + data.borderColor + ';');
-        sliderBar.setAttribute('position', data.percent * sliderWidth * 0.5 + ' 0 ' + (data.sliderBarDepth - 0.01));
+        sliderBar.setAttribute('position', sliderWidth * ((1-data.percent)*0.5 + data.percent - 0.5) + ' 0 ' + (data.sliderBarDepth - 0.01));
         el.appendChild(sliderBar);
 
         var handleContainer = document.createElement("a-entity");
@@ -2154,20 +2210,22 @@ AFRAME.registerComponent('gui-slider', {
         handle.setAttribute('position', '0 ' + data.handleInnerDepth + ' 0');
         handleContainer.appendChild(handle);
 
-        el.addEventListener('mouseenter', function () {
+        //añadidos los eventos hover y el de click
+
+        el.addEventListener(data.hoverEvent, function () {
             handle.setAttribute('material', 'color', data.hoverColor);
         });
 
-        el.addEventListener('mouseleave', function () {
+        el.addEventListener(data.unHoverEvent, function () {
             handle.setAttribute('material', 'color', data.handleColor);
         });
 
-        el.addEventListener('click', function (evt) {
-            console.log('I was clicked at: ', evt.detail.intersection.point);
-            var localCoordinates = el.object3D.worldToLocal(evt.detail.intersection.point);
+        el.addEventListener(data.on, function (evt) {
+           // console.log('I was clicked at: ', evt.detail.intersection.point);
+            var localCoordinates = el.object3D.worldToLocal(evt.interseccion.point);
             console.log('local coordinates: ', localCoordinates);
             console.log('current percent: ' + data.percent);
-            var sliderBarWidth = 2; // total width of slider bar
+            var sliderBarWidth = sliderWidth; // total width of slider bar
             if (localCoordinates.x <= -sliderBarWidth / 2) {
                 data.percent = 0;
             } else if (localCoordinates.x >= sliderBarWidth / 2) {
@@ -2175,16 +2233,16 @@ AFRAME.registerComponent('gui-slider', {
             } else {
                 data.percent = (localCoordinates.x + sliderBarWidth / 2) / sliderBarWidth;
             }
-            console.log("handle container: " + handleContainer);
-            sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent * 2 + '; height: 0.05; depth: 0.03;');
-            sliderActiveBar.setAttribute('position', data.percent - 1 + ' 0 0.02');
-            sliderBar.setAttribute('geometry', 'primitive: box; width: ' + (2 - data.percent * 2) + '; height: 0.05; depth: 0.03;');
-            sliderBar.setAttribute('position', data.percent * 1 + ' 0 0.02');
-            handleContainer.setAttribute('position', data.percent * 2 - 1 + ' 0 0.03');
+            //console.log("handle container: " + handleContainer);
+            sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent*sliderBarWidth + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderActiveBar.setAttribute('position', data.percent*sliderBarWidth * 0.5 - sliderBarWidth * 0.5  + ' 0 ' + (data.sliderBarDepth - 0.01));
+            sliderBar.setAttribute('geometry', 'primitive: box; width: ' + ((1-data.percent) * sliderBarWidth) + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderBar.setAttribute('position', sliderBarWidth * ((1-data.percent)*0.5 + data.percent - 0.5) + ' 0 ' + (data.sliderBarDepth - 0.01));
+            handleContainer.setAttribute('position', data.percent*sliderBarWidth - sliderBarWidth * 0.5 + ' 0 ' + (data.handleOuterDepth - 0.01));
             var guiInteractable = el.getAttribute("gui-interactable");
-            console.log("guiInteractable: " + guiInteractable);
+            //console.log("guiInteractable: " + guiInteractable);
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("clickActionFunctionName: " + clickActionFunctionName);
+            //console.log("clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -2196,7 +2254,8 @@ AFRAME.registerComponent('gui-slider', {
     tick: function tick() {},
     remove: function remove() {},
     pause: function pause() {},
-    play: function play() {}
+    play: function play() {},
+
 });
 
 AFRAME.registerPrimitive('a-gui-slider', {
@@ -2225,7 +2284,11 @@ AFRAME.registerPrimitive('a-gui-slider', {
         'slider-bar-depth': 'gui-slider.sliderBarDepth',
         'slider-bar-height': 'gui-slider.sliderBarHeight',
         'top-bottom-padding': 'gui-slider.topBottomPadding',
-        'width': 'gui-item.width'
+        'width': 'gui-item.width',
+        //añadidos los eventos 
+        'on': 'gui-slider.on',
+        'hoverEvent': 'gui-slider.hoverEvent',
+        'unHoverEvent': 'gui-slider.unHoverEvent'
     }
 });
 
@@ -2238,7 +2301,10 @@ AFRAME.registerPrimitive('a-gui-slider', {
 
 AFRAME.registerComponent('gui-toggle', {
     schema: {
-        on: { default: 'click' },
+        //cambiado el default del evento de click y añadido los eventos de hover
+        on: { default: 'clicked' },
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         text: { type: 'string', default: 'text' },
         active: { type: 'boolean', default: true },
         checked: { type: 'boolean', default: false },
@@ -2313,11 +2379,11 @@ AFRAME.registerComponent('gui-toggle', {
 
         this.updateToggle(data.active);
 
-        el.addEventListener('mouseenter', function (evt) {
+        el.addEventListener(data.hoverEvent, function (evt) {
             toggleHandle.removeAttribute('animation__leave');
             toggleHandle.setAttribute('animation__enter', 'property: material.color; from: ' + data.handleColor + '; to:' + data.hoverColor + '; dur:200;');
         });
-        el.addEventListener('mouseleave', function (evt) {
+        el.addEventListener(data.unHoverEvent, function (evt) {
             toggleHandle.removeAttribute('animation__enter');
             toggleHandle.setAttribute('animation__leave', 'property: material.color; from: ' + data.hoverColor + '; to:' + data.handleColor + '; dur:200; easing: easeOutQuad;');
         });
@@ -2384,6 +2450,11 @@ AFRAME.registerPrimitive('a-gui-toggle', {
         'height': 'gui-item.height',
         'margin': 'gui-item.margin',
         'on': 'gui-toggle.on',
+        //añadidos los eventos de hover
+        'hoverEvent': 'gui-toggle.hoverEvent',
+        'unHoverEvent': 'gui-toggle.unHoverEvent',
+        'hoverEvent': 'gui-button.hoverEvent',
+        'unHoverEvent': 'gui-button.unHoverEvent',
         'active': 'gui-toggle.active',
         'checked': 'gui-toggle.checked',
         'value': 'gui-toggle.text',
@@ -2408,6 +2479,10 @@ AFRAME.registerPrimitive('a-gui-toggle', {
 
 AFRAME.registerComponent('gui-vertical-slider', {
     schema: {
+        //añadidas declaraciones de eventos de click y de hover
+        on: { default: 'clicked' },
+        hoverEvent: { default: 'mouseover' },
+        unHoverEvent: { default: 'mouseout' },
         activeColor: { type: 'string', default: key_orange },
         backgroundColor: { type: 'string', default: key_offwhite },
         borderColor: { type: 'string', default: key_grey },
@@ -2512,15 +2587,16 @@ AFRAME.registerComponent('gui-vertical-slider', {
         this.hoverLabel = hoverLabel;
         hoverIndicator.appendChild(hoverLabel);
 
-        el.addEventListener('mouseenter', function () {
+        //añadidas las variables de los eventps de click y de hover
+        el.addEventListener(data.hoverEvent, function () {
             handle.setAttribute('material', 'color', data.hoverColor);
         });
 
-        el.addEventListener('mouseleave', function () {
+        el.addEventListener(data.unHoverEvent, function () {
             handle.setAttribute('material', 'color', data.handleColor);
         });
 
-        el.addEventListener('click', function (evt) {
+        el.addEventListener(data.on, function (evt) {
             console.log('I was clicked at: ', evt.detail.intersection.point);
             var localCoordinates = el.object3D.worldToLocal(evt.detail.intersection.point);
             console.log('click local coordinates: ', localCoordinates);
@@ -2706,7 +2782,13 @@ AFRAME.registerPrimitive('a-gui-vertical-slider', {
         'slider-bar-depth': 'gui-vertical-slider.sliderBarDepth',
         'slider-bar-width': 'gui-vertical-slider.sliderBarWidth',
         'top-bottom-padding': 'gui-vertical-slider.topBottomPadding',
-        'width': 'gui-item.width'
+        'width': 'gui-item.width',
+        //añadidos los eventos
+        'on': 'gui-vertical-slider.on',
+        'hoverEvent': 'gui-vertical-slider.hoverEvent',
+        'unHoverEvent': 'gui-vertical-slider.unHoverEvent'
+
+
     }
 });
 
