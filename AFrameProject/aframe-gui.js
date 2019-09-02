@@ -2168,6 +2168,8 @@ AFRAME.registerComponent('gui-slider', {
         var sliderWidth = guiItem.width - data.leftRightPadding * 2.0;
         var sliderHeight = guiItem.height - data.topBottomPadding * 2.0;
 
+        data.sliderWidth = sliderWidth;
+
         //añadido el canvas
         var canvasContainer = document.createElement('div');
         canvasContainer.setAttribute('class', 'visuallyhidden');
@@ -2221,24 +2223,23 @@ AFRAME.registerComponent('gui-slider', {
         });
 
         el.addEventListener(data.on, function (evt) {
-           // console.log('I was clicked at: ', evt.detail.intersection.point);
+            //console.log('I was clicked at: ', evt.detail.intersection.point);
             var localCoordinates = el.object3D.worldToLocal(evt.interseccion.point);
-            console.log('local coordinates: ', localCoordinates);
-            console.log('current percent: ' + data.percent);
-            var sliderBarWidth = sliderWidth; // total width of slider bar
-            if (localCoordinates.x <= -sliderBarWidth / 2) {
+            //console.log('local coordinates: ', localCoordinates);
+            //console.log('current percent: ' + data.percent
+            if (localCoordinates.x <= -sliderWidth / 2) {
                 data.percent = 0;
-            } else if (localCoordinates.x >= sliderBarWidth / 2) {
+            } else if (localCoordinates.x >= sliderWidth / 2) {
                 data.percent = 1.0;
             } else {
-                data.percent = (localCoordinates.x + sliderBarWidth / 2) / sliderBarWidth;
+                data.percent = (localCoordinates.x + sliderWidth / 2) / sliderWidth;
             }
             //console.log("handle container: " + handleContainer);
-            sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent*sliderBarWidth + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
-            sliderActiveBar.setAttribute('position', data.percent*sliderBarWidth * 0.5 - sliderBarWidth * 0.5  + ' 0 ' + (data.sliderBarDepth - 0.01));
-            sliderBar.setAttribute('geometry', 'primitive: box; width: ' + ((1-data.percent) * sliderBarWidth) + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
-            sliderBar.setAttribute('position', sliderBarWidth * ((1-data.percent)*0.5 + data.percent - 0.5) + ' 0 ' + (data.sliderBarDepth - 0.01));
-            handleContainer.setAttribute('position', data.percent*sliderBarWidth - sliderBarWidth * 0.5 + ' 0 ' + (data.handleOuterDepth - 0.01));
+            sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent*sliderWidth + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderActiveBar.setAttribute('position', data.percent*sliderWidth * 0.5 - sliderWidth * 0.5  + ' 0 ' + (data.sliderBarDepth - 0.01));
+            sliderBar.setAttribute('geometry', 'primitive: box; width: ' + ((1-data.percent) * sliderWidth) + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderBar.setAttribute('position', sliderWidth * ((1-data.percent)*0.5 + data.percent - 0.5) + ' 0 ' + (data.sliderBarDepth - 0.01));
+            handleContainer.setAttribute('position', data.percent*sliderWidth - sliderWidth * 0.5 + ' 0 ' + (data.handleOuterDepth - 0.01));
             var guiInteractable = el.getAttribute("gui-interactable");
             //console.log("guiInteractable: " + guiInteractable);
             var clickActionFunctionName = guiInteractable.clickAction;
@@ -2247,14 +2248,22 @@ AFRAME.registerComponent('gui-slider', {
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
             // is object a function?
-            if (typeof clickActionFunction === "function") clickActionFunction(evt, data.percent);
+            if (typeof clickActionFunction === "function") clickActionFunction(this);
         });
+
+        el.addEventListener("updateSlider", function(evt){
+            sliderActiveBar.setAttribute('geometry', 'primitive: box; width: ' + data.percent*sliderWidth + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderActiveBar.setAttribute('position', data.percent*sliderWidth * 0.5 - sliderWidth * 0.5  + ' 0 ' + (data.sliderBarDepth - 0.01));
+            sliderBar.setAttribute('geometry', 'primitive: box; width: ' + ((1-data.percent) * sliderWidth) + 0.01 + '; height: ' + data.sliderBarHeight + '; depth: ' + data.sliderBarDepth + ';');
+            sliderBar.setAttribute('position', sliderWidth * ((1-data.percent)*0.5 + data.percent - 0.5) + ' 0 ' + (data.sliderBarDepth - 0.01));
+            handleContainer.setAttribute('position', data.percent*sliderWidth - sliderWidth * 0.5 + ' 0 ' + (data.handleOuterDepth - 0.01));
+        }); 
     },
     update: function update() {},
     tick: function tick() {},
     remove: function remove() {},
     pause: function pause() {},
-    play: function play() {},
+    play: function play() {}
 
 });
 
