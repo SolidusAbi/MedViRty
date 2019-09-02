@@ -192,7 +192,7 @@ AFRAME.registerComponent('gui-button', {
         var canvasContainer = document.createElement('div');
         canvasContainer.setAttribute('class', 'visuallyhidden');
         document.body.appendChild(canvasContainer);
-        console.log("in gui-button init, data: " + JSON.stringify(data));
+       //console.log("in gui-button init, data: " + JSON.stringify(data));
         var canvas = document.createElement("canvas");
         this.canvas = canvas;
         canvas.setAttribute('width', canvasWidth);
@@ -242,13 +242,13 @@ AFRAME.registerComponent('gui-button', {
                 buttonEntity.setAttribute('animation__click', 'property: material.color; from: ' + data.activeColor + '; to:' + data.backgroundColor + '; dur:400; easing: easeOutQuad;');
             } else {
                 var guiButton = el.components['gui-button'];
-                // console.log("about to toggle, current state: " + guiButton.data.toggleState);
+                ////console.log("about to toggle, current state: " + guiButton.data.toggleState);
                 guiButton.setActiveState(!guiButton.data.toggleState);
                 //  buttonEntity.setAttribute('material', 'color', data.activeColor);
             }
 
             var clickActionFunctionName = guiInteractable.clickAction;
-            // console.log("in button, clickActionFunctionName: "+clickActionFunctionName);
+            ////console.log("in button, clickActionFunctionName: "+clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -261,16 +261,16 @@ AFRAME.registerComponent('gui-button', {
     },
     play: function play() {},
     update: function update(oldData) {
-        // console.log("In button update, toggle: "+this.data.toggleState);
+        ////console.log("In button update, toggle: "+this.data.toggleState);
     },
     setActiveState: function setActiveState(activeState) {
-        // console.log("in setActiveState function, new state: " + activeState);
+        ////console.log("in setActiveState function, new state: " + activeState);
         this.data.toggleState = activeState;
         if (!activeState) {
-            console.log('not active, about to set background color');
+           //console.log('not active, about to set background color');
             this.buttonEntity.setAttribute('material', 'color', this.data.backgroundColor);
         } else {
-            console.log('active, about to set active color');
+           //console.log('active, about to set active color');
             this.buttonEntity.setAttribute('material', 'color', this.data.activeColor);
         }
     },
@@ -434,7 +434,7 @@ AFRAME.registerComponent('gui-circle-timer', {
         var el = this.el;
         var guiItem = el.getAttribute("gui-item");
         var guiInteractable = el.getAttribute("gui-interactable");
-        console.log("in timer callback, guiInteractable: " + JSON.stringify(guiInteractable));
+       //console.log("in timer callback, guiInteractable: " + JSON.stringify(guiInteractable));
         var multiplier = 512; // POT conversion
         var canvasWidth = guiItem.height * multiplier; //square
         var canvasHeight = guiItem.height * multiplier;
@@ -546,15 +546,15 @@ AFRAME.registerComponent('gui-circle-timer', {
             this.countDownLabel = countDownLabel;
 
             if (left == 1) {
-                console.log('fire callback on the last second');
+               //console.log('fire callback on the last second');
             }
         }
     },
     callback: function callback() {
         var guiInteractable = this.el.getAttribute("gui-interactable");
         var clickActionFunctionName = guiInteractable.clickAction;
-        console.log("in timer callback, guiInteractable: " + JSON.stringify(guiInteractable));
-        console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
+       //console.log("in timer callback, guiInteractable: " + JSON.stringify(guiInteractable));
+       //console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
         // find object
         var clickActionFunction = window[clickActionFunctionName];
         //console.log("clickActionFunction: "+clickActionFunction);
@@ -610,7 +610,7 @@ AFRAME.registerComponent('gui-cursor', {
 
         AFRAME.utils.entity.setComponentProperty(el, 'raycaster.interval', '500');
 
-        console.log("fuse: " + fuse + ", fuseTimeout: " + fuseTimeout);
+       //console.log("fuse: " + fuse + ", fuseTimeout: " + fuseTimeout);
 
         if (data.design == 'dot') {
 
@@ -856,7 +856,7 @@ AFRAME.registerComponent('gui-cursor', {
         }
 
         el.addEventListener('mouseenter', function () {
-            console.log("in gui-cursor mousenter, el: " + el);
+           //console.log("in gui-cursor mousenter, el: " + el);
             el.emit('hovergui');
             if (data.design == 'dot' || data.design == 'ring') {
                 cursorShadow.emit('hovergui');
@@ -874,7 +874,7 @@ AFRAME.registerComponent('gui-cursor', {
         });
 
         el.addEventListener('mouseleave', function () {
-            console.log("in gui-cursor mouseleave, el: " + el);
+           //console.log("in gui-cursor mouseleave, el: " + el);
             el.emit('leavegui');
             if (data.design == 'dot' || data.design == 'ring') {
                 cursorShadow.emit('leavegui');
@@ -904,7 +904,7 @@ AFRAME.registerComponent('gui-cursor', {
         }
 
         el.addEventListener("stateremoved", function (evt) {
-            console.log("evt.detail " + evt.detail);
+           //console.log("evt.detail " + evt.detail);
             if (evt.detail === 'cursor-fusing') {
                 if (data.design == 'dot' || data.design == 'ring' || data.design == 'cross') {
                     if (fuse) {
@@ -1003,11 +1003,11 @@ var styles = StyleSheet.create({
 */
 
 var onAppendChildToContainer = function onAppendChildToContainer(elem, f) {
-    // console.log("in onAppend, elem: "+elem);
+    ////console.log("in onAppend, elem: "+elem);
     var observer = new MutationObserver(function (mutations, me) {
         //console.log("in mutationObserver, me: "+me);
         mutations.forEach(function (m) {
-            console.log(m);
+           //console.log(m);
             if (m.addedNodes.length) {
                 f(m.target, m.addedNodes);
             }
@@ -1039,7 +1039,7 @@ AFRAME.registerComponent('gui-flex-container', {
 
     },
     init: function init() {
-        console.log("in aframe-gui-component init for: " + this.el.getAttribute("id"));
+       //console.log("in aframe-gui-component init for: " + this.el.getAttribute("id"));
         var containerGuiItem = this.el.getAttribute("gui-item");
 
         if (this.data.isTopContainer) {
@@ -1176,12 +1176,12 @@ AFRAME.registerComponent('gui-flex-container', {
     getElementSize: function getElementSize() {},
     setBackground: function setBackground() {
         if (this.data.opacity > 0) {
-            console.log("panel position: " + JSON.stringify(this.el.getAttribute("position")));
+           //console.log("panel position: " + JSON.stringify(this.el.getAttribute("position")));
             var guiItem = this.el.getAttribute("gui-item");
             var panelBackground = document.createElement("a-entity");
 
             panelBackground.setAttribute('geometry', 'primitive: box; height: ' + guiItem.height + '; width: ' + guiItem.width + '; depth:0.025;');
-            console.log("about to set panel background color to: : " + this.data.panelColor);
+           //console.log("about to set panel background color to: : " + this.data.panelColor);
             panelBackground.setAttribute('material', 'shader: standard; depthTest: true; opacity: ' + this.data.opacity + '; color: ' + this.data.panelColor + ';');
             panelBackground.setAttribute('position', this.el.getAttribute("position").x + ' ' + this.el.getAttribute("position").y + ' ' + (this.el.getAttribute("position").z - 0.0125));
             panelBackground.setAttribute('rotation', this.el.getAttribute("rotation").x + ' ' + this.el.getAttribute("rotation").y + ' ' + this.el.getAttribute("rotation").z);
@@ -1314,7 +1314,7 @@ AFRAME.registerComponent('gui-icon-button', {
             }
 
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
+           //console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -1327,10 +1327,10 @@ AFRAME.registerComponent('gui-icon-button', {
     },
     play: function play() {},
     update: function update(oldData) {
-        console.log("In button update, toggle: " + this.toggleState);
+       //console.log("In button update, toggle: " + this.toggleState);
     },
     setActiveState: function setActiveState(activeState) {
-        console.log("in setActiveState function");
+       //console.log("in setActiveState function");
         this.data.toggle = this.toggleState = activeState;
         if (!activeState) {
             this.buttonEntity.setAttribute('material', 'color', this.data.backgroundColor);
@@ -1500,7 +1500,7 @@ AFRAME.registerComponent('gui-icon-label-button', {
             }
             var guiInteractable = el.getAttribute("gui-interactable");
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
+           //console.log("in button, clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -1513,7 +1513,7 @@ AFRAME.registerComponent('gui-icon-label-button', {
     },
     play: function play() {},
     update: function update(oldData) {
-        console.log("In button update, toggle: " + this.toggleState);
+       //console.log("In button update, toggle: " + this.toggleState);
     }
 });
 
@@ -1656,11 +1656,11 @@ AFRAME.registerComponent('gui-input', {
         });
 
         el.addEventListener(data.on, function (evt) {
-            console.log('I was clicked at: ', evt.detail.intersection.point);
+           //console.log('I was clicked at: ', evt.detail.intersection.point);
             var guiInteractable = el.getAttribute("gui-interactable");
-            console.log("guiInteractable: " + guiInteractable);
+           //console.log("guiInteractable: " + guiInteractable);
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("clickActionFunctionName: " + clickActionFunctionName);
+           //console.log("clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -1670,12 +1670,12 @@ AFRAME.registerComponent('gui-input', {
     },
     play: function play() {},
     update: function update(oldData) {
-        // console.log("In label update, toggle");
+        ////console.log("In label update, toggle");
         this.init();
     },
     tick: function tick() {
         if (this.data.text !== this.oldText) {
-            // console.log('text was changed, about to draw text: ' + this.data.text);
+            ////console.log('text was changed, about to draw text: ' + this.data.text);
             this.oldText = this.data.text;
             //  drawText(this.ctx, this.canvas, this.data.text, '100px ' + this.data.fontFamily, this.data.fontColor, 1);
             drawText(this.ctx, this.canvas, this.data.text, this.data.fontSize, this.data.fontFamily, this.data.fontColor, 1, data.align, 'middle', this.data.fontWeight);
@@ -1744,12 +1744,12 @@ AFRAME.registerComponent('gui-interactable', {
 
         if (data.keyCode) {
             window.addEventListener("keydown", function (event) {
-                // console.log('in keydown handler, event key: ' + event.key);
+                ////console.log('in keydown handler, event key: ' + event.key);
                 if (event.key == data.key) {
-                    //    console.log("key press by gui-interactable, key: " + data.key);
+                    //   //console.log("key press by gui-interactable, key: " + data.key);
                     el.emit('click');
                 } else if (event.keyCode == data.keyCode) {
-                    //    console.log("key press by gui-interactable, keyCode: " + data.keyCode);
+                    //   //console.log("key press by gui-interactable, keyCode: " + data.keyCode);
                     el.emit('click');
                 }
                 event.preventDefault();
@@ -1858,12 +1858,12 @@ AFRAME.registerComponent('gui-label', {
     }
   },
   update: function update(oldData) {
-    // console.log("In label update, toggle");
+    ////console.log("In label update, toggle");
     this.init();
   },
   tick: function tick() {
     if (this.data.text !== this.oldText) {
-      // console.log('text was changed, about to draw text: ' + this.data.text);
+      ////console.log('text was changed, about to draw text: ' + this.data.text);
       this.oldText = this.data.text;
       //  drawText(this.ctx, this.canvas, this.data.text, '100px ' + this.data.fontFamily, this.data.fontColor, 1);
       drawText(this.ctx, this.canvas, this.data.text, this.data.fontSize, this.data.fontFamily, this.data.fontColor, 1, data.align, 'middle', this.data.fontWeight);
@@ -2049,7 +2049,7 @@ AFRAME.registerComponent('gui-radio', {
             radioborder.setAttribute('animation__leave', 'property: material.color; from: ' + data.hoverColor + '; to:' + data.borderColor + '; dur:200; easing: easeOutQuad;');
         });
         el.addEventListener(data.on, function (evt) {
-            // console.log('I was clicked at: ', evt.detail.intersection.point); // Commented out to use own made click event without defining detail
+            ////console.log('I was clicked at: ', evt.detail.intersection.point); // Commented out to use own made click event without defining detail
             data.checked = !data.checked;
             if (data.checked) {
                 radioCenter.removeAttribute('animation__colorOut');
@@ -2410,7 +2410,7 @@ AFRAME.registerComponent('gui-toggle', {
         });
 
         el.addEventListener(data.on, function (evt) {
-            console.log('I was clicked at: ', evt.detail.intersection.point);
+            //console.log('I was clicked at: ', evt.detail.intersection.point);
             data.checked = !data.checked;
             if (data.checked) {
                 toggleBox.removeAttribute('animation__colorOut');
@@ -2424,9 +2424,9 @@ AFRAME.registerComponent('gui-toggle', {
                 toggleHandle.setAttribute('animation__positionOut', 'property: position; from: ' + toggleHandleXEnd + ' 0 0.02; to:' + toggleHandleXStart + ' 0 0.02; dur:200; easing:easeInOutCubic;');
             }
             var guiInteractable = el.getAttribute("gui-interactable");
-            console.log("guiInteractable: " + guiInteractable);
+            //console.log("guiInteractable: " + guiInteractable);
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("clickActionFunctionName: " + clickActionFunctionName);
+            //console.log("clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -2532,7 +2532,7 @@ AFRAME.registerComponent('gui-vertical-slider', {
         el.setAttribute('geometry', 'primitive: plane; height: ' + guiItem.height + '; width: ' + guiItem.width + ';');
         el.setAttribute('material', 'shader: flat; opacity: ' + data.opacity + ';  alphaTest: 0.5; color: ' + data.backgroundColor + '; side:front;');
 
-        console.log('**** in vertical slider init, percent: ' + data.percent + ', sliderHeight: ' + sliderHeight);
+        //console.log('**** in vertical slider init, percent: ' + data.percent + ', sliderHeight: ' + sliderHeight);
         var sliderActiveBar = document.createElement("a-entity");
         sliderActiveBar.setAttribute('geometry', 'primitive: box; height: ' + data.percent * sliderHeight + '; width: ' + data.sliderBarWidth + '; depth: ' + data.sliderBarDepth + ';');
         sliderActiveBar.setAttribute('material', 'shader: flat; opacity: 1; side:double; color: ' + data.activeColor + ';');
@@ -2606,10 +2606,10 @@ AFRAME.registerComponent('gui-vertical-slider', {
         });
 
         el.addEventListener(data.on, function (evt) {
-            console.log('I was clicked at: ', evt.detail.intersection.point);
+           //console.log('I was clicked at: ', evt.detail.intersection.point);
             var localCoordinates = el.object3D.worldToLocal(evt.detail.intersection.point);
-            console.log('click local coordinates: ', localCoordinates);
-            console.log('current percent: ' + data.percent);
+           //console.log('click local coordinates: ', localCoordinates);
+           //console.log('current percent: ' + data.percent);
             var newPercent = null;
             if (localCoordinates.y <= -sliderHeight / 2) {
                 newPercent = 0;
@@ -2618,14 +2618,14 @@ AFRAME.registerComponent('gui-vertical-slider', {
             } else {
                 newPercent = (localCoordinates.y + sliderHeight / 2) / sliderHeight;
             }
-            console.log('new percent: ' + newPercent);
+           //console.log('new percent: ' + newPercent);
             el.setAttribute('gui-vertical-slider', 'percent', String(newPercent));
             el.setAttribute('gui-vertical-slider', 'hoverPercent', String(newPercent));
-            console.log("handle container: " + handleContainer);
+           //console.log("handle container: " + handleContainer);
             var guiInteractable = el.getAttribute("gui-interactable");
-            console.log("guiInteractable: " + guiInteractable);
+           //console.log("guiInteractable: " + guiInteractable);
             var clickActionFunctionName = guiInteractable.clickAction;
-            console.log("clickActionFunctionName: " + clickActionFunctionName);
+           //console.log("clickActionFunctionName: " + clickActionFunctionName);
             // find object
             var clickActionFunction = window[clickActionFunctionName];
             //console.log("clickActionFunction: "+clickActionFunction);
@@ -2634,11 +2634,11 @@ AFRAME.registerComponent('gui-vertical-slider', {
         });
 
         this.el.addEventListener('raycaster-intersected', function (evt) {
-            console.log('***** in raycaster-intersected');
+           //console.log('***** in raycaster-intersected');
             _this.raycaster = evt.detail.el;
         });
         this.el.addEventListener('raycaster-intersected-cleared', function (evt) {
-            console.log('****** in raycaster-intersected-cleared');
+           //console.log('****** in raycaster-intersected-cleared');
             _this.raycaster = null;
             _this.hoverIndicator.setAttribute('visible', false);
             _this.hoverLabel.setAttribute('visible', false);
@@ -2687,7 +2687,7 @@ AFRAME.registerComponent('gui-vertical-slider', {
         if (!intersection) {
             return;
         } else {
-            console.log('1: hover intersection point: ' + JSON.stringify(intersection.point));
+           //console.log('1: hover intersection point: ' + JSON.stringify(intersection.point));
             if (this.previousLocalY && this.previousLocalY == intersection.point.y) {
                 this.hoverIndicator.setAttribute('visible', false);
                 this.hoverLabel.setAttribute('visible', false);
@@ -2702,13 +2702,13 @@ AFRAME.registerComponent('gui-vertical-slider', {
 
             mesh.matrixWorld.decompose(pos, rot, scale);
 
-            console.log('2: hover world position: ' + JSON.stringify(pos));
+           //console.log('2: hover world position: ' + JSON.stringify(pos));
             var localCoordinates = new THREE.Vector3();
             localCoordinates.x = intersection.point.x - pos.x;
             localCoordinates.y = intersection.point.y - pos.y;
             localCoordinates.z = intersection.point.z - pos.z;
             this.previousLocalY = localCoordinates.y;
-            console.log('3: hover local position: ' + JSON.stringify(localCoordinates));
+           //console.log('3: hover local position: ' + JSON.stringify(localCoordinates));
             // var localCoordinates = el.object3D.worldToLocal(intersection.point);
             //console.log('local coordinates: ', localCoordinates);
             //console.log('current percent: '+data.percent);
