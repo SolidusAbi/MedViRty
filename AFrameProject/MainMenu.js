@@ -22,7 +22,7 @@ function bigVolume(){
     boxM.setAttribute('scale',{x: aux1.x ,y: aux1.y ,z: aux1.z});
 }
 
-function smallVolume(componentClicked){
+function smallVolume(){
 
     var boxM = document.querySelector('#volumenCompleto');
     var aux1 = boxM.getAttribute('scale');
@@ -45,6 +45,15 @@ function reset(){
     var planoCoronal = document.querySelector('#coronal');
     var planoSagital = document.querySelector('#sagital');
     var planoAxial = document.querySelector('#axial');
+
+    coronal.setAttribute('LinearOrNormalPlane', 'normal');
+    sagital.setAttribute('LinearOrNormalPlane', 'normal');
+    axial.setAttribute('LinearOrNormalPlane', 'normal');
+
+    planoSagital.setAttribute('sagital-slice', {nSlice: 255*0.5});
+    planoCoronal.setAttribute('coronal-slice', {nSlice: 255*0.5});
+    planoAxial.setAttribute('axial-slice', {nSlice: 255*0.5});
+
     planoSagital.setAttribute('position',{x: 0, y: 0 ,z: 0});
     planoCoronal.setAttribute('position',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('position',{x: 0, y: 0 ,z: 0});
@@ -53,9 +62,7 @@ function reset(){
     planoCoronal.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     planoAxial.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
 
-    coronal.setAttribute('LinearOrNormalPlane', 'normal');
-    sagital.setAttribute('LinearOrNormalPlane', 'normal');
-    axial.setAttribute('LinearOrNormalPlane', 'normal');
+    
 }
 
 function movePlano(){
@@ -82,30 +89,3 @@ function back(){
     var aframeScene = document.querySelector('a-scene');
     document.location.href='index.html';
 }
-
-AFRAME.registerComponent('menu-event', {
-    init: function(){
-        this.DOWNMENU_EVENT = 'menudown'
-        this.UPMENU_EVENT = 'menuup'
-
-        this.onMenuDown = this.onMenuDown.bind(this);
-    },
-    play: function() {
-        this.el.addEventListener(this.DOWNMENU_EVENT, this.onMenuDown);
-    },
-    pause: function(){
-        this.el.removeEventListener(this.DOWNMENU_EVENT, this.onMenuDown);
-    },
-    onMenuDown: function(){
-        var menu = this.el.getElementsByClassName("menu-container");
-        for (let item of menu) {item.setAttribute("visible",!item.getAttribute("visible")); }
-        //Making the menu invisible hides it but it can still be clicked so i'll just move it to another place 
-        for (let item of menu) {
-            var pos = item.getAttribute("position");
-            if(pos){
-                pos.z = -pos.z;
-                item.setAttribute("position", pos);
-                } 
-            }
-    },
-})
