@@ -303,8 +303,8 @@ AFRAME.registerPrimitive('a-gui-button', {
         'margin': 'gui-item.margin',
         'on': 'gui-button.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-button.hoverEvent',
-        'unHoverEvent': 'gui-button.unHoverEvent',
+        'hoverevent': 'gui-button.hoverEvent',
+        'unhoverevent': 'gui-button.unHoverEvent',
         'value': 'gui-button.text',
         'font-color': 'gui-button.fontColor',
         'font-size': 'gui-button.fontSize',
@@ -1353,8 +1353,8 @@ AFRAME.registerPrimitive('a-gui-icon-button', {
         'margin': 'gui-item.margin',
         'on': 'gui-icon-button.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-icon-button.hoverEvent',
-        'unHoverEvent': 'gui-icon-button.unHoverEvent',
+        'hoverevent': 'gui-icon-button.hoverEvent',
+        'unhoverevent': 'gui-icon-button.unHoverEvent',
         'font-color': 'gui-icon-button.fontColor',
         'font-family': 'gui-icon-button.fontFamily',
         'border-color': 'gui-icon-button.borderColor',
@@ -1532,8 +1532,8 @@ AFRAME.registerPrimitive('a-gui-icon-label-button', {
         'margin': 'gui-item.margin',
         'on': 'gui-icon-label-button.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-button.hoverEvent',
-        'unHoverEvent': 'gui-button.unHoverEvent',
+        'hoverevent': 'gui-button.hoverEvent',
+        'unhoverevent': 'gui-button.unHoverEvent',
         'font-color': 'gui-icon-label-button.fontColor',
         'font-family': 'gui-icon-label-button.fontFamily',
         'font-size': 'gui-icon-label-button.fontSize',
@@ -1708,8 +1708,8 @@ AFRAME.registerPrimitive('a-gui-input', {
         'margin': 'gui-item.margin',
         'on': 'gui-input.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-input.hoverEvent',
-        'unHoverEvent': 'gui-input.unHoverEvent',
+        'hoverevent': 'gui-input.hoverEvent',
+        'unhoverevent': 'gui-input.unHoverEvent',
         'value': 'gui-input.inputText',
         'toggle': 'gui-input.toggle',
         'font-color': 'gui-input.fontColor',
@@ -2112,8 +2112,8 @@ AFRAME.registerPrimitive('a-gui-radio', {
         'margin': 'gui-item.margin',
         'on': 'gui-radio.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-radio.hoverEvent',
-        'unHoverEvent': 'gui-radio.unHoverEvent',
+        'hoverevent': 'gui-radio.hoverEvent',
+        'unhoverevent': 'gui-radio.unHoverEvent',
         'value': 'gui-radio.text',
         'active': 'gui-radio.active',
         'checked': 'gui-radio.checked',
@@ -2296,8 +2296,8 @@ AFRAME.registerPrimitive('a-gui-slider', {
         'width': 'gui-item.width',
         //añadidos los eventos 
         'on': 'gui-slider.on',
-        'hoverEvent': 'gui-slider.hoverEvent',
-        'unHoverEvent': 'gui-slider.unHoverEvent'
+        'hoverevent': 'gui-slider.hoverEvent',
+        'unhoverevent': 'gui-slider.unHoverEvent'
     }
 });
 
@@ -2460,10 +2460,8 @@ AFRAME.registerPrimitive('a-gui-toggle', {
         'margin': 'gui-item.margin',
         'on': 'gui-toggle.on',
         //añadidos los eventos de hover
-        'hoverEvent': 'gui-toggle.hoverEvent',
-        'unHoverEvent': 'gui-toggle.unHoverEvent',
-        'hoverEvent': 'gui-button.hoverEvent',
-        'unHoverEvent': 'gui-button.unHoverEvent',
+        'hoverevent': 'gui-toggle.hoverEvent',
+        'unhoverevent': 'gui-toggle.unHoverEvent',
         'active': 'gui-toggle.active',
         'checked': 'gui-toggle.checked',
         'value': 'gui-toggle.text',
@@ -2794,8 +2792,8 @@ AFRAME.registerPrimitive('a-gui-vertical-slider', {
         'width': 'gui-item.width',
         //añadidos los eventos
         'on': 'gui-vertical-slider.on',
-        'hoverEvent': 'gui-vertical-slider.hoverEvent',
-        'unHoverEvent': 'gui-vertical-slider.unHoverEvent'
+        'hoverevent': 'gui-vertical-slider.hoverEvent',
+        'unhoverevent': 'gui-vertical-slider.unHoverEvent'
 
 
     }
