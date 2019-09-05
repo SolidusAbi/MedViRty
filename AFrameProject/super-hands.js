@@ -990,14 +990,91 @@ var time;
 
                 this.start = this.start.bind(this);
                 this.end = this.end.bind(this);
+                this.onTouch = this.onTouch.bind(this);
+                this.onTouchRelease = this.onTouchRelease.bind(this);
+                this.onAxisMove = this.onAxisMove.bind(this)
 
-                this.el.addEventListener(this.HOVER_EVENT, this.start);
+
+                this.el.addEventListener(this.HOVER_EVENT, this.start,);
                 this.el.addEventListener(this.UNHOVER_EVENT, this.end);
             },
             remove: function () {
                 this.el.removeEventListener(this.HOVER_EVENT, this.start);
                 this.el.removeEventListener(this.UNHOVER_EVENT, this.end);
             },
+
+            onAxisMove: function(evt){ 
+                var el = this.el;
+                var nSlices = el.getAttribute("nSlices");
+                var axis = evt.detail.axis[1];
+                var newSlice = Math.round(nSlices*(axis/2 + 0.5));
+
+                if(axis === 0){
+                    switch (el.getAttribute('id')){
+                        case "sagital":
+                            var oldSlice = el.getAttribute('sagital-slice');
+                            newSlice = oldSlice.nSlice;
+                            break;
+
+                        case "axial":
+                            var oldSlice = el.getAttribute('axial-slice');
+                            newSlice = oldSlice.nSlice;
+                            break;
+
+                        case "coronal":
+                            var oldSlice = el.getAttribute('coronal-slice');
+                            newSlice = oldSlice.nSlice;
+                            break;
+                }}
+
+                var pos = el.getAttribute('position');
+                switch (el.getAttribute('id')){
+                    case "sagital":
+                        el.setAttribute('sagital-slice', {nSlice: newSlice});
+                        if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                            if(axis === 0){axis = pos.z}; 
+                            pos.z = axis*0.5;
+                        }else{
+                            if(axis === 0){axis = pos.x}; 
+                            pos.x = axis*0.5;
+                        }
+                        break;
+
+                    case "axial":
+                        el.setAttribute('axial-slice', {nSlice: newSlice});
+                        if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                            if(axis === 0){axis = pos.z}; 
+                            pos.z = axis*0.5;
+                        }else{
+                            if(axis === 0){axis = pos.y};
+                            pos.y = axis*0.5;
+                        }
+                        break;
+
+                    case "coronal":
+                        el.setAttribute('coronal-slice', {nSlice: newSlice});
+                        if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                            if(axis === 0){axis = pos.z}; 
+                            pos.z = axis*0.5;
+                        }else{
+                            if(axis === 0){axis = pos.z};
+                            pos.z = axis*0.5;
+                        }
+                        break;
+                    }
+                el.setAttribute('position', pos);
+                },
+
+            onTouch: function(evt){
+                if(this.el.states.includes(this.HOVERED_STATE)){ 
+                    evt.target.addEventListener('axismove', this.onAxisMove); 
+                }
+            },
+
+            onTouchRelease: function(evt){
+                evt.target.removeEventListener("axismove", this.onAxisMove);
+            },
+
             start: function (evt) {
                 if (evt.defaultPrevented) {
                     return;
@@ -1009,6 +1086,9 @@ var time;
                 if (evt.preventDefault) {
                     evt.preventDefault();
                 }
+
+                this.hoverers.forEach(h=> h.addEventListener("touchstart", this.onTouch));
+                this.hoverers.forEach(h=> h.addEventListener("touchend", this.onTouchRelease));
             },
             end: function (evt) {
                 if (evt.defaultPrevented) {
@@ -1021,6 +1101,9 @@ var time;
                 if (this.hoverers.length < 1) {
                     this.el.removeState(this.HOVERED_STATE);
                 }
+
+                this.hoverers.forEach(h=> h.removeEventListener("touchstart", this.onTouch));
+                this.hoverers.forEach(h=> h.removeEventListener("touchend", this.onTouchRelease));
             }
         });
 
