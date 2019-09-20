@@ -1,8 +1,7 @@
 AFRAME.registerComponent('menu-event', {
     init: function(){
-        this.DOWNMENU_EVENT = 'menudown'
-        this.UPMENU_EVENT = 'menuup'
-
+        this.DOWNMENU_EVENT = 'xbuttondown';
+        
         this.onMenuDown = this.onMenuDown.bind(this);
     },
     play: function() {
@@ -24,44 +23,3 @@ AFRAME.registerComponent('menu-event', {
             }
     }
 });
-
-/* AFRAME.registerComponent('slide-mover', {
-    schema: {
-        hoverEvent: {default: 'mouseover'},
-        unHoverEvent: {default: 'mouseout'},
-        touchStart: {default: 'touchstart'},
-        touchEnd: {default: 'touchend'}
-    },
-    init: function(){
-        this.onTouch = this.onTouch.bind();
-        this.onHover = this.onHover.bind();
-        this.end = this.end.bind();
-    },
-
-    play: function(){
-        this.el.addEventListener(this.data.hoverEvent, this.onHover);
-        this.el.addEventListener(this.data.unHoverEvent, this.end);
-        console.log(this.data);
-    },
-
-    end: function(){
-        this.el.removeEventListener(data.touchStart, this.onTouch);
-        console.log('its me again');
-    },
-
-    onHover: function(){
-        this.el.addEventListener(data.touchStart, this.onTouch);
-        console.log('hello');
-    },
-
-    onTouch: function(evt){
-        console.log(evt);
-    },
-
-    remove: function(){
-        this.el.removeEventListener(data.hoverEvent, this.start);
-        this.el.removeEventListener(data.unHoverEvent, this.end);
-        console.log("no deberia pasar por aqui");
-
-    },
-}) */

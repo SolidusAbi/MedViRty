@@ -1,4 +1,3 @@
-var time;
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
         'use strict';
 
@@ -27,22 +26,22 @@ var time;
                 colliderEndEvent: { default: 'hitend' },
                 colliderEndEventProperty: { default: 'el' },
                 grabStartButtons: {
-                    default: ['gripdown', 'trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'xbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                    default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
                 },
                 grabEndButtons: {
-                    default: ['gripup', 'trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'xbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                    default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
                 },
                 stretchStartButtons: {
-                     default: ['gripdown', 'trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'xbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
                    },
                 stretchEndButtons: {
-                     default: ['gripup', 'trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'xbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
                    },
                 dragDropStartButtons: {
-                     default: ['gripdown', 'trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'xbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
                    },
                 dragDropEndButtons: {
-                     default: ['gripup', 'trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'xbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
                    },
                 interval: { default: 0 }
             },
@@ -558,8 +557,6 @@ var time;
                 this.el.removeEventListener(this.UNCLICK_EVENT, this.end);
             },
             start: function (evt) {
-
-                console.log("clicado")
                 if (evt.defaultPrevented || !this.startButtonOk(evt)) {
                     return;
                 }
@@ -985,6 +982,9 @@ var time;
                 this.HOVERED_STATE = 'hovered';
                 this.HOVER_EVENT = 'hover-start';
                 this.UNHOVER_EVENT = 'hover-end';
+                this.ENABLE_EVENT = 'gripdown';
+                this.DISABLE_EVENT = 'gripup';
+                this.AXISCHANGE_EVENT = 'axismove';
 
                 this.hoverers = [];
 
@@ -1007,58 +1007,54 @@ var time;
                 var el = this.el;
                 var nSlices = el.getAttribute("nSlices");
                 var axis = evt.detail.axis[1];
-                var newSlice = Math.round(nSlices*(axis/2 + 0.5));
 
-                if(axis === 0){
-                    switch (el.getAttribute('id')){
-                        case "sagital":
-                            var oldSlice = el.getAttribute('sagital-slice');
-                            newSlice = oldSlice.nSlice;
-                            break;
-
-                        case "axial":
-                            var oldSlice = el.getAttribute('axial-slice');
-                            newSlice = oldSlice.nSlice;
-                            break;
-
-                        case "coronal":
-                            var oldSlice = el.getAttribute('coronal-slice');
-                            newSlice = oldSlice.nSlice;
-                            break;
-                }}
-
-                var pos = el.getAttribute('position');
+                    //Get the previous slice 
                 switch (el.getAttribute('id')){
+                    case "sagital":
+                        var oldSlice = el.getAttribute('sagital-slice');
+                        break;
+
+                    case "axial":
+                        var oldSlice = el.getAttribute('axial-slice');
+                        break;
+
+                    case "coronal":
+                        var oldSlice = el.getAttribute('coronal-slice');
+                        break;
+                }
+                
+                var newSlice = Math.round(oldSlice.nSlice + nSlices*axis/150); //Compute the next slice
+                if(newSlice > nSlices) {newSlice = nSlices}else if(newSlice < 0){newSlice = 0}; //Check the boundaries
+
+                var pos = el.getAttribute('position'); // Get the previous position of the plane
+                var por = newSlice/nSlices; //Compute the relative position of the slices
+
+                switch (el.getAttribute('id')){
+                        //Set the new slice, check the state of the plane and set the new position
                     case "sagital":
                         el.setAttribute('sagital-slice', {nSlice: newSlice});
                         if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
-                            if(axis === 0){axis = pos.z}; 
-                            pos.z = axis*0.5;
+                            pos.z = por - 0.5;
                         }else{
-                            if(axis === 0){axis = pos.x}; 
-                            pos.x = axis*0.5;
+                            pos.x = por - 0.5;
                         }
                         break;
 
                     case "axial":
                         el.setAttribute('axial-slice', {nSlice: newSlice});
                         if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
-                            if(axis === 0){axis = pos.z}; 
-                            pos.z = axis*0.5;
+                            pos.z = por - 0.5;
                         }else{
-                            if(axis === 0){axis = pos.y};
-                            pos.y = axis*0.5;
+                            pos.y = por - 0.5;
                         }
                         break;
 
                     case "coronal":
                         el.setAttribute('coronal-slice', {nSlice: newSlice});
                         if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
-                            if(axis === 0){axis = pos.z}; 
-                            pos.z = axis*0.5;
+                            pos.z = por - 0.5;
                         }else{
-                            if(axis === 0){axis = pos.z};
-                            pos.z = axis*0.5;
+                            pos.z = por - 0.5;
                         }
                         break;
                     }
@@ -1066,13 +1062,14 @@ var time;
                 },
 
             onTouch: function(evt){
-                if(this.el.states.includes(this.HOVERED_STATE)){ 
-                    evt.target.addEventListener('axismove', this.onAxisMove); 
+                if(this.hoverers.includes(evt.target)){ 
+                    evt.target.addEventListener(this.AXISCHANGE_EVENT, this.onAxisMove); 
                 }
             },
 
             onTouchRelease: function(evt){
-                evt.target.removeEventListener("axismove", this.onAxisMove);
+                evt.target.removeEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
+                if(!this.el.states.includes(this.HOVERED_STATE)){evt.target.removeEventListener(this.DISABLE_EVENT, this.onTouchRelease);}
             },
 
             start: function (evt) {
@@ -1082,13 +1079,13 @@ var time;
                 this.el.addState(this.HOVERED_STATE);
                 if (this.hoverers.indexOf(evt.detail.hand) === -1) {
                     this.hoverers.push(evt.detail.hand);
+
+                    evt.detail.hand.addEventListener(this.ENABLE_EVENT, this.onTouch);
+                    evt.detail.hand.addEventListener(this.DISABLE_EVENT, this.onTouchRelease);
                 }
                 if (evt.preventDefault) {
                     evt.preventDefault();
                 }
-
-                this.hoverers.forEach(h=> h.addEventListener("touchstart", this.onTouch));
-                this.hoverers.forEach(h=> h.addEventListener("touchend", this.onTouchRelease));
             },
             end: function (evt) {
                 if (evt.defaultPrevented) {
@@ -1097,13 +1094,12 @@ var time;
                 var handIndex = this.hoverers.indexOf(evt.detail.hand);
                 if (handIndex !== -1) {
                     this.hoverers.splice(handIndex, 1);
+
+                    evt.detail.hand.removeEventListener(this.ENABLE_EVENT, this.onTouch);
                 }
                 if (this.hoverers.length < 1) {
                     this.el.removeState(this.HOVERED_STATE);
                 }
-
-                this.hoverers.forEach(h=> h.removeEventListener("touchstart", this.onTouch));
-                this.hoverers.forEach(h=> h.removeEventListener("touchend", this.onTouchRelease));
             }
         });
 
@@ -1195,7 +1191,6 @@ var time;
         const buttonsCore = require('./prototypes/buttons-proto.js');
 // new object with all core modules
         const base = inherit({}, buttonsCore);
-
         AFRAME.registerComponent('stretchable', inherit(base, {
             schema: {
                 usePhysics: { default: 'ifavailable' },
