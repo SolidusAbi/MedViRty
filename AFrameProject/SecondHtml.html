@@ -81,7 +81,7 @@
 
       <a-mixin id="controller-right" mixin="pointer" oculus-touch-controls="hand: right; model: true; orientationOffset: 0 1 0" ></a-mixin>
 
-      <a-mixin id="plane" hoverable stretchable event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+      <a-mixin id="plane" hoverable event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
         event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false" dynamic-body></a-mixin>
 
     </a-assets>
@@ -100,89 +100,51 @@
     <!--INTRODUCCION DE LOS CONTROLES-->
 
     <a-entity>
-      <a-entity id="lhand" mixin="controller-left" menu-event >
+      <a-entity id="lhand" mixin="controller-left" menu-event>
         <!--Menu:     -->
-      <a-gui-flex-container
-        class="menu-container" 
-        flex-direction="column" 
-        justify-content="center" align-items="normal" 
-        component-padding="0.9" 
-        opacity="0.5" width="0.50" height="0.30" 
-        position="-0.25 0.39 -1.0422" rotation="0 0 0">
-        <!--Boton de agrandar  -->
-        <a-gui-icon-button
-          id="b" class="menu"
-          on="clicked" hoverStart="hover-start" hoverEnd="hover-end"
-          onclick="bigVolume(this)"
-          height="0.2" width="0.2" icon-Font-Size= "150px"
-          icon="arrow-resize">
-          </a-gui-button>
+        <a-gui-flex-container class="menu-container" flex-direction="column" justify-content="center"
+          align-items="normal" component-padding="0.9" opacity="0.5" width="0.50" height="0.30"
+          position="-0.25 0.39 -1.0422" rotation="0 0 0">
+          <!--Boton de agrandar  -->
+            <a-gui-icon-button id="b" class="menu" on="clicked" hoverStart="hover-start" hoverEnd="hover-end"
+              onclick="bigVolume(this)" height="0.2" width="0.2" icon-Font-Size="150px" icon="arrow-resize">
+              </a-gui-button>
         </a-gui-flex-container>
 
-      <a-gui-flex-container
-        class="menu-container" flex-direction="column" 
-        justify-content="flexstart" align-items="normal" 
-        component-padding="1" 
-        opacity="0.5" width="0.5" height="0.30" 
-        position="-0.25 0.09 -1.0422" rotation="0 0 0">
-        <!--Boton de reducir  -->
-        <a-gui-icon-button 
-          id="c" class="menu"
-          onclick="smallVolume(this)"
-          height="0.2" width="0.2" icon-Font-Size= "150px"
-          icon="arrow-shrink">
-          </a-gui-button>
+        <a-gui-flex-container class="menu-container" flex-direction="column" justify-content="flexstart"
+          align-items="normal" component-padding="1" opacity="0.5" width="0.5" height="0.30"
+          position="-0.25 0.09 -1.0422" rotation="0 0 0">
+          <!--Boton de reducir  -->
+            <a-gui-icon-button id="c" class="menu" onclick="smallVolume(this)" height="0.2" width="0.2"
+              icon-Font-Size="150px" icon="arrow-shrink">
+              </a-gui-button>
         </a-gui-flex-container>
 
-      <a-gui-flex-container 
-        flex-direction="column" 
-        justify-content="center" align-items="center" 
-        component-padding="0.1" 
-        opacity="0.5" width="0.5" height="0.6" 
-        position="0.25 0.24 -1.0422" rotation="0 0 0"
-        class="menu-container">
-        <!--Boton de cambiar planos  -->
-        <a-gui-button 
-          id="d" class="menu"
-          width="0.4" height="0.20"
-          onclick="movePlano(this)"
-          value="C.Planos" 
-          font-family="Arial" font-size="40px"
-          margin="0 0 0.05 0">
-          </a-gui-button>
-        <!--Boton de reset  -->
-        <a-gui-button 
-        id="e" class="menu"
-        width="0.4" height="0.20"
-        onclick="reset(this)"
-        value="Reset" 
-        font-family="Arial" font-size="40px"
-        margin="0 0 0.05 0">
-          </a-gui-button>
+        <a-gui-flex-container flex-direction="column" justify-content="center" align-items="center"
+          component-padding="0.1" opacity="0.5" width="0.5" height="0.6" position="0.25 0.24 -1.0422" rotation="0 0 0"
+          class="menu-container">
+          <!--Boton de cambiar planos  -->
+            <a-gui-button id="d" class="menu" width="0.4" height="0.20" onclick="movePlano(this)" value="C.Planos"
+              font-family="Arial" font-size="40px" margin="0 0 0.05 0">
+            </a-gui-button>
+          <!--Boton de reset  -->
+            <a-gui-button id="e" class="menu" width="0.4" height="0.20" onclick="reset(this)" value="Reset"
+              font-family="Arial" font-size="40px" margin="0 0 0.05 0">
+            </a-gui-button>
         </a-gui-flex-container>
 
-      <a-gui-flex-container 
-        flex-direction="column" 
-        justify-content="center" align-items="center" 
-        component-padding="0.1" 
-        opacity="0.5" width="1" height="0.2" 
-        position="0 -0.15 -1" rotation="-25 0 0"
-        class="menu-container">
-        <!--Slider   -->
-        <a-gui-slider
-          id="slider"
-          class="menu"
-          width="1" height="0.2"
-          on="mousedown"  onclick="umbralizacion(this)"
-          percent="0" 
-          margin="0 0 0 0"
-          handle-inner-depth="0.03" handle-inner-radius="0.079" 
-          handle-outer-depth="0.05" handle-outer-radius="0.099"
-          slider-bar-height="0.06" slider-bar-depth="0.04"
-          top-bottom-padding="0.125" left-right-padding="0.065">
-            </a-gui-slider> 
+        <a-gui-flex-container flex-direction="column" justify-content="center" align-items="center"
+          component-padding="0.1" opacity="0.5" width="1" height="0.2" position="0 -0.15 -1" rotation="-25 0 0"
+          class="menu-container">
+          <!--Slider   -->
+            <a-gui-slider id="slider" class="menu" width="1" height="0.2" on="mousedown" onclick="umbralizacion(this)"
+              percent="0" margin="0 0 0 0" handle-inner-depth="0.03" handle-inner-radius="0.079" handle-outer-depth="0.05"
+              handle-outer-radius="0.099" slider-bar-height="0.06" slider-bar-depth="0.04" top-bottom-padding="0.125"
+              left-right-padding="0.065">
+            </a-gui-slider>
         </a-gui-flex-container>
       </a-entity>
+
       <a-entity id="rhand" mixin="controller-right"></a-entity>
     </a-entity>
 
@@ -197,8 +159,9 @@
       // console.log(aframeScene);
       document.querySelector('#volumenCompleto').setAttribute('dinamic-body', '');
       document.querySelector('#volumenCompleto').setAttribute('stretchable', '');
+      document.querySelector('#volumenCompleto').setAttribute('grabbable', '');
       document.querySelector('#volumenCompleto').setAttribute('position', { x: 0, y: 0, z: -19 });
-      document.querySelector('#volumenCompleto').setAttribute('scale', { x: 16, y: 16, z: 5 });
+      document.querySelector('#volumenCompleto').setAttribute('scale', { x: 16, y: 16, z: 16 });
 
       if (SelectExample() == '1') {
         document.querySelector('#volumenCompleto').setAttribute('volume', { volumePath: "data/CTChest.nrrd" });

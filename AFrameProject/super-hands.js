@@ -26,26 +26,25 @@
                 colliderEndEvent: { default: 'hitend' },
                 colliderEndEventProperty: { default: 'el' },
                 grabStartButtons: {
-                    default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                    default: ['trackpaddown', 'triggerdown', 'abuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                 },
                 grabEndButtons: {
-                    default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                    default: ['trackpadup', 'triggerup', 'abuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                 },
                 stretchStartButtons: {
-                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                     default: ['trackpaddown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                    },
                 stretchEndButtons: {
-                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                     default: ['trackpadup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                    },
                 dragDropStartButtons: {
-                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'thumbstickdown', 'mousedown']
+                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                    },
                 dragDropEndButtons: {
-                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'thumbstickup', 'mouseup']
+                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                    },
                 interval: { default: 0 }
             },
-                        /* El gatillo lanzaba eventos de triggerdown y touchstart lanzando la funcion dos veces, solucionado quitando el touch de los botones */
 
             /**
              * Set if component needs multiple instancing.
@@ -853,6 +852,8 @@
                 this.targetPosition = new THREE.Vector3();
                 this.physicsInit();
 
+                this.RESET_EVENT = 'thumbstickdown';
+
                 this.el.addEventListener(this.GRAB_EVENT, e => this.start(e));
                 this.el.addEventListener(this.UNGRAB_EVENT, e => this.end(e));
                 this.el.addEventListener('mouseout', e => this.lostGrabber(e));
@@ -869,11 +870,9 @@
 
 
                 return function () {
-                    /*****************************************************************************************/
-                    /*SE HAN REALIZADO MODIFICACIONES AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
-                    /*****************************************************************************************/
-                    
                     var entityPosition;
+                    var entityRotation;
+                    var destRotation = {x: 0, y: 0, z: 0};
 
                     if (this.stretched) {
                         return;
@@ -883,12 +882,43 @@
                         // reflect on z-axis to point in same direction as the laser
                         this.targetPosition.copy(this.grabDirection);
                         this.targetPosition.applyQuaternion(this.grabber.object3D.getWorldQuaternion(q)).setLength(this.grabDistance).add(this.grabber.object3D.getWorldPosition(v)).add(this.grabOffset);
-                       // console.log(q)
+                        // console.log(q)
                         if (this.deltaPositionIsValid) {
                             // relative position changes work better with nested entities
                             this.deltaPosition.sub(this.targetPosition);
-                            var comp = comprobar(this.el , this.destPosition , this.deltaPosition );
-                            movSlicer(comp, this.el);
+                            entityPosition = this.el.getAttribute('position');
+                            entityRotation = this.el.getAttribute('rotation');
+                            
+
+                            this.destPosition.x = entityPosition.x - this.deltaPosition.x * this.xFactor;
+                            this.destPosition.y = entityPosition.y - this.deltaPosition.y * this.yFactor;
+                            this.destPosition.z = entityPosition.z;
+
+                            let axis;
+                            switch (this.grabber.id){
+                                case 'rhand':
+                                        axis = this.grabber.previousElementSibling.components['tracked-controls'].axis;
+                                        break;
+                                case 'lhand':
+                                        axis = this.grabber.nextElementSibling.components['tracked-controls'].axis;
+                                        break;
+                            }
+                            this.destPosition.z = entityPosition.z + axis[1] * this.zFactor;
+                            
+
+                            this.el.setAttribute('position', this.destPosition);
+
+
+                            axis = this.grabber.components['tracked-controls'].axis;
+                            if(Math.abs(axis[1])> 0.25) {destRotation.x = entityRotation.x + axis[1]} else {destRotation.x = entityRotation.x}
+                            if(Math.abs(axis[0])> 0.25) {destRotation.y = entityRotation.y + axis[0]} else {destRotation.y = entityRotation.y}
+                            destRotation.z = entityRotation.z;
+                                
+                            this.el.setAttribute('rotation', destRotation);
+
+                            this.grabber.addEventListener(this.RESET_EVENT,e => this.onReset(e));
+
+                            
                         } else {
                             this.deltaPositionIsValid = true;
                         }
@@ -896,6 +926,16 @@
                     }
                 };
             }(),
+            onReset: function(evt){
+                if(!this.grabbed){
+                    evt.target.removeEventListener(this.RESET_EVENT,e => this.onReset(e))
+                    return;
+                }
+
+                this.el.setAttribute('scale',{x: 16 ,y: 16 ,z: 16});
+                this.el.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
+                this.el.setAttribute('position',{x: 0, y: 0 ,z: -19});
+            },
             remove: function () {
                 this.el.removeEventListener(this.GRAB_EVENT, this.start);
                 this.el.removeEventListener(this.UNGRAB_EVENT, this.end);
@@ -945,6 +985,8 @@
                 if (evt.preventDefault) {
                     evt.preventDefault();
                 }
+
+                evt.target.removeEventListener(this.RESET_EVENT,e => this.onReset(e))
             },
             resetGrabber: function () {
                 var objPos = new THREE.Vector3();

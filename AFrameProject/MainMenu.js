@@ -37,7 +37,7 @@ function smallVolume(){
 function reset(){
 
     var boxM = document.querySelector('#volumenCompleto');
-    boxM.setAttribute('scale',{x: 16 ,y: 16 ,z: 5});
+    boxM.setAttribute('scale',{x: 16 ,y: 16 ,z: 16});
     boxM.setAttribute('rotation',{x: 0, y: 0 ,z: 0});
     boxM.setAttribute('position',{x: 0, y: 0 ,z: -19});
 
@@ -50,9 +50,9 @@ function reset(){
     sagital.setAttribute('LinearOrNormalPlane', 'normal');
     axial.setAttribute('LinearOrNormalPlane', 'normal');
 
-    planoSagital.setAttribute('sagital-slice', {nSlice: 255*0.5});
-    planoCoronal.setAttribute('coronal-slice', {nSlice: 255*0.5});
-    planoAxial.setAttribute('axial-slice', {nSlice: 255*0.5});
+    planoSagital.setAttribute('sagital-slice', {nSlice: planoSagital.getAttribute('nSlices')*0.5});
+    planoCoronal.setAttribute('coronal-slice', {nSlice: planoCoronal.getAttribute('nSlices')*0.5});
+    planoAxial.setAttribute('axial-slice', {nSlice: planoAxial.getAttribute('nSlices')*0.5});
 
     planoSagital.setAttribute('position',{x: 0, y: 0 ,z: 0});
     planoCoronal.setAttribute('position',{x: 0, y: 0 ,z: 0});
