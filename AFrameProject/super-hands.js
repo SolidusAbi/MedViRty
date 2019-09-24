@@ -32,10 +32,10 @@
                     default: ['trackpadup', 'triggerup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                 },
                 stretchStartButtons: {
-                     default: ['trackpaddown','triggerdown' ,'gripclose', 'abuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
+                     default: ['trackpaddown','triggerdown' ,'gripclose', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                    },
                 stretchEndButtons: {
-                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
+                     default: ['trackpadup', 'triggerup', 'gripopen', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                    },
                 dragDropStartButtons: {
                      default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
