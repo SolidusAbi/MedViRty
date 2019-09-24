@@ -1029,23 +1029,41 @@
                 this.AXISCHANGE_EVENT = 'axismove';
                 this.NEXTSLICE_EVENT = 'bbuttondown';
                 this.PREVIOUSSLICE_EVENT = 'abuttondown';
+                this.RESET_EVENT = 'thumbstickdown';
 
 
                 this.hoverers = [];
 
                 this.start = this.start.bind(this);
                 this.end = this.end.bind(this);
-                this.onTouch = this.onTouch.bind(this);
-                this.onTouchRelease = this.onTouchRelease.bind(this);
+                this.onEnable = this.onEnable.bind(this);
+                this.onDisable = this.onDisable.bind(this);
                 this.onAxisMove = this.onAxisMove.bind(this);
                 this.onSliceByButton = this.onSliceByButton.bind(this);
+                this.onReset = this.onReset.bind(this);
 
                 this.el.addEventListener(this.HOVER_EVENT, this.start,);
                 this.el.addEventListener(this.UNHOVER_EVENT, this.end);
             },
+
+
             remove: function () {
                 this.el.removeEventListener(this.HOVER_EVENT, this.start);
                 this.el.removeEventListener(this.UNHOVER_EVENT, this.end);
+            },
+
+            onReset: function(){
+                var planoCoronal = document.querySelector('#coronal');
+                var planoSagital = document.querySelector('#sagital');
+                var planoAxial = document.querySelector('#axial');
+
+                planoSagital.setAttribute('sagital-slice', {nSlice: planoSagital.getAttribute('nSlices')*0.5});
+                planoCoronal.setAttribute('coronal-slice', {nSlice: planoCoronal.getAttribute('nSlices')*0.5});
+                planoAxial.setAttribute('axial-slice', {nSlice: planoAxial.getAttribute('nSlices')*0.5});
+
+                planoSagital.setAttribute('position',{x: 0, y: 0 ,z: 0});
+                planoCoronal.setAttribute('position',{x: 0, y: 0 ,z: 0});
+                planoAxial.setAttribute('position',{x: 0, y: 0 ,z: 0});
             },
 
             onAxisMove: function(evt){ 
@@ -1109,7 +1127,7 @@
             onSliceByButton: function(evt){
                 var el = this.el;
                 var nSlices = el.getAttribute("nSlices");
-                var incr = 0;
+                var incr;
 
                 if(evt.type == 'abuttondown'){ incr = 1 }else{ incr = -1 };
                     switch (el.getAttribute('id')){
@@ -1163,26 +1181,23 @@
                     el.setAttribute('position', pos);
             },
 
-            
-            onTouch: function(evt){
-                if(this.hoverers.includes(evt.target)){ 
-                    evt.target.addEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
+            onEnable: function(evt){
+                evt.target.addEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
+                evt.target.addEventListener(this.RESET_EVENT, this.onReset);
+                document.getElementById('rhand').addEventListener(this.NEXTSLICE_EVENT, this.onSliceByButton);
+                document.getElementById('rhand').addEventListener(this.PREVIOUSSLICE_EVENT, this.onSliceByButton);
 
-
-                    document.getElementById('rhand').addEventListener(this.NEXTSLICE_EVENT, this.onSliceByButton);
-                    document.getElementById('rhand').addEventListener(this.PREVIOUSSLICE_EVENT, this.onSliceByButton);
-                }
-                
             },
 
-            onTouchRelease: function(evt){
+            onDisable: function(evt){
                 evt.target.removeEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
+                evt.target.removeEventListener(this.RESET_EVENT, this.onReset);
 
                 document.getElementById('rhand').removeEventListener(this.NEXTSLICE_EVENT, this.onSliceByButton);
                 document.getElementById('rhand').removeEventListener(this.PREVIOUSSLICE_EVENT, this.onSliceByButton);
                 
                 if(!this.el.states.includes(this.HOVERED_STATE)) {
-                    evt.target.removeEventListener(this.DISABLE_EVENT, this.onTouchRelease);
+                    evt.target.removeEventListener(this.DISABLE_EVENT, this.onDisable);
                 }
             },
 
@@ -1194,8 +1209,8 @@
                 if (this.hoverers.indexOf(evt.detail.hand) === -1) {
                     this.hoverers.push(evt.detail.hand);
 
-                    evt.detail.hand.addEventListener(this.ENABLE_EVENT, this.onTouch);
-                    evt.detail.hand.addEventListener(this.DISABLE_EVENT, this.onTouchRelease);
+                    evt.detail.hand.addEventListener(this.ENABLE_EVENT, this.onEnable);
+                    evt.detail.hand.addEventListener(this.DISABLE_EVENT, this.onDisable);
                 }
                 if (evt.preventDefault) {
                     evt.preventDefault();
@@ -1209,7 +1224,7 @@
                 if (handIndex !== -1) {
                     this.hoverers.splice(handIndex, 1);
 
-                    evt.detail.hand.removeEventListener(this.ENABLE_EVENT, this.onTouch);
+                    evt.detail.hand.removeEventListener(this.ENABLE_EVENT, this.onEnable);
                 }
                 if (this.hoverers.length < 1) {
                     this.el.removeState(this.HOVERED_STATE);
