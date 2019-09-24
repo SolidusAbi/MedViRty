@@ -26,19 +26,19 @@
                 colliderEndEvent: { default: 'hitend' },
                 colliderEndEventProperty: { default: 'el' },
                 grabStartButtons: {
-                    default: ['trackpaddown', 'triggerdown', 'abuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
+                    default: ['trackpaddown', 'triggerdown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                 },
                 grabEndButtons: {
-                    default: ['trackpadup', 'triggerup', 'abuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
+                    default: ['trackpadup', 'triggerup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                 },
                 stretchStartButtons: {
-                     default: ['trackpaddown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
+                     default: ['trackpaddown','triggerdown' ,'gripclose', 'abuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                    },
                 stretchEndButtons: {
-                     default: ['trackpadup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
+                     default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
                    },
                 dragDropStartButtons: {
-                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'bbuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
+                     default: ['trackpaddown', 'triggerdown', 'gripclose', 'abuttondown', 'ybuttondown', 'pointup', 'thumbup', 'pointingstart', 'pistolstart', 'mousedown']
                    },
                 dragDropEndButtons: {
                      default: ['trackpadup', 'triggerup', 'gripopen', 'abuttonup', 'bbuttonup', 'ybuttonup', 'pointdown', 'thumbdown', 'pointingend', 'pistolend', 'mouseup']
@@ -916,8 +916,6 @@
                                 
                             this.el.setAttribute('rotation', destRotation);
 
-                            this.grabber.addEventListener(this.RESET_EVENT,e => this.onReset(e));
-
                             
                         } else {
                             this.deltaPositionIsValid = true;
@@ -966,6 +964,7 @@
                     }
                     this.grabbed = true;
                     this.el.addState(this.GRABBED_STATE);
+                    this.grabber.addEventListener(this.RESET_EVENT,e => this.onReset(e));
                 }
             },
             end: function (evt) {
@@ -1024,9 +1023,13 @@
                 this.HOVERED_STATE = 'hovered';
                 this.HOVER_EVENT = 'hover-start';
                 this.UNHOVER_EVENT = 'hover-end';
+
                 this.ENABLE_EVENT = 'gripdown';
                 this.DISABLE_EVENT = 'gripup';
                 this.AXISCHANGE_EVENT = 'axismove';
+                this.NEXTSLICE_EVENT = 'bbuttondown';
+                this.PREVIOUSSLICE_EVENT = 'abuttondown';
+
 
                 this.hoverers = [];
 
@@ -1034,8 +1037,8 @@
                 this.end = this.end.bind(this);
                 this.onTouch = this.onTouch.bind(this);
                 this.onTouchRelease = this.onTouchRelease.bind(this);
-                this.onAxisMove = this.onAxisMove.bind(this)
-
+                this.onAxisMove = this.onAxisMove.bind(this);
+                this.onSliceByButton = this.onSliceByButton.bind(this);
 
                 this.el.addEventListener(this.HOVER_EVENT, this.start,);
                 this.el.addEventListener(this.UNHOVER_EVENT, this.end);
@@ -1103,15 +1106,84 @@
                 el.setAttribute('position', pos);
                 },
 
+            onSliceByButton: function(evt){
+                var el = this.el;
+                var nSlices = el.getAttribute("nSlices");
+                var incr = 0;
+
+                if(evt.type == 'abuttondown'){ incr = 1 }else{ incr = -1 };
+                    switch (el.getAttribute('id')){
+                        case "sagital":
+                            var oldSlice = el.getAttribute('sagital-slice');
+                            break;
+
+                        case "axial":
+                            var oldSlice = el.getAttribute('axial-slice');
+                            break;
+
+                        case "coronal":
+                            var oldSlice = el.getAttribute('coronal-slice');
+                            break;
+                    }
+
+                    var newSlice = oldSlice.nSlice + incr;
+                    if(newSlice > nSlices) {newSlice = nSlices}else if(newSlice < 0){newSlice = 0};
+
+                    var pos = el.getAttribute('position'); 
+                    var por = newSlice/nSlices; 
+
+                    switch (el.getAttribute('id')){
+                        case "sagital":
+                            el.setAttribute('sagital-slice', {nSlice: newSlice});
+                            if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                                pos.z = por - 0.5;
+                            }else{
+                                pos.x = por - 0.5;
+                            }
+                            break;
+
+                        case "axial":
+                            el.setAttribute('axial-slice', {nSlice: newSlice});
+                            if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                                pos.z = por - 0.5;
+                            }else{
+                                pos.y = por - 0.5;
+                            }
+                            break;
+
+                        case "coronal":
+                            el.setAttribute('coronal-slice', {nSlice: newSlice});
+                            if(el.getAttribute('LinearOrNormalPlane') === 'lineal'){
+                                pos.z = por - 0.5;
+                            }else{
+                                pos.z = por - 0.5;
+                            }
+                            break;
+                        }
+                    el.setAttribute('position', pos);
+            },
+
+            
             onTouch: function(evt){
                 if(this.hoverers.includes(evt.target)){ 
-                    evt.target.addEventListener(this.AXISCHANGE_EVENT, this.onAxisMove); 
+                    evt.target.addEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
+
+
+                    document.getElementById('rhand').addEventListener(this.NEXTSLICE_EVENT, this.onSliceByButton);
+                    document.getElementById('rhand').addEventListener(this.PREVIOUSSLICE_EVENT, this.onSliceByButton);
                 }
+                
             },
 
             onTouchRelease: function(evt){
                 evt.target.removeEventListener(this.AXISCHANGE_EVENT, this.onAxisMove);
-                if(!this.el.states.includes(this.HOVERED_STATE)){evt.target.removeEventListener(this.DISABLE_EVENT, this.onTouchRelease);}
+
+                document.getElementById('rhand').removeEventListener(this.NEXTSLICE_EVENT, this.onSliceByButton);
+                document.getElementById('rhand').removeEventListener(this.PREVIOUSSLICE_EVENT, this.onSliceByButton);
+                
+                if(!this.el.states.includes(this.HOVERED_STATE)) {
+                    evt.target.removeEventListener(this.DISABLE_EVENT, this.onTouchRelease);
+                }
             },
 
             start: function (evt) {
